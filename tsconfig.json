@@ -1,11 +1,20 @@
 {
     "compilerOptions": {
+        "target": "ES2022",
+        "module": "commonjs",
         "outDir": "./dist",
         "rootDir": "./src",
-        "target": "ES2022",
         "strict": true,
-        "module": "commonjs",
+        "strictPropertyInitialization": false,
         "allowJs": true,
+        "baseUrl": "./src",
+        "paths": {
+            "@modules/*": ["modules/*"],
+            "@config/*": ["config/*"],
+            "@shared/*": ["shared/*"]
+        },
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true
