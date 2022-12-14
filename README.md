@@ -34,7 +34,7 @@
 Clone o projeto na janela que abriu com o seguinte comando:
 
 ```bash
-  git clone git@github.com:Virtumed-Video-Chamada/server.git
+  git clone https://github.com/Virtumed-Video-Chamada/Fornjot.git
 ```
 
 Após isso pode fechar a janela!
@@ -49,7 +49,8 @@ Entre na pasta do projeto pelo Visual Studio, Abra o terminal do visual Studio e
 vá para o diretório do projeto com o comando:
 
 ```bash
-  cd back-end
+  cd Fornjot
+
 ```
 
 Instale as dependências
