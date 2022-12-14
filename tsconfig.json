@@ -1,6 +1,9 @@
 {
     "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./src",
         "target": "ES2022",
+        "strict": true,
         "module": "commonjs",
         "allowJs": true,
         "esModuleInterop": true,
