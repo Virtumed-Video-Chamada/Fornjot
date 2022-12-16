@@ -1,5 +1,8 @@
 import { Router, Request, Response } from 'express';
 import appointmentsRouter from './appointments.routes';
+import doctorsRouter from '../../../routes/doctorsRouter';
+import pacientsRouter from '../../../routes/pacientsRouter';
+import clinicsRouter from '../../../routes/clinicsRouter';
 
 const routes = Router();
 
@@ -8,5 +11,8 @@ routes.get('/', (req: Request, res: Response) => {
 });
 
 routes.use('/appointments', appointmentsRouter);
+routes.use('/doctors', doctorsRouter);
+routes.use('/clinics', clinicsRouter);
+routes.use('/pacients', pacientsRouter);
 
 export default routes;
