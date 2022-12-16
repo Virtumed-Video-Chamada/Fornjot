@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
         "sourceMap": true,
-        "lib": ["ESNext"],
-        "target": "ES2022",
+        "target": "ES6",
         "module": "commonjs",
         "outDir": "dist",
         "rootDir": "./src",

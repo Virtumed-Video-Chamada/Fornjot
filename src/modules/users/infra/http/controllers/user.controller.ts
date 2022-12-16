@@ -1,5 +1,7 @@
-import { Request, Response } from 'express';
+import 'reflect-metadata';
 import { container } from 'tsyringe';
+
+import { Request, Response } from 'express';
 import { instanceToInstance } from 'class-transformer';
 
 import CreateUserService from '@modules/users/services/CreateUserService';

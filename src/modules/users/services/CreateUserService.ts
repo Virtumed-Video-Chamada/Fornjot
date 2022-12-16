@@ -1,8 +1,9 @@
+import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
 import { User } from '@model/user.model';
 import AppError from '@shared/errors/App.Error';
-import PrismaService from '@shared/infra/prisma/prisma.client';
 import IHashProvider from '@modules/users/providers/HashProvider/interfaces/IHashProvider';
+import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
     email: string;
@@ -11,28 +12,15 @@ interface IRequest {
 
 @injectable()
 class CreateUserService {
-    private userSelect = {
-        id: true,
-        email: true,
-        password: false,
-        role: false,
-        createdAt: true,
-        updateAt: true,
-    };
-
     constructor(
         @inject('HashProvider')
         private hashProvider: IHashProvider,
-        // @inject('CacheProvider') // private cacheProvider: ICacheProvider,
-        private prisma: PrismaService,
+        @inject('UsersRepository')
+        private usersRepository: IUsersRepository,
     ) {}
 
     public async executeAdmin({ email, password }: IRequest): Promise<User> {
-        const userExist = await this.prisma.user.findUnique({
-            where: {
-                email,
-            },
-        });
+        const userExist = await this.usersRepository.findByEmail(email);
 
         if (userExist) {
             throw new AppError('Email address already user.');
@@ -40,13 +28,9 @@ class CreateUserService {
 
         const hashedPassword = await this.hashProvider.generateHash(password);
 
-        const user = await this.prisma.user.create({
-            data: {
-                email,
-                password: hashedPassword,
-                role: 'Admin',
-            },
-            select: this.userSelect,
+        const user = await this.usersRepository.create({
+            email,
+            password: hashedPassword,
         });
 
         // await this.cacheProvider.invalidatePrefix('provider-list');

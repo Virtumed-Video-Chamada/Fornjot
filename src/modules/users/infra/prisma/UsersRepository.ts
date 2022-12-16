@@ -1,59 +1,65 @@
-import { getRepository, Repository, Not } from 'typeorm';
+import 'reflect-metadata';
+
+import { User } from '@model/user.model';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-
-import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
-import User from '../entities/User';
+import PrismaService from '@shared/infra/prisma/prisma.client';
 
 class UserRepository implements IUsersRepository {
-  private ormRepository: Repository<User>;
+    private userSelect = {
+        id: true,
+        email: true,
+        password: false,
+        role: false,
+        createdAt: true,
+        updateAt: true,
+    };
 
-  constructor() {
-    this.ormRepository = getRepository(User);
-  }
+    constructor(private readonly prisma: PrismaService) {}
 
-  public async save(user: User): Promise<User> {
-    await this.ormRepository.save(user);
-    return user;
-  }
-
-  public async create(userData: ICreateUserDTO): Promise<User> {
-    const user = this.ormRepository.create(userData);
-
-    await this.ormRepository.save(user);
-
-    return user;
-  }
-
-  public async findAllProviders({
-    except_user_id,
-  }: IFindAllProvidersDTO): Promise<User[]> {
-    let users: User[];
-    if (except_user_id) {
-      users = await this.ormRepository.find({
-        where: {
-          id: Not(except_user_id),
-        },
-      });
-    } else {
-      users = await this.ormRepository.find();
+    public async create(userData: ICreateUserDTO): Promise<User> {
+        const user = await this.prisma.user.create({
+            data: {
+                email: userData.email,
+                password: userData.password,
+                role: 'Admin',
+            },
+        });
+        return user;
     }
 
-    return users;
-  }
+    public async findByEmail(email: string): Promise<User | null> {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                email,
+            },
+            select: this.userSelect,
+        });
 
-  public async findByEmail(email: string): Promise<User | undefined> {
-    return this.ormRepository.findOne({
-      where: {
-        email,
-      },
-    });
-  }
+        return user;
+    }
 
-  public async findById(id: string): Promise<User | undefined> {
-    return this.ormRepository.findOne(id);
-  }
+    // public async findAllProviders({
+    //     except_user_id,
+    // }: IFindAllProvidersDTO): Promise<User[]> {
+    //     let users: User[];
+    //     if (except_user_id) {
+    //         users = await this.ormRepository.find({
+    //             where: {
+    //                 id: Not(except_user_id),
+    //             },
+    //         });
+    //     } else {
+    //         users = await this.ormRepository.find();
+    //     }
+
+    //     return users;
+    // }
+
+    // public async findById(id: string): Promise<User | undefined> {
+    //     return this.ormRepository.findOne(id);
+    // }
 }
 
 export default UserRepository;
