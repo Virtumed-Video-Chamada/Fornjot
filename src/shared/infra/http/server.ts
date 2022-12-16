@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
-import rateLimiter from './middlewares/rateLimiter';
-import AppError from '@shared/errors/AppError';
+import rateLimiter from './middlewares/limiterRate';
+import AppError from '@shared/errors/App.Error';
 import uploadConfig from '@config/upload';
 import { errors } from 'celebrate';
-import routes from './routes';
+import routes from '../routes';
 import cors from 'cors';
 
 import 'reflect-metadata';
