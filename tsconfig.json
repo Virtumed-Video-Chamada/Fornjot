@@ -11,6 +11,7 @@
         "allowJs": true,
         "baseUrl": "./src",
         "paths": {
+            "@model/*": ["model/*"],
             "@modules/*": ["modules/*"],
             "@config/*": ["config/*"],
             "@shared/*": ["shared/*"]

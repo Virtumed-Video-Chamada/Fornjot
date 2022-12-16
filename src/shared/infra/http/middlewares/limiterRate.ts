@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import redis from 'redis';
+import * as redis from 'redis';
 import AppError from '@shared/errors/App.Error';
 import { RateLimiterRedis } from 'rate-limiter-flexible';
 
