@@ -21,9 +21,10 @@ class CreateUserService {
     };
 
     constructor(
-        private readonly prisma: PrismaService,
         @inject('HashProvider')
-        private hashProvider: IHashProvider, // @inject('CacheProvider') // private cacheProvider: ICacheProvider,
+        private hashProvider: IHashProvider,
+        // @inject('CacheProvider') // private cacheProvider: ICacheProvider,
+        private prisma: PrismaService,
     ) {}
 
     public async executeAdmin({ email, password }: IRequest): Promise<User> {
