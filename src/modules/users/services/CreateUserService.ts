@@ -19,7 +19,7 @@ class CreateUserService {
         private usersRepository: IUsersRepository,
     ) {}
 
-    public async executeAdmin({ email, password }: IRequest): Promise<User> {
+    async executeAdmin({ email, password }: IRequest): Promise<User> {
         const userExist = await this.usersRepository.findByEmail(email);
 
         if (userExist) {
@@ -32,8 +32,6 @@ class CreateUserService {
             email,
             password: hashedPassword,
         });
-
-        // await this.cacheProvider.invalidatePrefix('provider-list');
 
         return user;
     }

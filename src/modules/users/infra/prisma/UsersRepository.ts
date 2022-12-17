@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import { singleton } from 'tsyringe';
 
 import { User } from '@model/user.model';
 
@@ -6,6 +7,7 @@ import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 import PrismaService from '@shared/infra/prisma/prisma.client';
 
+@singleton()
 class UserRepository implements IUsersRepository {
     private userSelect = {
         id: true,
@@ -25,6 +27,7 @@ class UserRepository implements IUsersRepository {
                 password: userData.password,
                 role: 'Admin',
             },
+            select: this.userSelect,
         });
         return user;
     }
@@ -37,6 +40,15 @@ class UserRepository implements IUsersRepository {
             select: this.userSelect,
         });
 
+        return user;
+    }
+
+    public async findById(id: string): Promise<User | null> {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                id,
+            },
+        });
         return user;
     }
 
@@ -55,10 +67,6 @@ class UserRepository implements IUsersRepository {
     //     }
 
     //     return users;
-    // }
-
-    // public async findById(id: string): Promise<User | undefined> {
-    //     return this.ormRepository.findOne(id);
     // }
 }
 
