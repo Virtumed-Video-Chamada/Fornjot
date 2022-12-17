@@ -17,6 +17,7 @@ interface IResponse {
     user: User;
     token: string;
 }
+
 @injectable()
 class AuthenticateUserService {
     constructor(
@@ -26,21 +27,26 @@ class AuthenticateUserService {
         private hashProvider: IHashProvider,
     ) {}
 
-    public async execute({ email, password }: IRequest): Promise<IResponse> {
+    async execute(dataAuth: IRequest): Promise<IResponse> {
+        const { email, password } = dataAuth;
+
         const user = await this.usersRepository.findByEmail(email);
 
         if (!user) {
             throw new AppError('Incorrect email/password combination.', 401);
         }
 
-        const passwordMatched = await this.hashProvider.compareHash(
+        const isHashValid = await this.hashProvider.compareHash(
             password,
             user.password,
         );
 
-        if (!passwordMatched) {
+        if (!isHashValid) {
             throw new AppError('Incorrect email/password combination.', 401);
         }
+
+        delete user.password;
+
         const { secret, expiresIn } = authConfig.jwt;
 
         const token = sign({}, secret, {

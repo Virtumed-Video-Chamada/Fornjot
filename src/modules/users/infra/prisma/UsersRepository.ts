@@ -12,8 +12,11 @@ class UserRepository implements IUsersRepository {
     private userSelect = {
         id: true,
         email: true,
-        password: false,
+        password: true,
         role: false,
+        doctorId: false,
+        pacientId: false,
+        clinicId: false,
         createdAt: true,
         updateAt: true,
     };
@@ -49,6 +52,7 @@ class UserRepository implements IUsersRepository {
                 id,
             },
         });
+
         return user;
     }
 
