@@ -51,7 +51,9 @@ class UserRepository implements IUsersRepository {
             where: {
                 id,
             },
+            select: this.userSelect,
         });
+
 
         return user;
     }

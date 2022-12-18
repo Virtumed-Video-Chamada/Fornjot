@@ -8,11 +8,11 @@ import ShowProfileService from '@modules/users/services/ShowProfileService';
 
 export default class ProfileController {
     public async show(request: Request, response: Response): Promise<Response> {
-        const email = request.user.id;
+        const user_id = request.user.id;
 
         const showProfileService = container.resolve(ShowProfileService);
 
-        const user = await showProfileService.execute({ email });
+        const user = await showProfileService.execute({ user_id });
 
         return response.json(instanceToInstance(user));
     }

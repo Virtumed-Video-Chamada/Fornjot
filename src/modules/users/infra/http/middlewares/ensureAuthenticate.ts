@@ -1,4 +1,4 @@
-import { Request, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
 import authConfig from '@config/auth';
@@ -13,6 +13,7 @@ interface ITokenPayload {
 
 export default function ensureAuthenticate(
     request: Request,
+    response: Response,
     next: NextFunction,
 ): void {
     const authHeader = request.headers.authorization;

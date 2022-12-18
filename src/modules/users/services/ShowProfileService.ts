@@ -7,7 +7,7 @@ import IUsersRepository from '../repositories/IUsersRepository';
 import { User } from '@model/user.model';
 
 interface IRequest {
-    email: string;
+    user_id: string;
 }
 
 @injectable()
@@ -17,12 +17,14 @@ class ShowProfileService {
         private usersRepository: IUsersRepository,
     ) {}
 
-    async execute({ email }: IRequest): Promise<User> {
-        const user = await this.usersRepository.findByEmail(email);
+    async execute({ user_id }: IRequest): Promise<User> {
+        const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
             throw new AppError('User not Found');
         }
+
+        delete user.password;
 
         return user;
     }

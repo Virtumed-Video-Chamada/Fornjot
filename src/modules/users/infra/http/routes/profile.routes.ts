@@ -1,13 +1,13 @@
 import { Router } from 'express';
 //import { celebrate, Joi, Segments } from 'celebrate';
 
-//import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticate';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticate';
 import ProfileController from '../controllers/user/profile.controller';
 
 const profileRouter = Router();
 const profileController = new ProfileController();
 
-//profileRouter.use(ensureAuthenticated);
+profileRouter.use(ensureAuthenticated);
 
 profileRouter.get('/', profileController.show);
 
@@ -24,6 +24,5 @@ profileRouter.get('/', profileController.show);
 //     }),
 //     profileController.update,
 // );
-
 
 export default profileRouter;
