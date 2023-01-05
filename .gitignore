@@ -1,8 +1,9 @@
+.idea/
 .vscode/
 node_modules/
-dist/
-tmp/
-!tmp/.gitkeep
-coverage/
+build/
 .env
 ormconfig.json
+tmp
+!tmp/.gitkeep
+insominia.json

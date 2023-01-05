@@ -1,27 +1,27 @@
-import 'reflect-metadata';
-import nodemailer, { Transporter } from 'nodemailer';
-import aws from 'aws-sdk';
-import mailConfig from '@config/mail';
-import { inject, injectable } from 'tsyringe';
+import "dotenv";
+import nodemailer, { Transporter } from "nodemailer";
+import aws from "aws-sdk"
+import mailConfig from "@config/mail";
+import { injectable, inject } from "tsyringe";
 
-import IMailProvider from '../models/IMailProvider';
-import ISendMailDTO from '../dtos/ISendMailDTO';
-import IMailTemplateProvider from '../../MailTemplateProvider/models/IMailTemplateProvider';
+import IMailTemplateProvider from "@shared/container/providers/MailTemplateProvider/models/IMailTemplateProvider";
+import IMailProvider from "../models/IMailProvider";
+import ISendMailDTO from "../dtos/ISendMailDTO";
 
 @injectable()
-class SESMailProvider implements IMailProvider {
+export default class SESMailProvider implements IMailProvider {
     private client: Transporter;
 
     constructor(
-        @inject('MailTemplateProvider')
+        @inject("MailTemplateProvider")
         private mailTemplateProvider: IMailTemplateProvider,
     ) {
         this.client = nodemailer.createTransport({
             SES: new aws.SES({
-                apiVersion: '2010-12-01',
-                region: process.env.AWS_DEFAULT_REGION,
-            }),
-        });
+                apiVersion: "2010-12-01",
+                region: process.env.AWS_DEFAULT_REGION
+            })
+        })
     }
 
     public async sendMail({
@@ -30,7 +30,7 @@ class SESMailProvider implements IMailProvider {
         subject,
         templateData,
     }: ISendMailDTO): Promise<void> {
-        const { name, email } = mailConfig.defaults.from;
+        const { name, email} = mailConfig.defaults.from
 
         await this.client.sendMail({
             from: {
@@ -46,5 +46,3 @@ class SESMailProvider implements IMailProvider {
         });
     }
 }
-
-export default SESMailProvider;

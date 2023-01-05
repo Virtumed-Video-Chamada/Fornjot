@@ -1,17 +1,18 @@
-import 'reflect-metadata';
-import { container } from 'tsyringe';
-import mailConfig from '@config/mail';
-import IMailProvider from './models/IMailProvider';
+import { container } from "tsyringe"
 
-import EtherealMailProvider from './implementations/EtherealMailProvider';
-import SESMailProvider from './implementations/SESMailProvider';
+import mailConfig from "@config/mail"
 
-const providers = {
+import EtherealMailProvider from "./implementations/EtherealMailProvider"
+import SESMailProvider from "./implementations/SESMailProvider"
+
+import IMailProvider from "./models/IMailProvider";
+
+const providers =  {
     ethereal: container.resolve(EtherealMailProvider),
-    ses: container.resolve(SESMailProvider),
-};
+    ses: container.resolve(SESMailProvider)
+}
 
 container.registerInstance<IMailProvider>(
-    'MailProvider',
-    providers[mailConfig.driver],
-);
+    "MailProvider",
+    providers[mailConfig.driver]
+  );

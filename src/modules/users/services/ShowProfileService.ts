@@ -1,33 +1,30 @@
-import 'reflect-metadata';
-import { injectable, inject } from 'tsyringe';
+import { injectable, inject } from "tsyringe";
 
-import AppError from '@shared/errors/App.Error';
-import IUsersRepository from '../repositories/IUsersRepository';
+import AppError from "@shared/errors/AppError";
 
-import { User } from '@model/user.model';
+import User from "@modules/users/infra/typeorm/entities/User";
+import IUsersRepository from "../repositories/IUsersRepository";
 
 interface IRequest {
-    user_id: string;
+  user_id: string;
 }
 
 @injectable()
 class ShowProfileService {
-    constructor(
-        @inject('UsersRepository')
-        private usersRepository: IUsersRepository,
-    ) {}
+  constructor(
+    @inject("UsersRepository")
+    private usersRepository: IUsersRepository,
+  ) {}
 
-    async execute({ user_id }: IRequest): Promise<User> {
-        const user = await this.usersRepository.findById(user_id);
+  public async execute({ user_id }: IRequest): Promise<User> {
+    const user = await this.usersRepository.findById(user_id);
 
-        if (!user) {
-            throw new AppError('User not Found');
-        }
-
-        delete user.password;
-
-        return user;
+    if (!user) {
+      throw new AppError("User not found.");
     }
+
+    return user;
+  }
 }
 
 export default ShowProfileService;

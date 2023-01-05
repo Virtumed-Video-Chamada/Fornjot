@@ -1,8 +1,9 @@
-import { injectable, inject } from 'tsyringe';
-import { classToClass } from 'class-transformer';
-import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
-import Appointment from '../infra/typeorm/entities/Appointment';
+import { injectable, inject } from "tsyringe";
+import { instanceToInstance } from "class-transformer";
+
+import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICacheProvider";
+import Appointment from "../infra/typeorm/entities/Appointment";
+import IAppointmentsRepository from "../repositories/IAppointmentsRepository";
 
 interface IRequest {
   provider_id: string;
@@ -12,20 +13,20 @@ interface IRequest {
 }
 
 @injectable()
-class ListProviderAppointmentsService {
+class ListProvidersAppointmentsService {
   constructor(
-    @inject('AppointmentsRepository')
+    @inject("AppointmentsRepository")
     private appointmentsRepository: IAppointmentsRepository,
 
-    @inject('CacheProvider')
+    @inject("CacheProvider")
     private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
     provider_id,
     day,
-    year,
     month,
+    year,
   }: IRequest): Promise<Appointment[]> {
     const cacheKey = `provider-appointments:${provider_id}:${year}-${month}-${day}`;
 
@@ -36,17 +37,17 @@ class ListProviderAppointmentsService {
     if (!appointments) {
       appointments = await this.appointmentsRepository.findAllInDayFromProvider(
         {
+          provider_id,
           day,
           month,
           year,
-          provider_id,
         },
       );
 
-      await this.cacheProvider.save(cacheKey, classToClass(appointments));
+      await this.cacheProvider.save(cacheKey, instanceToInstance(appointments));
     }
     return appointments;
   }
 }
 
-export default ListProviderAppointmentsService;
+export default ListProvidersAppointmentsService;
