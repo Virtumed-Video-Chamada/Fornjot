@@ -3,7 +3,6 @@ import { injectable, inject } from "tsyringe";
 import AppError from "@shared/errors/AppError";
 
 import User from "@modules/users/infra/typeorm/entities/User";
-import IHashProvider from "../../providers/HashProvider/models/IHashProvider";
 import IUsersRepository from "../../repositories/IUsersRepository";
 
 interface IRequest {
@@ -14,7 +13,7 @@ interface IRequest {
 }
 
 @injectable()
-class UpdateProfileService {
+class UpdateDoctorService {
   constructor(
     @inject("UsersRepository")
     private usersRepository: IUsersRepository,
@@ -32,12 +31,12 @@ class UpdateProfileService {
       throw new AppError("User not found.");
     }
 
-    user.doctor.cep = cep
     user.doctor.cpf = cpf
+    user.doctor.cep = cep
     user.doctor.crm = crm
 
     return this.usersRepository.save(user);
   }
 }
 
-export default UpdateProfileService;
+export default UpdateDoctorService;

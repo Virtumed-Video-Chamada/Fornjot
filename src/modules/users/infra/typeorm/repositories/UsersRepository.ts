@@ -108,6 +108,24 @@ class UsersRepository implements IUsersRepository {
         return user;
     }
 
+
+    public async createUserDoctor(id: string): Promise<User> {
+        const user = this.ormRepository.create({
+            doctor: {
+                cep,
+                cpf,
+                crm,
+                user: {
+                    id
+                }
+            }
+        });
+
+        await this.ormRepository.save(user);
+
+        return user;
+    }
+
     public async createPacient(userData: ICreateUserDTO): Promise<User> {
         const user = this.ormRepository.create({
             name: userData.name,

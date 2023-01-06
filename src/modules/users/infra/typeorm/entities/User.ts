@@ -29,7 +29,7 @@ class User {
   @Exclude()
   password: string;
 
-  @Column({type: 'varchar',})
+  @Column({type: 'varchar'})
   @Exclude()
   role: string;
 

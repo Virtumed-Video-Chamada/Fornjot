@@ -7,13 +7,13 @@ class Doctor {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({type: 'varchar'})
   crm: string;
 
-  @Column()
+  @Column({type: 'varchar'})
   cpf: string;
 
-  @Column()
+  @Column({type: 'varchar'})
   cep: string;
 
   @ManyToOne(() => Clinic, clinic => clinic.doctors)
