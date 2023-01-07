@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
-        "sourceMap": true,
-        "lib": ["ESNext"],
+        "types": ["jest", "node"],
         "target": "ES2022",
+        "lib": ["ES5", "ES6", "ES2018", "ES2022"],
+        "sourceMap": true,
         "module": "commonjs",
         "outDir": "dist",
         "rootDir": "./src",
@@ -11,15 +12,28 @@
         "allowJs": true,
         "baseUrl": "./src",
         "paths": {
+            "@model/*": ["model/*"],
             "@modules/*": ["modules/*"],
             "@config/*": ["config/*"],
-            "@shared/*": ["shared/*"]
+            "@shared/*": ["shared/*"],
+            "@datasource/*": ["db/*"]
         },
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "noImplicitAny": true,
+        "typeRoots": ["./src/@types"]
     },
-    "include": ["src/**/*.ts"]
+    "include": [
+        "src/**/*.ts",
+        "tests/*.ts"
+    ],
+    "exclude": ["node_modules", "dist"],
+    "ts-node": {
+        "files": true
+    }
 }
