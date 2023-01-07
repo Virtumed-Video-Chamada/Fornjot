@@ -41,13 +41,13 @@ export default class ProfileController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const user_id = request.user.id;
+        const id = request.user.id;
         const { cep, cpf, crm } = request.body;
 
         const updateUser = container.resolve(UpdateDoctorService);
 
         const user = await updateUser.execute({
-            user_id,
+            id,
             cep,
             cpf,
             crm,

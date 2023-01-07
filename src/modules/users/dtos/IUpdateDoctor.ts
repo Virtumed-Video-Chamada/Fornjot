@@ -1,6 +1,6 @@
-export default interface IUpdateUserDto {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-  }
+export default interface IUpdateUserDoctorDto {
+    user_id: string;
+    cpf: string;
+    crm: string;
+    cep: string;
+}

@@ -11,8 +11,8 @@ import {
 import { Exclude, Expose } from "class-transformer";
 import uploadConfig from "@config/upload"
 import Doctor from "@modules/users/infra/typeorm/entities/Doctor";
-import Clinic from "./Clinic";
-import Pacient from "./Pacient";
+import Clinic from "@modules/users/infra/typeorm/entities/Clinic";
+import Pacient from "@modules/users/infra/typeorm/entities/Pacient";
 
 @Entity("users")
 class User {
@@ -33,13 +33,14 @@ class User {
   @Exclude()
   role: string;
 
-  @OneToOne(() => Doctor)
+  @OneToOne(type => Doctor, doctor => doctor.user, {cascade: true})
   @JoinColumn()
+  @Exclude()
   doctor: Doctor;
 
   @OneToOne(() => Pacient)
   @JoinColumn()
-  pacient: Doctor;
+  pacient: Pacient;
 
   @OneToOne(() => Clinic)
   @JoinColumn()

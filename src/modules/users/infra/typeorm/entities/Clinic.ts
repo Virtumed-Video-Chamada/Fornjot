@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, CreateDateColumn, UpdateDateColumn, ManyToMany } from 'typeorm';
 import User from "@modules/users/infra/typeorm/entities/User";
 import Doctor from './Doctor';
 
@@ -16,11 +16,17 @@ class Clinic {
   @Column()
   cep: string;
 
-  @OneToMany(() => Doctor, doctor => doctor.clinic)
+  @ManyToMany(() => Doctor, doctor => doctor.clinic)
   doctors: Doctor[];
 
-  @OneToOne(type => User)
+  @OneToOne(() => User)
   user: User;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export default Clinic

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import User from "@modules/users/infra/typeorm/entities/User";
 
 @Entity()
@@ -15,8 +15,14 @@ class Pacient {
   @Column()
   cep: string;
 
-  @OneToOne(type => User)
+  @OneToOne(() => User)
   user: User;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export default Pacient

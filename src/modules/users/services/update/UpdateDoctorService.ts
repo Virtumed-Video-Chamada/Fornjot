@@ -6,7 +6,7 @@ import User from "@modules/users/infra/typeorm/entities/User";
 import IUsersRepository from "../../repositories/IUsersRepository";
 
 interface IRequest {
-  user_id: string;
+  id: string;
   cep: string;
   cpf: string;
   crm: string;
@@ -20,22 +20,24 @@ class UpdateDoctorService {
   ) {}
 
   public async execute({
-    user_id,
+    id,
     cep,
     cpf,
     crm,
-  }: IRequest): Promise<User> {
-    const user = await this.usersRepository.findById(user_id);
+  }: IRequest): Promise<User | null> {
+    const user = await this.usersRepository.findDoctors(id);
 
     if (!user) {
       throw new AppError("User not found.");
     }
 
-    user.doctor.cpf = cpf
-    user.doctor.cep = cep
-    user.doctor.crm = crm
+    user.doctor.cep = cep;
+    user.doctor.cpf = cpf;
+    user.doctor.crm = crm;
 
-    return this.usersRepository.save(user);
+    await this.usersRepository.save(user);
+
+    return user
   }
 }
 

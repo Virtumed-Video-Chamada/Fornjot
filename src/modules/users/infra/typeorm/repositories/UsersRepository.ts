@@ -1,33 +1,54 @@
-import { Repository, Not } from 'typeorm';
+import { Repository, Not, UpdateResult } from 'typeorm';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
 
-import User from '../entities/User';
 import { PostgresDataSource } from '@shared/infra/typeorm/index';
-import IUpdateUserDto from '@modules/users/dtos/IUpdateDoctor';
+import IUpdateUserDoctorDto from '@modules/users/dtos/IUpdateDoctor';
+
+import User from '../entities/User';
+import Doctor from '../entities/Doctor';
+import { uuid } from 'uuidv4';
 
 class UsersRepository implements IUsersRepository {
     private ormRepository: Repository<User>;
+    private ormDoctorRepository: Repository<Doctor>;
 
     constructor() {
         this.ormRepository = PostgresDataSource.getRepository(User);
+        this.ormDoctorRepository = PostgresDataSource.getRepository(Doctor);
     }
 
-    // public async update(data: IUpdateUserDto): Promise<User | null> {
+    public async updateDoctor(
+        data: IUpdateUserDoctorDto,
+    ): Promise<UpdateResult | null> {
+        const user = await this.ormRepository.update(
+            {
+                id: data.user_id,
+            },
+            {
+                doctor: {
+                    cpf: data.cpf,
+                    cep: data.cep,
+                    crm: data.crm,
+                },
+            },
+        );
 
-    //     const user = await this.ormRepository.update({
-    //         id: data.id
-    //     },{
-    //         name: data.name,
-    //         email: data.email,
-    //         password: data.password,
-    //         avatar: data.email
-    //     });
+        return user;
+    }
 
-    //     return user;
-    // }
+    public async findDoctors(id: string): Promise<User | null> {
+        const user = await this.ormRepository.findOne({
+            where: {
+                id,
+            },
+            relations: ['doctor'],
+        });
+
+        return user;
+    }
 
     public async findAllDoctors(): Promise<User | null> {
         const user = await this.ormRepository.findOne({
@@ -95,31 +116,32 @@ class UsersRepository implements IUsersRepository {
         return users;
     }
 
+
+    // public async createIdDoctor(): Promise<Doctor> {
+    //     const doctor = this.ormDoctorRepository.create({
+    //             cpf: '',
+    //             cep: '',
+    //             crm: '',
+    //     })
+
+    //     return doctor
+    // }
+
+
     public async createDoctor(userData: ICreateUserDTO): Promise<User> {
         const user = this.ormRepository.create({
             name: userData.name,
             email: userData.email,
             password: userData.password,
             role: 'DOCTOR',
-        });
-
-        await this.ormRepository.save(user);
-
-        return user;
-    }
-
-
-    public async createUserDoctor(id: string): Promise<User> {
-        const user = this.ormRepository.create({
             doctor: {
-                cep,
-                cpf,
-                crm,
-                user: {
-                    id
-                }
+                id: uuid(),
+                cep: '',
+                cpf: '',
+                crm: ''
             }
         });
+
 
         await this.ormRepository.save(user);
 

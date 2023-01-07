@@ -1,11 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, CreateDateColumn, UpdateDateColumn, ManyToMany } from 'typeorm';
 import User from "@modules/users/infra/typeorm/entities/User";
 import Clinic from './Clinic';
 
 @Entity()
 class Doctor {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Column({type: 'varchar'})
   crm: string;
@@ -16,11 +16,17 @@ class Doctor {
   @Column({type: 'varchar'})
   cep: string;
 
-  @ManyToOne(() => Clinic, clinic => clinic.doctors)
+  @ManyToMany(() => Clinic, clinic => clinic.doctors)
   clinic: Clinic;
 
-  @OneToOne(type => User)
+  @OneToOne(type => Doctor, doctor => doctor.user)
   user: User;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export default Doctor

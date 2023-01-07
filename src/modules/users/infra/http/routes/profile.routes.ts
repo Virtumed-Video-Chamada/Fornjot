@@ -38,4 +38,28 @@ profileRouter.put(
     profileController.updateDoctor,
 );
 
+profileRouter.put(
+    '/pacient',
+    celebrate({
+        [Segments.BODY]: {
+            cpf: Joi.string().required(),
+            cep: Joi.string().required(),
+            crm: Joi.string(),
+        },
+    }),
+    profileController.updateDoctor,
+)
+
+profileRouter.put(
+    '/clinic',
+    celebrate({
+        [Segments.BODY]: {
+            cpf: Joi.string().required(),
+            cep: Joi.string().required(),
+            crm: Joi.string(),
+        },
+    }),
+    profileController.updateDoctor,
+);;
+
 export default profileRouter;
