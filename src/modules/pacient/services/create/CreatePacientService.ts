@@ -4,8 +4,8 @@ import AppError from "@shared/errors/AppError";
 
 import User from "@modules/users/infra/typeorm/entities/User";
 import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICacheProvider";
-import IUsersRepository from "../../../users/repositories/IUsersRepository";
 import IHashProvider from "../../../users/providers/HashProvider/models/IHashProvider";
+import IPacientRepository from "@modules/pacient/repositories/IPacientRepository";
 
 interface IRequest {
   name: string;
@@ -16,8 +16,8 @@ interface IRequest {
 @injectable()
 class CreatePacientService {
   constructor(
-    @inject("UsersRepository")
-    private usersRepository: IUsersRepository,
+    @inject("PacientsRepository")
+    private usersRepository: IPacientRepository,
 
     @inject("HashProvider")
     private hashProvider: IHashProvider,

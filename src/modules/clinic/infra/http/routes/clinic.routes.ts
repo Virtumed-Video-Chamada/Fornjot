@@ -1,51 +1,15 @@
-/* import { Router } from 'express';
-import multer from 'multer';
+import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
-import uploadConfig from '@config/upload';
-
-import DoctorsController from '../controllers/DoctorsController';
-import PacientsController from '../controllers/PacientsController';
 import ClinicsController from '../controllers/ClinicsController';
+import authMiddleware from "@auth/auth";
+import ProfileClinicController from '../controllers/ProfileClinicController';
 
-import UserAvatarController from '../controllers/UserAvatarController';
-
-import authMiddleware from '../middlewares/auth';
-
-const usersRouter = Router();
-const doctorsController = new DoctorsController();
-const pacientsController = new PacientsController();
+const clinicsRouter = Router();
 const clinicsController = new ClinicsController();
+const updateClinicsController = new ProfileClinicController();
 
-const userAvatarController = new UserAvatarController();
-
-const upload = multer(uploadConfig.multer);
-
-usersRouter.post(
-    '/doctor',
-    celebrate({
-        [Segments.BODY]: {
-            name: Joi.string().required(),
-            email: Joi.string().email().required(),
-            password: Joi.string().required(),
-        },
-    }),
-    doctorsController.create,
-);
-
-usersRouter.post(
-    '/pacient',
-    celebrate({
-        [Segments.BODY]: {
-            name: Joi.string().required(),
-            email: Joi.string().email().required(),
-            password: Joi.string().required(),
-        },
-    }),
-    pacientsController.create,
-);
-
-usersRouter.post(
+clinicsRouter.post(
     '/clinic',
     celebrate({
         [Segments.BODY]: {
@@ -57,12 +21,24 @@ usersRouter.post(
     clinicsController.create,
 );
 
-usersRouter.patch(
-    '/avatar',
+clinicsRouter.get(
+    '/',
     authMiddleware,
-    upload.single('avatar'),
-    userAvatarController.update,
+    clinicsController.findAllClinics,
 );
 
-export default usersRouter;
- */
+clinicsRouter.put(
+    '/',
+    authMiddleware,
+    celebrate({
+        [Segments.BODY]: {
+            cpf: Joi.string().required(),
+            cep: Joi.string().required(),
+            crm: Joi.string(),
+        },
+    }),
+    updateClinicsController.updateClinic,
+);
+
+export default clinicsRouter;
+

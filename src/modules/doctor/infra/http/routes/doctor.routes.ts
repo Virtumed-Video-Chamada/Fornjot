@@ -22,6 +22,12 @@ doctorsRouter.post(
     doctorsController.create,
 );
 
+doctorsRouter.get(
+    '/',
+    authMiddleware,
+    doctorsController.findAllDoctors,
+);
+
 doctorsRouter.put(
     '/',
     authMiddleware,
@@ -33,12 +39,6 @@ doctorsRouter.put(
         },
     }),
     updateDoctorsController.updateDoctor,
-);
-
-doctorsRouter.get(
-    '/',
-    authMiddleware,
-    doctorsController.findAllDoctors,
 );
 
 export default doctorsRouter;

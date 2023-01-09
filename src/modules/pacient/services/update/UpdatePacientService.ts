@@ -3,7 +3,7 @@ import { injectable, inject } from "tsyringe";
 import AppError from "@shared/errors/AppError";
 
 import User from "@modules/users/infra/typeorm/entities/User";
-import IUsersRepository from "../../repositories/IUsersRepository";
+import IPacientRepository from "@modules/pacient/repositories/IPacientRepository";
 
 interface IRequest {
   id: string;
@@ -13,10 +13,10 @@ interface IRequest {
 }
 
 @injectable()
-class UpdateDoctorService {
+class UpdatePacientService {
   constructor(
     @inject("UsersRepository")
-    private usersRepository: IUsersRepository,
+    private usersRepository: IPacientRepository,
   ) {}
 
   public async execute({
@@ -25,7 +25,7 @@ class UpdateDoctorService {
     cpf,
     crm,
   }: IRequest): Promise<User | null> {
-    const user = await this.usersRepository.updateDoctor(id);
+    const user = await this.usersRepository.findById(id);
 
     if (!user) {
       throw new AppError("User not found.");
@@ -41,4 +41,4 @@ class UpdateDoctorService {
   }
 }
 
-export default UpdateDoctorService;
+export default UpdatePacientService;

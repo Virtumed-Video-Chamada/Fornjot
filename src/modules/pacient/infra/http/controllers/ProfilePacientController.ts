@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { instanceToInstance } from 'class-transformer';
-import UpdateClinicService from '@modules/clinic/services/update/UpdateClinicService';
+import UpdatePacientService from '@modules/pacient/services/update/UpdatePacientService';
 
-export default class ProfileClinicController {
-    public async updateClinic(
+export default class ProfilePacietController {
+    public async updatePacient(
         request: Request,
         response: Response,
     ): Promise<Response> {
         const id = request.user.id;
         const { cep, cpf, crm } = request.body;
 
-        const updateUser = container.resolve(UpdateClinicService);
+        const updateUser = container.resolve(UpdatePacientService);
 
         const user = await updateUser.execute({
             id,
