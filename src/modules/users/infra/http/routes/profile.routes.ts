@@ -3,7 +3,7 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ProfileController from '../controllers/ProfileController';
 
-import authMiddleware from '../middlewares/auth';
+import authMiddleware from '@auth/auth';
 
 const profileRouter = Router();
 const profileController = new ProfileController();
@@ -25,41 +25,5 @@ profileRouter.put(
     }),
     profileController.update,
 );
-
-profileRouter.put(
-    '/doctor',
-    celebrate({
-        [Segments.BODY]: {
-            cpf: Joi.string().required(),
-            cep: Joi.string().required(),
-            crm: Joi.string(),
-        },
-    }),
-    profileController.updateDoctor,
-);
-
-profileRouter.put(
-    '/pacient',
-    celebrate({
-        [Segments.BODY]: {
-            cpf: Joi.string().required(),
-            cep: Joi.string().required(),
-            crm: Joi.string(),
-        },
-    }),
-    profileController.updateDoctor,
-)
-
-profileRouter.put(
-    '/clinic',
-    celebrate({
-        [Segments.BODY]: {
-            cpf: Joi.string().required(),
-            cep: Joi.string().required(),
-            crm: Joi.string(),
-        },
-    }),
-    profileController.updateDoctor,
-);;
 
 export default profileRouter;

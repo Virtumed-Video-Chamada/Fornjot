@@ -16,7 +16,8 @@
             "@modules/*": ["modules/*"],
             "@config/*": ["config/*"],
             "@shared/*": ["shared/*"],
-            "@datasource/*": ["db/*"]
+            "@datasource/*": ["db/*"],
+            "@auth/*": ["shared/infra/http/middlewares/*"]
         },
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,

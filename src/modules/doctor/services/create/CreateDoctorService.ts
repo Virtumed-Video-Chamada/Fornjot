@@ -4,8 +4,8 @@ import AppError from "@shared/errors/AppError";
 
 import User from "@modules/users/infra/typeorm/entities/User";
 import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICacheProvider";
-import IUsersRepository from "../../repositories/IUsersRepository";
-import IHashProvider from "../../providers/HashProvider/models/IHashProvider";
+import IHashProvider from "@modules/users/providers/HashProvider/models/IHashProvider";
+import IDoctorRepository from "@modules/doctor/repositories/IDoctorRepository";
 
 interface IRequest {
   name: string;
@@ -14,10 +14,10 @@ interface IRequest {
 }
 
 @injectable()
-class CreateClinicService {
+class CreateDoctorService {
   constructor(
-    @inject("UsersRepository")
-    private usersRepository: IUsersRepository,
+    @inject("DoctorsRepository")
+    private usersRepository: IDoctorRepository,
 
     @inject("HashProvider")
     private hashProvider: IHashProvider,
@@ -35,7 +35,7 @@ class CreateClinicService {
 
     const passwordHash = await this.hashProvider.generateHash(password);
 
-    const userExist = await this.usersRepository.createClinic({
+    const userExist = await this.usersRepository.createDoctor({
       name,
       email,
       password: passwordHash,
@@ -47,4 +47,4 @@ class CreateClinicService {
   }
 }
 
-export default CreateClinicService;
+export default CreateDoctorService;

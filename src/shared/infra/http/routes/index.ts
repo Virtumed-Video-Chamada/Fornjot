@@ -7,6 +7,7 @@ import passwordRouter from "@modules/users/infra/http/routes/password.routes";
 import profileRouter from "@modules/users/infra/http/routes/profile.routes";
 import appointmentsRouter from "@modules/appointments/infra/http/routes/appointments.routes";
 import providersRouter from "@modules/appointments/infra/http/routes/providers.routes";
+import doctorsRouter from "@modules/doctor/infra/http/routes/doctor.routes";
 
 const routes = Router();
 
@@ -14,6 +15,7 @@ routes.get("/", (req: Request, res: Response) => {
     res.json("Wellcome to vitumed-aplication")
 })
 
+routes.use("/doctors", doctorsRouter);
 routes.use("/sessions", sessionsRouter);
 routes.use("/users", usersRouter);
 routes.use("/password", passwordRouter);
