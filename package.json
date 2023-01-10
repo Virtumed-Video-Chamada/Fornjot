@@ -3,10 +3,10 @@
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
-        "scripts": {
+    "scripts": {
+        "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
         "dev": "nodemon --exec ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
         "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
-        "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
         "start": "ts-node src/shared/infra/http/server.ts",
         "typeorm": "ts-node-dev -r tsconfig-paths/register  ./node_modules/typeorm/cli.js",
         "test": "jest"
@@ -40,8 +40,8 @@
         "redis": "^3.1.2",
         "reflect-metadata": "^0.1.13",
         "tsyringe": "^4.7.0",
-        "typeorm": "^0.3.11",
-        "uuidv4": "^6.2.13"
+        "uuidv4": "^6.2.13",
+        "typeorm": "^0.3.11"
     },
     "devDependencies": {
         "@babel/cli": "^7.19.3",
@@ -69,7 +69,6 @@
         "@typescript-eslint/eslint-plugin": "^5.46.1",
         "@typescript-eslint/parser": "^5.46.1",
         "babel-plugin-module-resolver": "^4.1.0",
-        "babel-plugin-transform-decorators": "^6.24.1",
         "babel-plugin-transform-typescript-metadata": "^0.3.2",
         "eslint": "^8.29.0",
         "eslint-config-airbnb-base": "^15.0.0",
