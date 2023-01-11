@@ -5,8 +5,12 @@ import {
     OneToOne,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToMany,
+    JoinColumn,
 } from 'typeorm';
 import User from '@modules/users/infra/typeorm/entities/User';
+import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
+import FavoriteDoctor from '@modules/favoriteDoctor/infra/typeorm/entities/FavoriteDoctor';
 
 @Entity()
 class Pacient {
@@ -36,6 +40,10 @@ class Pacient {
 
     @OneToOne(() => User)
     user: User;
+
+    @OneToMany(() => FavoriteDoctor, favoriteDoctor => favoriteDoctor.doctors)
+    @JoinColumn()
+    favoriteDoctor: FavoriteDoctor[];
 
     @CreateDateColumn()
     created_at: Date;

@@ -2,6 +2,7 @@ import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
 import {
     Entity,
     JoinColumn,
+    ManyToOne,
     OneToMany,
     OneToOne,
     PrimaryGeneratedColumn
@@ -17,7 +18,7 @@ class FavoriteDoctor {
     @JoinColumn()
     doctors: Doctor[];
 
-    @OneToOne(() => Pacient)
+    @ManyToOne(() => Pacient)
     pacient: Pacient;
 }
 

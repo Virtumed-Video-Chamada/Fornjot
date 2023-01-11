@@ -32,7 +32,7 @@ class FavoriteDoctorsRepository implements FavoriteDoctorsRepository {
         let favoritedDoctor = false;
 
         if (user?.pacient.favoriteDoctor != null) {
-            user.pacient.favoriteDoctor.doctors.map(doctor => {
+            user.pacient.favoriteDoctor.map(doctor => {
                 if (doctor_id === doctor.id) {
                     favoritedDoctor = true;
                 }
@@ -40,7 +40,7 @@ class FavoriteDoctorsRepository implements FavoriteDoctorsRepository {
         }
 
         const userSave = this.ormRepository.create({
-            doctors: data.doctorId
+            doctors:
         });
 
         return await this.ormRepository.save(userSave);
