@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { celebrate, Segments, Joi } from "celebrate";
 
-import authMiddleware from "@modules/users/infra/http/middlewares/auth";
+import authMiddleware from "@auth/auth";
 import ProvidersController from "../controllers/ProvidersController";
 import ProviderMonthAvailabilityController from "../controllers/ProviderMonthAvailabilityController";
 import ProviderDayAvailabilityController from "../controllers/ProviderDayAvailabilityController";

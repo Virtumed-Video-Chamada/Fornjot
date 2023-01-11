@@ -5,18 +5,17 @@
         "lib": ["ES5", "ES6", "ES2018", "ES2022"],
         "sourceMap": true,
         "module": "commonjs",
-        "outDir": "dist",
+        "outDir": "./dist",
         "rootDir": "./src",
         "strict": true,
         "strictPropertyInitialization": false,
         "allowJs": true,
         "baseUrl": "./src",
         "paths": {
-            "@model/*": ["model/*"],
             "@modules/*": ["modules/*"],
             "@config/*": ["config/*"],
             "@shared/*": ["shared/*"],
-            "@datasource/*": ["db/*"]
+            "@auth/*": ["shared/infra/http/middlewares/*"]
         },
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
