@@ -18,11 +18,11 @@ const PostgresDataSource = new _typeorm.DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  entities: ['./src/modules/**/infra/typeorm/entities/*.ts'],
-  migrations: ['./src/shared/infra/db/migrations/*.ts'],
+  entities: ['./dist/modules/**/infra/typeorm/entities/*.js'],
+  migrations: ['./dist/shared/infra/db/migrations/*.js'],
   extra: {
     cli: {
-      migrationsDir: './src/shared/infra/typeorm/migrations'
+      migrationsDir: './dist/shared/infra/typeorm/migrations'
     }
   },
   synchronize: true,
@@ -35,13 +35,15 @@ PostgresDataSource.initialize().then(() => {
   console.error('Error during PostgresDataSource initialization', err);
 });
 const MongoDataSource = new _typeorm.DataSource({
-  name: 'mongodb',
+  name: process.env.DB_USER_MONGO,
   type: 'mongodb',
   host: process.env.DB_HOST,
+  username: process.env.DB_USER_MONGO,
+  password: process.env.DB_PASS_MONGO,
   port: portMongoDB,
-  database: 'virtumed-mongodb',
+  database: process.env.DB_NAME,
   useUnifiedTopology: true,
-  entities: ['./src/modules/**/infra/typeorm/schemas/*.ts']
+  entities: ['./dist/modules/**/infra/typeorm/schemas/*.js']
 });
 exports.MongoDataSource = MongoDataSource;
 MongoDataSource.initialize().then(() => {
