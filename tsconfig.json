@@ -2,6 +2,7 @@
     "compilerOptions": {
         "types": ["jest", "node"],
         "target": "ES5",
+        "lib": ["ES5", "ES6", "ES2018", "ES2022"],
         "sourceMap": true,
         "module": "commonjs",
         "outDir": "./dist",
