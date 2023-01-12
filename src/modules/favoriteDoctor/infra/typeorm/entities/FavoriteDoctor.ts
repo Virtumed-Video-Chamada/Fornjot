@@ -1,5 +1,6 @@
 import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
 import {
+    Column,
     Entity,
     JoinColumn,
     ManyToOne,
@@ -13,6 +14,9 @@ import Pacient from '../../../../pacient/infra/typeorm/entities/Pacient';
 class FavoriteDoctor {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
+    @Column('varchar')
+    dotorsId:string[];
 
     @OneToMany(() => Doctor, doctor => doctor.id)
     @JoinColumn()

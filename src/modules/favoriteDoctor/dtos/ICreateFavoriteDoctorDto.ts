@@ -1,3 +1,4 @@
 export interface FavoriteDoctorDto {
-    doctorId: string[];
+    doctorsId: string[];
+    doctorId: string;
 }

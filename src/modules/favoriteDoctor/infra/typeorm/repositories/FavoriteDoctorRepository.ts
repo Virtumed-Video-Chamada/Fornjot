@@ -3,8 +3,9 @@ import { PostgresDataSource } from '@shared/infra/typeorm/index';
 import User from '../../../../users/infra/typeorm/entities/User';
 import FavoriteDoctor from '../entities/FavoriteDoctor';
 import { FavoriteDoctorDto } from '@modules/favoriteDoctor/dtos/ICreateFavoriteDoctorDto';
+import IFavoriteDoctorsRepository from '@modules/favoriteDoctor/repositories/IFavoriteDoctorRepository';
 
-class FavoriteDoctorsRepository implements FavoriteDoctorsRepository {
+class FavoriteDoctorsRepository implements IFavoriteDoctorsRepository {
     private ormRepository: Repository<FavoriteDoctor>;
     private ormRepositoryUser: Repository<User>;
 
@@ -23,11 +24,11 @@ class FavoriteDoctorsRepository implements FavoriteDoctorsRepository {
         return user;
     }
 
-    public async addFavoriteDoctor(
+    public async addOurRemoveFavoriteDoctor(
         pacient_id: string,
         doctor_id: string,
         data: FavoriteDoctorDto,
-    ): Promise<FavoriteDoctor[]> {
+    ): Promise<FavoriteDoctor | undefined> {
         const user = await this.findById(pacient_id);
         let favoritedDoctor = false;
 
@@ -37,13 +38,18 @@ class FavoriteDoctorsRepository implements FavoriteDoctorsRepository {
                     favoritedDoctor = true;
                 }
             });
+        } else {
+            const userSave = this.ormRepository.create({
+                dotorsId: data.doctorsId,
+            });
+            return await this.ormRepository.save(userSave);
+        }
+        if(favoritedDoctor){
+            const userUpdate = this.ormRepository.delete({
+              doctors: data.doctorId
+            })
         }
 
-        const userSave = this.ormRepository.create({
-            doctors:
-        });
-
-        return await this.ormRepository.save(userSave);
     }
 }
 
