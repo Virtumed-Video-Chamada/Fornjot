@@ -40,16 +40,31 @@ class FavoriteDoctorsRepository implements IFavoriteDoctorsRepository {
             });
         } else {
             const userSave = this.ormRepository.create({
-                dotorsId: data.doctorsId,
+                doctorsId: data.doctorsId,
             });
             return await this.ormRepository.save(userSave);
         }
-        if(favoritedDoctor){
-            const userUpdate = this.ormRepository.delete({
-              doctors: data.doctorId
-            })
-        }
+    }
 
+    public async RemoveFavoriteDoctor(
+        pacient_id: string,
+        doctor_id: string,
+        data: FavoriteDoctorDto,
+    ): Promise<FavoriteDoctor | void> {
+        const user = await this.findById(pacient_id);
+        let favoritedDoctor = false;
+
+        if (favoritedDoctor) {
+            user?.pacient.favoriteDoctor.map(doctor => {
+                if (doctor_id != doctor.id) {
+                    const userUpdate = this.ormRepository.delete({
+                        doctorsId: data.doctorId,
+                    });
+
+                    // return this.ormRepository.save(userUpdate); ERROR
+                }
+            });
+        }
     }
 }
 

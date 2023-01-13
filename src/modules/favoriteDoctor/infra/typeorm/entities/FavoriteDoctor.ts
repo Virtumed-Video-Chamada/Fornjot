@@ -16,7 +16,7 @@ class FavoriteDoctor {
     id: string;
 
     @Column('varchar')
-    dotorsId:string[];
+    doctorsId:string[];
 
     @OneToMany(() => Doctor, doctor => doctor.id)
     @JoinColumn()
