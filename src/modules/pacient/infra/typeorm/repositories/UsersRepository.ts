@@ -6,7 +6,7 @@ import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
 
 import { PostgresDataSource } from '@shared/infra/typeorm/index';
 
-import User from '../entities/User';
+import User from '@modules/users/infra/typeorm/entities/User';
 import { uuid } from 'uuidv4';
 
 class UsersRepository implements IUsersRepository {
