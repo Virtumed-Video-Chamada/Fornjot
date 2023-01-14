@@ -46,7 +46,7 @@ jobs:
         script: | 
           cd ~/app/Fornjot
           npm install --legacy-peer-deps
-          ./node_modules/.bin/typeorm migration:run
+          node dist/shared/infra/http/server.js
           pm2 restart 0
         
 
