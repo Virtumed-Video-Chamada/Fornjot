@@ -37,7 +37,7 @@ jobs:
         
     # Instalar dependências do código dentro da Digital Ocean
     - name: Install dependencies on Digial Ocean
-      uses: appleboy/scp-action@master
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
@@ -46,7 +46,7 @@ jobs:
         script: | 
           cd ~/app/Fornjot
           npm install --legacy-peer-deps
-          node dist/shared/infra/http/server.js
+          ./node_modules/.bin/typeorm migration:run
           pm2 restart 0
         
 
