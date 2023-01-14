@@ -36,7 +36,7 @@ jobs:
         target: "~/app/Fornjot"
         
     # Instalar dependências do código dentro da Digital Ocean
-    - name: Install dependencies to Digial Ocean
+    - name: Install dependencies on Digial Ocean
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
