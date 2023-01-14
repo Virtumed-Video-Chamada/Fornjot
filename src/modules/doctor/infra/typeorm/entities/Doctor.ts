@@ -20,13 +20,19 @@ class Doctor {
   address: string;
 
   @Column({type: 'varchar'})
-  number: string;
+  number: string ;
 
   @Column({type: 'varchar'})
   district: string;
 
   @Column({type: 'varchar'})
   city: string;
+
+  @Column({type: 'varchar'})
+  state: string;
+
+  @Column({type: 'varchar'})
+  speciality: string;
 
   @ManyToMany(() => Clinic, clinic => clinic.doctors)
   clinic: Clinic;

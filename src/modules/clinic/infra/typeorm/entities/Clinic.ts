@@ -8,13 +8,10 @@ class Clinic {
   id: string;
 
   @Column("varchar")
-  corporate_name: string;
+  razao: string;
 
   @Column("varchar")
   cnpj: string;
-
-  @Column("varchar")
-  cpf: string;
 
   @Column("varchar")
   cep: string;
@@ -30,6 +27,9 @@ class Clinic {
 
   @Column("varchar")
   city: string;
+
+  @Column("varchar")
+  state: string;
 
   @ManyToMany(() => Doctor, doctor => doctor.clinic)
   doctors: Doctor[];

@@ -63,13 +63,15 @@ class DoctorsRepository implements IDoctorRepository {
             role: 'DOCTOR',
             doctor: {
                 id: uuid(),
-                cep: '',
-                cpf: '',
-                crm: '',
-                address: '',
-                city: '',
-                district: '',
-                number: ''
+                speciality: userData.speciality,
+                state: userData.state,
+                cep: userData.cep,
+                cpf: userData.cpf,
+                crm: userData.crm,
+                address: userData.address,
+                city: userData.city,
+                district: userData.district,
+                number: userData.number
             }
         });
 
