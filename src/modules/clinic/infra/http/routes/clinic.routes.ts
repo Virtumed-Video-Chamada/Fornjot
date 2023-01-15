@@ -36,9 +36,14 @@ clinicsRouter.put(
     authMiddleware,
     celebrate({
         [Segments.BODY]: {
-            cpf: Joi.string().required(),
+            razao: Joi.string().required(),
+            cnpj: Joi.string().required(),
             cep: Joi.string().required(),
-            crm: Joi.string(),
+            address: Joi.string().required(),
+            number: Joi.string() || Joi.number(),
+            city: Joi.string().required(),
+            district: Joi.string().required(),
+            state: Joi.string().required(),
         },
     }),
     updateClinicsController.updateClinic,

@@ -1,12 +1,11 @@
 import { Repository } from 'typeorm';
 
-import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-
 import { PostgresDataSource } from '@shared/infra/typeorm/index';
 
 import { uuid } from 'uuidv4';
 import User from '@modules/users/infra/typeorm/entities/User';
 import IDoctorRepository from '@modules/doctor/repositories/IDoctorRepository';
+import ICreateDoctorDTO from '@modules/doctor/dtos/ICreateDoctorDTO';
 
 class DoctorsRepository implements IDoctorRepository {
     private ormRepository: Repository<User>;
@@ -55,7 +54,7 @@ class DoctorsRepository implements IDoctorRepository {
     }
 
 
-    public async createDoctor(userData: ICreateUserDTO): Promise<User> {
+    public async createDoctor(userData: ICreateDoctorDTO): Promise<User> {
         const user = this.ormRepository.create({
             name: userData.name,
             email: userData.email,

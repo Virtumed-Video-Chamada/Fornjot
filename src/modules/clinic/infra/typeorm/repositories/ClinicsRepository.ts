@@ -1,12 +1,12 @@
 import { Repository } from 'typeorm';
-
-//import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 import { PostgresDataSource } from '@shared/infra/typeorm/index';
 
 import { uuid } from 'uuidv4';
 import User from '@modules/users/infra/typeorm/entities/User';
 import IClinicRepository from '@modules/clinic/repositories/IClinicsRepository';
 import ICreateClinicDTO from '@modules/clinic/dtos/ICreateClinicDTO';
+import ICreateDoctorDTO from '@modules/doctor/dtos/ICreateDoctorDTO';
+import { request } from 'express';
 
 class ClinicsRepository implements IClinicRepository {
     private ormRepository: Repository<User>;
@@ -54,7 +54,9 @@ class ClinicsRepository implements IClinicRepository {
         return user;
     }
 
-    /* public async createDoctor(userData: ICreateUserDTO): Promise<User> {
+    public async createDoctorforClinic(userData: ICreateDoctorDTO): Promise<User> {
+        const clinic_id = request.user.id;
+
         const user = this.ormRepository.create({
             name: userData.name,
             email: userData.email,
@@ -62,20 +64,25 @@ class ClinicsRepository implements IClinicRepository {
             role: 'DOCTOR',
             doctor: {
                 id: uuid(),
-                cep: '',
-                cpf: '',
-                crm: '',
-                address: '',
-                city: '',
-                district: '',
-                number: '',
-            },
+                speciality: userData.speciality,
+                state: userData.state,
+                cep: userData.cep,
+                cpf: userData.cpf,
+                crm: userData.crm,
+                address: userData.address,
+                city: userData.city,
+                district: userData.district,
+                number: userData.number,
+                clinic: {
+                    id: clinic_id,
+                }
+            }
         });
 
         await this.ormRepository.save(user);
-
+        
         return user;
-    } */
+    }
 
     public async createClinic(userData: ICreateClinicDTO): Promise<User> {
         const user = this.ormRepository.create({
@@ -97,6 +104,7 @@ class ClinicsRepository implements IClinicRepository {
         });
 
         await this.ormRepository.save(user);
+
         return user;
     }
 
