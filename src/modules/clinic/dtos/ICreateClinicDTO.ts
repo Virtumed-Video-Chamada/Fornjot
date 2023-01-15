@@ -1,4 +1,4 @@
-export default interface ICreateUserDTO {
+export default interface ICreateClinicDTO {
     name: string;
 	razao: string;
 	cnpj: string;

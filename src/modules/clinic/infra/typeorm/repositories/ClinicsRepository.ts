@@ -47,13 +47,17 @@ class ClinicsRepository implements IClinicRepository {
 
     public async findByEmail(email: string): Promise<User | undefined | null> {
         const user = await this.ormRepository.findOne({
-            where: { email },
+            where: {
+                email
+            },
         });
 
         return user;
     }
 
     public async createDoctorforClinic(userData: ICreateDoctorDTO): Promise<User> {
+        const clinics = await this.updateClinic(userData.id);
+
         const user = this.ormRepository.create({
             name: userData.name,
             email: userData.email,
@@ -70,10 +74,44 @@ class ClinicsRepository implements IClinicRepository {
                 city: userData.city,
                 district: userData.district,
                 number: userData.number,
-                clinic: {
-                    id: userData.id,
-                }
-            }
+                clinics: [
+                    {
+                        id: clinics?.clinic.id
+                    }
+                ]
+            },
+        });
+
+        await this.ormRepository.save(user);
+
+        return user;
+    }
+
+    public async createPacientforClinic(userData: ICreateDoctorDTO): Promise<User> {
+        const clinics = await this.updateClinic(userData.id);
+
+        const user = this.ormRepository.create({
+            name: userData.name,
+            email: userData.email,
+            password: userData.password,
+            role: 'DOCTOR',
+            doctor: {
+                id: uuid(),
+                speciality: userData.speciality,
+                state: userData.state,
+                cep: userData.cep,
+                cpf: userData.cpf,
+                crm: userData.crm,
+                address: userData.address,
+                city: userData.city,
+                district: userData.district,
+                number: userData.number,
+                clinics: [
+                    {
+                        id: clinics?.clinic.id
+                    }
+                ]
+            },
         });
 
         await this.ormRepository.save(user);

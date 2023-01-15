@@ -8,7 +8,7 @@ import IHashProvider from '@modules/users/providers/HashProvider/models/IHashPro
 import IClinicsRepository from '@modules/clinic/repositories/IClinicsRepository';
 
 interface IRequest {
-    id?: string;
+    id: string;
     name: string;
     cpf: string;
     crm: string;
@@ -56,6 +56,12 @@ class CreateDoctorForClinicService {
         if (user) {
             throw new AppError('E-mail already exists');
         }
+
+       /*  const clinic_id = await this.usersRepository.updateClinic(id)
+
+        if(!clinic_id?.clinic.id) {
+            throw new AppError('Você não é uma clínica');
+        } */
 
         const passwordHash = await this.hashProvider.generateHash(password);
 

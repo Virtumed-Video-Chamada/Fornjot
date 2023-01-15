@@ -4,7 +4,7 @@ import { instanceToInstance } from 'class-transformer';
 
 import CreateClinicService from '@modules/clinic/services/create/CreateClinicService';
 import ClinicService from '@modules/clinic/services/ClinicService';
-import CreateDoctorForClinicService from '@modules/clinic/services/create/createDoctorforClinic';
+import CreateDoctorForClinicService from '@modules/clinic/services/create/CreateDoctorForClinic';
 
 export default class ClinicsController {
     public async create(

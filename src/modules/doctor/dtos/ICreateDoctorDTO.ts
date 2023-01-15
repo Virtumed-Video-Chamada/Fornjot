@@ -1,5 +1,5 @@
 export default interface ICreateDoctorDTO {
-    id?: string;
+    id: string;
     name: string;
 	cpf: string;
 	crm: string;

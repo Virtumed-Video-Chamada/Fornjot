@@ -1,40 +1,41 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, CreateDateColumn, UpdateDateColumn, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinColumn, JoinTable } from 'typeorm';
 import User from "@modules/users/infra/typeorm/entities/User";
 import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
 
 @Entity()
 class Clinic {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  id?: string;
 
-  @Column("varchar")
+  @Column({type: 'varchar'})
   razao: string;
 
-  @Column("varchar")
+  @Column({type: 'varchar'})
   cnpj: string;
 
-  @Column("varchar")
+  @Column({type: 'varchar'})
   cep: string;
 
-  @Column("varchar")
+  @Column({type: 'varchar'})
   address: string;
 
-  @Column("varchar")
+  @Column({type: 'varchar'})
   number: string;
 
-  @Column("varchar")
+  @Column({type: 'varchar'})
   district: string;
 
-  @Column("varchar")
+  @Column({type: 'varchar'})
   city: string;
 
-  @Column("varchar")
+  @Column({type: 'varchar'})
   state: string;
 
-  @ManyToMany(() => Doctor, doctor => doctor.clinic)
-  doctors: Doctor[];
+  @ManyToMany(() => Doctor, doctor => doctor.clinics)
+  @JoinTable()
+  doctors?: Doctor[];
 
-  @OneToOne(() => User)
+  @OneToOne(() => Clinic, clinic => clinic.user)
   user: User;
 
   @CreateDateColumn()

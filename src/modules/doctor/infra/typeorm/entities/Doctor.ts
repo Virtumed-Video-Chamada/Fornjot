@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, CreateDateColumn, UpdateDateColumn, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinColumn, JoinTable } from 'typeorm';
 import User from "@modules/users/infra/typeorm/entities/User";
 import Clinic from '@modules/clinic/infra/typeorm/entities/Clinic';
 
@@ -35,7 +35,8 @@ class Doctor {
   speciality: string;
 
   @ManyToMany(() => Clinic, clinic => clinic.doctors)
-  clinic: Clinic;
+  @JoinTable()
+  clinics?: Clinic[];
 
   @OneToOne(() => Doctor, doctor => doctor.user)
   user: User;
