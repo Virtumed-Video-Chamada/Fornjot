@@ -21,6 +21,9 @@ import DoctorsRepository from '@modules/doctor/infra/typeorm/repositories/Doctor
 import IClinicRepository from '@modules/clinic/repositories/IClinicsRepository';
 import ClinicsRepository from '@modules/clinic/infra/typeorm/repositories/ClinicsRepository';
 
+import IPacientRepository from '@modules/pacient/repositories/IPacientRepository';
+import PacientsRepository from '@modules/pacient/infra/typeorm/repositories/PacientsRepository';
+
 container.registerSingleton<IAppointmentsRepository>(
     'AppointmentsRepository',
     AppointmentsRepository,
@@ -39,6 +42,11 @@ container.registerSingleton<IDoctorRepository>(
 container.registerSingleton<IClinicRepository>(
     'ClinicsRepository',
     ClinicsRepository,
+);
+
+container.registerSingleton<IPacientRepository>(
+    'PacientsRepository',
+    PacientsRepository,
 );
 
 container.registerSingleton<IUsersTokensRepository>(
