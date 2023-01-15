@@ -49,4 +49,26 @@ clinicsRouter.put(
     updateClinicsController.updateClinic,
 );
 
+clinicsRouter.post(
+    '/doctor',
+    authMiddleware,
+    celebrate({
+        [Segments.BODY]: {
+            name: Joi.string().required(),
+            email: Joi.string().email().required(),
+            password: Joi.string().required(),
+            cpf: Joi.string().required(),
+            crm: Joi.string().required(),
+            cep: Joi.string().required(),
+            address: Joi.string().required(),
+            number: Joi.string() || Joi.number(),
+            city: Joi.string().required(),
+            district: Joi.string().required(),
+            state: Joi.string().required(),
+            speciality: Joi.string().required(),
+        },
+    }),
+    clinicsController.createDoctorforClinic,
+);
+
 export default clinicsRouter;

@@ -6,7 +6,6 @@ import User from '@modules/users/infra/typeorm/entities/User';
 import IClinicRepository from '@modules/clinic/repositories/IClinicsRepository';
 import ICreateClinicDTO from '@modules/clinic/dtos/ICreateClinicDTO';
 import ICreateDoctorDTO from '@modules/doctor/dtos/ICreateDoctorDTO';
-import { request } from 'express';
 
 class ClinicsRepository implements IClinicRepository {
     private ormRepository: Repository<User>;
@@ -55,8 +54,6 @@ class ClinicsRepository implements IClinicRepository {
     }
 
     public async createDoctorforClinic(userData: ICreateDoctorDTO): Promise<User> {
-        const clinic_id = request.user.id;
-
         const user = this.ormRepository.create({
             name: userData.name,
             email: userData.email,
@@ -74,13 +71,13 @@ class ClinicsRepository implements IClinicRepository {
                 district: userData.district,
                 number: userData.number,
                 clinic: {
-                    id: clinic_id,
+                    id: userData.id,
                 }
             }
         });
 
         await this.ormRepository.save(user);
-        
+
         return user;
     }
 

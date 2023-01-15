@@ -4,6 +4,7 @@ import { instanceToInstance } from 'class-transformer';
 
 import CreateClinicService from '@modules/clinic/services/create/CreateClinicService';
 import ClinicService from '@modules/clinic/services/ClinicService';
+import CreateDoctorForClinicService from '@modules/clinic/services/create/createDoctorforClinic';
 
 export default class ClinicsController {
     public async create(
@@ -52,5 +53,46 @@ export default class ClinicsController {
         const allClinics = await findAllClinics.execute();
 
         return response.json(instanceToInstance(allClinics));
+    }
+
+    public async createDoctorforClinic(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const id = request.user.id;
+        const {
+            name,
+            email,
+            password,
+            address,
+            cep,
+            city,
+            cpf,
+            crm,
+            district,
+            number,
+            speciality,
+            state,
+        } = request.body;
+
+        const createUser = container.resolve(CreateDoctorForClinicService);
+
+        const user = await createUser.execute({
+            id,
+            name,
+            email,
+            password,
+            address,
+            cep,
+            city,
+            cpf,
+            crm,
+            district,
+            number,
+            speciality,
+            state,
+        });
+
+        return response.json(instanceToInstance(user));
     }
 }
