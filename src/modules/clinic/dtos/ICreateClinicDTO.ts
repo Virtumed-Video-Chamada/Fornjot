@@ -1,7 +1,7 @@
-export default interface ICreateUserDTO {
+export default interface ICreateClinicDTO {
     name: string;
-	cpf: string;
-	crm: string;
+	razao: string;
+	cnpj: string;
 	cep: string;
 	address: string;
 	number: string;
@@ -10,5 +10,4 @@ export default interface ICreateUserDTO {
 	state: string;
 	email: string;
 	password: string;
-	speciality: string;
 }

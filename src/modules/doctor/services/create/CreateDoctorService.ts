@@ -8,9 +8,18 @@ import IHashProvider from "@modules/users/providers/HashProvider/models/IHashPro
 import IDoctorRepository from "@modules/doctor/repositories/IDoctorRepository";
 
 interface IRequest {
-  name: string;
-  email: string;
-  password: string;
+    name: string;
+	cpf: string;
+	crm: string;
+	cep: string;
+	address: string;
+	number: string;
+	city: string;
+	district: string;
+	state: string;
+	email: string;
+	password: string;
+	speciality: string;
 }
 
 @injectable()
@@ -26,7 +35,21 @@ class CreateDoctorService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ name, email, password }: IRequest): Promise<User> {
+  public async execute({
+    name,
+    email,
+    password,
+    address,
+    cep,
+    city,
+    cpf,
+    crm,
+    district,
+    number,
+    speciality,
+    state,
+
+    }: IRequest): Promise<User> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (user) {
@@ -39,6 +62,15 @@ class CreateDoctorService {
       name,
       email,
       password: passwordHash,
+      number,
+      cpf,
+      cep,
+      address,
+      crm,
+      city,
+      district,
+      speciality,
+      state,
     });
 
     await this.cacheProvider.invalidatePrefix("providers-list");

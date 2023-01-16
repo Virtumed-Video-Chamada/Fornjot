@@ -17,16 +17,21 @@ doctorsRouter.post(
             name: Joi.string().required(),
             email: Joi.string().email().required(),
             password: Joi.string().required(),
+            cpf: Joi.string().required(),
+            crm: Joi.string().required(),
+            cep: Joi.string().required(),
+            address: Joi.string().required(),
+            number: Joi.string() || Joi.number(),
+            city: Joi.string().required(),
+            district: Joi.string().required(),
+            state: Joi.string().required(),
+            speciality: Joi.string().required(),
         },
     }),
     doctorsController.create,
 );
 
-doctorsRouter.get(
-    '/',
-    authMiddleware,
-    doctorsController.findAllDoctors,
-);
+doctorsRouter.get('/', authMiddleware, doctorsController.findAllDoctors);
 
 doctorsRouter.put(
     '/',
@@ -34,12 +39,17 @@ doctorsRouter.put(
     celebrate({
         [Segments.BODY]: {
             cpf: Joi.string().required(),
+            crm: Joi.string().required(),
             cep: Joi.string().required(),
-            crm: Joi.string(),
+            address: Joi.string().required(),
+            number: Joi.string() || Joi.number(),
+            city: Joi.string().required(),
+            district: Joi.string().required(),
+            state: Joi.string().required(),
+            speciality: Joi.string().required(),
         },
     }),
     updateDoctorsController.updateDoctor,
 );
 
 export default doctorsRouter;
-

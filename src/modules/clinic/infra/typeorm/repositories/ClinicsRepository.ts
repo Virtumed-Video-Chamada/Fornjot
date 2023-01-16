@@ -1,13 +1,13 @@
-import { Repository, Not, UpdateResult } from 'typeorm';
-
-import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
+import { Repository } from 'typeorm';
 import { PostgresDataSource } from '@shared/infra/typeorm/index';
 
 import { uuid } from 'uuidv4';
 import User from '@modules/users/infra/typeorm/entities/User';
 import IClinicRepository from '@modules/clinic/repositories/IClinicsRepository';
+import ICreateClinicDTO from '@modules/clinic/dtos/ICreateClinicDTO';
+import ICreateDoctorDTO from '@modules/doctor/dtos/ICreateDoctorDTO';
 
-class UsersRepository implements IClinicRepository {
+class ClinicsRepository implements IClinicRepository {
     private ormRepository: Repository<User>;
 
     constructor() {
@@ -47,14 +47,17 @@ class UsersRepository implements IClinicRepository {
 
     public async findByEmail(email: string): Promise<User | undefined | null> {
         const user = await this.ormRepository.findOne({
-            where: { email },
+            where: {
+                email
+            },
         });
 
         return user;
     }
 
+    public async createDoctorforClinic(userData: ICreateDoctorDTO): Promise<User> {
+        const clinics = await this.updateClinic(userData.id);
 
-    public async createDoctor(userData: ICreateUserDTO): Promise<User> {
         const user = this.ormRepository.create({
             name: userData.name,
             email: userData.email,
@@ -62,23 +65,61 @@ class UsersRepository implements IClinicRepository {
             role: 'DOCTOR',
             doctor: {
                 id: uuid(),
-                cep: '',
-                cpf: '',
-                crm: '',
-                address: '',
-                city: '',
-                district: '',
-                number: ''
-            }
+                speciality: userData.speciality,
+                state: userData.state,
+                cep: userData.cep,
+                cpf: userData.cpf,
+                crm: userData.crm,
+                address: userData.address,
+                city: userData.city,
+                district: userData.district,
+                number: userData.number,
+                clinics: [
+                    {
+                        id: clinics?.clinic.id
+                    }
+                ]
+            },
         });
-
 
         await this.ormRepository.save(user);
 
         return user;
     }
 
-    public async createClinic(userData: ICreateUserDTO): Promise<User> {
+    public async createPacientforClinic(userData: ICreateDoctorDTO): Promise<User> {
+        const clinics = await this.updateClinic(userData.id);
+
+        const user = this.ormRepository.create({
+            name: userData.name,
+            email: userData.email,
+            password: userData.password,
+            role: 'DOCTOR',
+            doctor: {
+                id: uuid(),
+                speciality: userData.speciality,
+                state: userData.state,
+                cep: userData.cep,
+                cpf: userData.cpf,
+                crm: userData.crm,
+                address: userData.address,
+                city: userData.city,
+                district: userData.district,
+                number: userData.number,
+                clinics: [
+                    {
+                        id: clinics?.clinic.id
+                    }
+                ]
+            },
+        });
+
+        await this.ormRepository.save(user);
+
+        return user;
+    }
+
+    public async createClinic(userData: ICreateClinicDTO): Promise<User> {
         const user = this.ormRepository.create({
             name: userData.name,
             email: userData.email,
@@ -86,15 +127,15 @@ class UsersRepository implements IClinicRepository {
             role: 'CLINIC',
             clinic: {
                 id: uuid(),
-                corporate_name: '',
-                cnpj: '',
-                cep: '',
-                cpf: '',
-                address: '',
-                city: '',
-                district: '',
-                number: '',
-            }
+                razao: userData.razao,
+                cnpj: userData.cnpj,
+                cep: userData.cep,
+                address: userData.address,
+                city: userData.city,
+                district: userData.district,
+                number: userData.number,
+                state: userData.state,
+            },
         });
 
         await this.ormRepository.save(user);
@@ -107,4 +148,4 @@ class UsersRepository implements IClinicRepository {
     }
 }
 
-export default UsersRepository;
+export default ClinicsRepository;

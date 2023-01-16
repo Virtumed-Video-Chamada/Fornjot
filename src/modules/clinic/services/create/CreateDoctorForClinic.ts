@@ -4,13 +4,14 @@ import AppError from '@shared/errors/AppError';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import IHashProvider from '../../../users/providers/HashProvider/models/IHashProvider';
-import IPacientRepository from '@modules/pacient/repositories/IPacientRepository';
+import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
+import IClinicsRepository from '@modules/clinic/repositories/IClinicsRepository';
 
 interface IRequest {
+    id: string;
     name: string;
-    rg: string;
     cpf: string;
+    crm: string;
     cep: string;
     address: string;
     number: string;
@@ -19,13 +20,14 @@ interface IRequest {
     state: string;
     email: string;
     password: string;
+    speciality: string;
 }
 
 @injectable()
-class CreatePacientService {
+class CreateDoctorForClinicService {
     constructor(
-        @inject('PacientsRepository')
-        private usersRepository: IPacientRepository,
+        @inject('ClinicsRepository')
+        private usersRepository: IClinicsRepository,
 
         @inject('HashProvider')
         private hashProvider: IHashProvider,
@@ -35,17 +37,19 @@ class CreatePacientService {
     ) {}
 
     public async execute({
+        id,
         name,
-        rg,
-        cpf,
-        cep,
-        address,
-        number,
-        city,
-        district,
-        state,
         email,
-        password
+        password,
+        address,
+        cep,
+        city,
+        cpf,
+        crm,
+        district,
+        number,
+        speciality,
+        state,
     }: IRequest): Promise<User> {
         const user = await this.usersRepository.findByEmail(email);
 
@@ -53,19 +57,27 @@ class CreatePacientService {
             throw new AppError('E-mail already exists');
         }
 
+       /*  const clinic_id = await this.usersRepository.updateClinic(id)
+
+        if(!clinic_id?.clinic.id) {
+            throw new AppError('Você não é uma clínica');
+        } */
+
         const passwordHash = await this.hashProvider.generateHash(password);
 
-        const userExist = await this.usersRepository.createPacient({
+        const userExist = await this.usersRepository.createDoctorforClinic({
+            id,
             name,
-            rg,
-            cpf,
-            cep,
-            address,
-            number,
-            city,
-            district,
-            state,
             email,
+            address,
+            cep,
+            city,
+            cpf,
+            crm,
+            district,
+            number,
+            speciality,
+            state,
             password: passwordHash,
         });
 
@@ -75,4 +87,4 @@ class CreatePacientService {
     }
 }
 
-export default CreatePacientService;
+export default CreateDoctorForClinicService;

@@ -2,6 +2,7 @@
 node_modules/
 build/
 .env
+dist
 ormconfig.json
 !tmp/.gitkeep
 insominia.json

@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "types": ["jest", "node"],
-        "target": "ES2022",
+        "target": "ES6",
         "lib": ["ES5", "ES6", "ES2018", "ES2022"],
         "sourceMap": true,
         "module": "commonjs",
@@ -20,19 +20,10 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,
-        "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "noImplicitAny": true,
-        "typeRoots": ["./src/@types"]
     },
     "include": [
+        "dist/**/*.js",
         "src/**/*.ts",
-        "tests/*.ts"
     ],
-    "exclude": ["node_modules", "dist"],
-    "ts-node": {
-        "files": true
-    }
 }

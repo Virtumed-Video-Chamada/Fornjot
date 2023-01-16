@@ -9,15 +9,21 @@ export default class ProfileClinicController {
         response: Response,
     ): Promise<Response> {
         const id = request.user.id;
-        const { cep, cpf, crm } = request.body;
+        const { razao, cnpj, cep, address, number, city, district, state } =
+            request.body;
 
         const updateUser = container.resolve(UpdateClinicService);
 
         const user = await updateUser.execute({
             id,
+            razao,
+            cnpj,
             cep,
-            cpf,
-            crm,
+            address,
+            number,
+            city,
+            district,
+            state,
         });
 
         return response.json(instanceToInstance(user));
