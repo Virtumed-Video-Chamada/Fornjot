@@ -18,6 +18,12 @@ import NotificationsRepository from '@modules/notifications/infra/typeorm/reposi
 import IDoctorRepository from '@modules/doctor/repositories/IDoctorRepository';
 import DoctorsRepository from '@modules/doctor/infra/typeorm/repositories/DoctorsRepository';
 
+import IClinicRepository from '@modules/clinic/repositories/IClinicsRepository';
+import ClinicsRepository from '@modules/clinic/infra/typeorm/repositories/ClinicsRepository';
+
+import IPacientRepository from '@modules/pacient/repositories/IPacientRepository';
+import PacientsRepository from '@modules/pacient/infra/typeorm/repositories/PacientsRepository';
+
 container.registerSingleton<IAppointmentsRepository>(
     'AppointmentsRepository',
     AppointmentsRepository,
@@ -31,6 +37,16 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IDoctorRepository>(
     'DoctorsRepository',
     DoctorsRepository,
+);
+
+container.registerSingleton<IClinicRepository>(
+    'ClinicsRepository',
+    ClinicsRepository,
+);
+
+container.registerSingleton<IPacientRepository>(
+    'PacientsRepository',
+    PacientsRepository,
 );
 
 container.registerSingleton<IUsersTokensRepository>(

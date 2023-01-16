@@ -4,36 +4,37 @@ import { PostgresDataSource } from '@shared/infra/typeorm/index';
 
 import { uuid } from 'uuidv4';
 import User from '@modules/users/infra/typeorm/entities/User';
-import IDoctorRepository from '@modules/doctor/repositories/IDoctorRepository';
-import ICreateDoctorDTO from '@modules/doctor/dtos/ICreateDoctorDTO';
+import IPacientRepository from '@modules/pacient/repositories/IPacientRepository';
+import ICreatePacientDTO from '../../dtos/ICreatePacientDTO';
 
-class DoctorsRepository implements IDoctorRepository {
+class PacientsRepository implements IPacientRepository {
     private ormRepository: Repository<User>;
 
     constructor() {
         this.ormRepository = PostgresDataSource.getRepository(User);
     }
 
-    public async updateDoctor(id: string): Promise<User | null> {
+    public async updatePacient(id: string): Promise<User | null> {
         const user = await this.ormRepository.findOne({
             where: {
                 id,
             },
-            relations: ['doctor'],
+            relations: ['pacient'],
         });
 
         return user;
     }
 
-    public async findAllDoctors(): Promise<User[] | null> {
+    public async findAllPacients(): Promise<User[] | null> {
         const user = await this.ormRepository.find({
             where: {
-                role: 'DOCTOR',
+                role: 'PACIENT',
             },
         });
 
         return user;
     }
+
 
     public async findById(id: string): Promise<User | null> {
         const user = await this.ormRepository.findOne({
@@ -53,20 +54,17 @@ class DoctorsRepository implements IDoctorRepository {
         return user;
     }
 
-
-    public async createDoctor(userData: ICreateDoctorDTO): Promise<User> {
+    public async createPacient(userData: ICreatePacientDTO): Promise<User> {
         const user = this.ormRepository.create({
             name: userData.name,
             email: userData.email,
             password: userData.password,
-            role: 'DOCTOR',
-            doctor: {
+            role: 'PACIENT',
+            pacient: {
                 id: uuid(),
-                speciality: userData.speciality,
-                state: userData.state,
+                rg: userData.rg,
                 cep: userData.cep,
                 cpf: userData.cpf,
-                crm: userData.crm,
                 address: userData.address,
                 city: userData.city,
                 district: userData.district,
@@ -75,6 +73,7 @@ class DoctorsRepository implements IDoctorRepository {
         });
 
         await this.ormRepository.save(user);
+
         return user;
     }
 
@@ -83,4 +82,4 @@ class DoctorsRepository implements IDoctorRepository {
     }
 }
 
-export default DoctorsRepository;
+export default PacientsRepository;

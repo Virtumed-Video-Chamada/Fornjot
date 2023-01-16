@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, CreateDateColumn, UpdateDateColumn, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinColumn, JoinTable } from 'typeorm';
 import User from "@modules/users/infra/typeorm/entities/User";
 import Clinic from '@modules/clinic/infra/typeorm/entities/Clinic';
 
@@ -20,7 +20,7 @@ class Doctor {
   address: string;
 
   @Column({type: 'varchar'})
-  number: string;
+  number: string ;
 
   @Column({type: 'varchar'})
   district: string;
@@ -28,8 +28,15 @@ class Doctor {
   @Column({type: 'varchar'})
   city: string;
 
+  @Column({type: 'varchar'})
+  state: string;
+
+  @Column({type: 'varchar'})
+  speciality: string;
+
   @ManyToMany(() => Clinic, clinic => clinic.doctors)
-  clinic: Clinic;
+  @JoinTable()
+  clinics?: Clinic[];
 
   @OneToOne(() => Doctor, doctor => doctor.user)
   user: User;

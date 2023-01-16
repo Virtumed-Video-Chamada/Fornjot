@@ -29,6 +29,9 @@ class Pacient {
     number: string;
 
     @Column({ type: 'varchar' })
+    state: string;
+
+    @Column({ type: 'varchar' })
     district: string;
 
     @Column({ type: 'varchar' })

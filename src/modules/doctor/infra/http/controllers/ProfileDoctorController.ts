@@ -3,14 +3,23 @@ import { container } from 'tsyringe';
 import { instanceToInstance } from 'class-transformer';
 import UpdateDoctorService from '@modules/doctor/services/update/UpdateDoctorService';
 
-
 export default class ProfileDoctorController {
     public async updateDoctor(
         request: Request,
         response: Response,
     ): Promise<Response> {
         const id = request.user.id;
-        const { cep, cpf, crm } = request.body;
+        const { 
+            cep,
+            cpf,
+            crm,
+            address,
+            number,
+            city,
+            district,
+            state,
+            speciality,
+        } = request.body;
 
         const updateUser = container.resolve(UpdateDoctorService);
 
@@ -19,6 +28,12 @@ export default class ProfileDoctorController {
             cep,
             cpf,
             crm,
+            address,
+            number,
+            city,
+            district,
+            state,
+            speciality,
         });
 
         return response.json(instanceToInstance(user));
