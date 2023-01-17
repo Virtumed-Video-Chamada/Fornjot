@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version: 18.x
+        
+    # Instalar Dependências
+    - name: Install Dependencies
+      run: npm install --legacy-peer-deps
+      
+    # Executar build
+    - name: Run build
+      run: npm run build
+      
+    # Copiar código para dentro da Digital Ocean
+    - name: Copy dist to Digial Ocean
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        port: ${{ secrets.SSH_PORT }}
+        key: ${{ secrets.SSH_KEY }}
+        source: ".,!node_modules"
+        target: "~/app/Fornjot"
+        
+    # Instalar dependências do código dentro da Digital Ocean
+    - name: Install dependencies on Digial Ocean
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        port: ${{ secrets.SSH_PORT }}
+        key: ${{ secrets.SSH_KEY }}
+        script: | 
+          cd ~/app/Fornjot
+          npm install --legacy-peer-deps
+          ./node_modules/.bin/typeorm migration:run
+          pm2 restart 0
+        
+
+      
+      
+      
+      
+      
+      
+      
+         
