@@ -68,7 +68,8 @@ class PacientsRepository implements IPacientRepository {
                 address: userData.address,
                 city: userData.city,
                 district: userData.district,
-                number: userData.number
+                number: userData.number,
+                state: userData.state
             }
         });
 
