@@ -21,7 +21,7 @@ doctorsRouter.post(
             crm: Joi.string().required(),
             cep: Joi.string().required(),
             address: Joi.string().required(),
-            number: Joi.string() || Joi.number(),
+            number: Joi.string(),
             city: Joi.string().required(),
             district: Joi.string().required(),
             state: Joi.string().required(),

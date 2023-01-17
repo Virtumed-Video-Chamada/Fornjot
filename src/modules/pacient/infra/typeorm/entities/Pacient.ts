@@ -41,7 +41,7 @@ class Pacient {
     @Column({ type: 'varchar' })
     city: string;
 
-    @OneToOne(() => User)
+    @OneToOne(() => Pacient, pacient => pacient.user)
     user: User;
 
     @OneToMany(() => FavoriteDoctor, favoriteDoctor => favoriteDoctor.doctors)
