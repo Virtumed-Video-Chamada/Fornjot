@@ -30,7 +30,6 @@ class User {
     password: string;
 
     @Column({ type: 'varchar' })
-    @Exclude()
     role: string;
 
     @Column({ type: 'varchar', nullable: true })
