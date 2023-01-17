@@ -11,7 +11,7 @@ const pacientsController = new PacientsController();
 const updatePacientsController = new ProfilePacientController();
 
 pacientRouter.post(
-    '/pacient',
+    '/',
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),
