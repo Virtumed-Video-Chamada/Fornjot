@@ -10,6 +10,7 @@ import providersRouter from "@modules/appointments/infra/http/routes/providers.r
 import doctorsRouter from "@modules/doctor/infra/http/routes/doctor.routes";
 import pacientRouter from "@modules/pacient/infra/http/routes/pacient.routes";
 import clinicsRouter from "@modules/clinic/infra/http/routes/clinic.routes";
+import adminsRouter from "@modules/admin/infra/http/routes/admin.routes";
 
 const routes = Router();
 
@@ -17,6 +18,7 @@ routes.get("/", (req: Request, res: Response) => {
     res.json("Wellcome to vitumed-aplication")
 })
 
+routes.use("/admin", adminsRouter);
 routes.use("/clinic", clinicsRouter);
 routes.use("/pacient", pacientRouter);
 routes.use("/doctors", doctorsRouter);

@@ -9,6 +9,8 @@ import IClinicsRepository from '@modules/clinic/repositories/IClinicsRepository'
 
 interface IRequest {
     name: string;
+    email: string;
+    password: string;
     razao: string;
     cnpj: string;
     cep: string;
@@ -17,8 +19,6 @@ interface IRequest {
     city: string;
     district: string;
     state: string;
-    email: string;
-    password: string;
 }
 
 @injectable()
