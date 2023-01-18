@@ -23,6 +23,7 @@ import ClinicsRepository from '@modules/clinic/infra/typeorm/repositories/Clinic
 
 import IPacientRepository from '@modules/pacient/repositories/IPacientRepository';
 import PacientsRepository from '@modules/pacient/infra/typeorm/repositories/PacientsRepository';
+import IAdiminRepository from '@modules/admin/repositories/IAdminRepository';
 
 container.registerSingleton<IAppointmentsRepository>(
     'AppointmentsRepository',
@@ -32,6 +33,11 @@ container.registerSingleton<IAppointmentsRepository>(
 container.registerSingleton<IUsersRepository>(
     'UsersRepository',
     UsersRepository,
+);
+
+container.registerSingleton<IAdiminRepository>(
+    'AdminsRepository',
+    AdminsRepository,
 );
 
 container.registerSingleton<IDoctorRepository>(

@@ -15,6 +15,8 @@ pacientRouter.post(
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),
+            email: Joi.string().required(),
+            password: Joi.string().required(),
             rg: Joi.string().required(),
             cpf: Joi.string().required(),
             cep: Joi.string().required(),
@@ -23,8 +25,6 @@ pacientRouter.post(
             city: Joi.string().required(),
             district: Joi.string().required(),
             state: Joi.string().required(),
-            email: Joi.string().required(),
-            password: Joi.string().required(),
         },
     }),
     pacientsController.create,
@@ -37,9 +37,14 @@ pacientRouter.put(
     authMiddleware,
     celebrate({
         [Segments.BODY]: {
+            rg: Joi.string().required(),
             cpf: Joi.string().required(),
             cep: Joi.string().required(),
-            crm: Joi.string(),
+            address: Joi.string().required(),
+            number: Joi.string().required(),
+            city: Joi.string().required(),
+            district: Joi.string().required(),
+            state: Joi.string().required(),
         },
     }),
     updatePacientsController.updatePacient,

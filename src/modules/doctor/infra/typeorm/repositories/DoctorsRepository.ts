@@ -70,7 +70,7 @@ class DoctorsRepository implements IDoctorRepository {
                 address: userData.address,
                 city: userData.city,
                 district: userData.district,
-                number: userData.number
+                number: userData.number,
             }
         });
 
