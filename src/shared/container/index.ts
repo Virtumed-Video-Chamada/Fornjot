@@ -24,6 +24,7 @@ import ClinicsRepository from '@modules/clinic/infra/typeorm/repositories/Clinic
 import IPacientRepository from '@modules/pacient/repositories/IPacientRepository';
 import PacientsRepository from '@modules/pacient/infra/typeorm/repositories/PacientsRepository';
 import IAdiminRepository from '@modules/admin/repositories/IAdminRepository';
+import AdminsRepository from '@modules/admin/infra/typeorm/repositories/AdminsRepository';
 
 container.registerSingleton<IAppointmentsRepository>(
     'AppointmentsRepository',
