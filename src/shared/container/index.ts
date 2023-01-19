@@ -25,6 +25,8 @@ import IPacientRepository from '@modules/pacient/repositories/IPacientRepository
 import PacientsRepository from '@modules/pacient/infra/typeorm/repositories/PacientsRepository';
 import IAdiminRepository from '@modules/admin/repositories/IAdminRepository';
 import AdminsRepository from '@modules/admin/infra/typeorm/repositories/AdminsRepository';
+import IConversationRepository from '@modules/chat/repositories/IConversationRepository';
+import ConversationsRepository from '@modules/chat/infra/typeorm/repositories/ConversationRepository';
 
 container.registerSingleton<IAppointmentsRepository>(
     'AppointmentsRepository',
@@ -64,4 +66,9 @@ container.registerSingleton<IUsersTokensRepository>(
 container.registerSingleton<INotificationsRepository>(
     'NotificationsRepository',
     NotificationsRepository,
+);
+
+container.registerSingleton<IConversationRepository>(
+    'ConversationsRepository',
+    ConversationsRepository,
 );

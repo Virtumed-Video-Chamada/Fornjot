@@ -1,8 +1,8 @@
 import { delay, inject, injectable } from 'tsyringe';
 
+import ConversationsRepository from '@modules/chat/infra/typeorm/repositories/ConversationRepository';
 import Conversation from '@modules/chat/infra/typeorm/schemas/Conversation';
 import IConversationRepository from '@modules/chat/repositories/IConversationRepository';
-import ConversationsRepository from '@modules/chat/infra/typeorm/repositories/ConversationRepository';
 
 interface IRequest {
     senderId: string;
@@ -12,7 +12,7 @@ interface IRequest {
 @injectable()
 class CreateConversationService {
     constructor(
-        @inject(delay(() => ConversationsRepository))
+        @inject('ConversationsRepository')
         private conversationsRepository: IConversationRepository,
     ) {}
 
