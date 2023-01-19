@@ -11,6 +11,8 @@ import doctorsRouter from "@modules/doctor/infra/http/routes/doctor.routes";
 import pacientRouter from "@modules/pacient/infra/http/routes/pacient.routes";
 import clinicsRouter from "@modules/clinic/infra/http/routes/clinic.routes";
 import adminsRouter from "@modules/admin/infra/http/routes/admin.routes";
+import conversationsRouter from "@modules/chat/infra/http/routes/conversation.routes";
+import messagesRouter from "@modules/chat/infra/http/routes/message.routes";
 
 const routes = Router();
 
@@ -28,5 +30,7 @@ routes.use("/password", passwordRouter);
 routes.use("/profile", profileRouter);
 routes.use("/appointments", appointmentsRouter);
 routes.use("/providers", providersRouter);
+routes.use("/conversations", conversationsRouter);
+routes.use("/messages", messagesRouter);
 
 export default routes;
