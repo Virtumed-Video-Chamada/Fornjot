@@ -16,14 +16,15 @@ adminsRouter.post(
             name: Joi.string().required(),
             email: Joi.string().email().required(),
             password: Joi.string().required(),
-            razao: Joi.string().required(),
-            cnpj: Joi.string().required(),
+            cpf: Joi.string().required(),
+            crm: Joi.string().required(),
             cep: Joi.string().required(),
             address: Joi.string().required(),
-            number: Joi.string().required(),
+            number: Joi.string(),
             city: Joi.string().required(),
             district: Joi.string().required(),
             state: Joi.string().required(),
+            speciality: Joi.string().required(),
         },
     }),
     adminsController.createDoctor
@@ -74,6 +75,7 @@ adminsRouter.put(
     authAdmin,
     celebrate({
         [Segments.BODY]: {
+            id: Joi.string().required(),
             rg: Joi.string().required(),
             cpf: Joi.string().required(),
             cep: Joi.string().required(),
@@ -92,6 +94,7 @@ adminsRouter.put(
     authAdmin,
     celebrate({
         [Segments.BODY]: {
+            id: Joi.string().required(),
             cpf: Joi.string().required(),
             crm: Joi.string().required(),
             cep: Joi.string().required(),
@@ -111,6 +114,7 @@ adminsRouter.put(
     authAdmin,
     celebrate({
         [Segments.BODY]: {
+            id: Joi.string().required(),
             razao: Joi.string().required(),
             cnpj: Joi.string().required(),
             cep: Joi.string().required(),

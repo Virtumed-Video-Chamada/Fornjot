@@ -26,14 +26,22 @@ class DoctorsRepository implements IDoctorRepository {
     }
 
     public async findAllDoctors(): Promise<User[] | null> {
-        const user = await this.ormRepository.find({
-            where: {
-                role: 'DOCTOR',
-            },
-        });
+        try {
+            const user = await this.ormRepository
+                .createQueryBuilder("user")
+                .leftJoinAndSelect("user.doctor", "doctor")
+                .where("user.role = :role", { role: "DOCTOR" })
+                .select(["user.id", "user.name", "user.email", "user.role", "user.avatar", "user.created_at", "user.updated_at", "doctor.speciality"])
+                .getMany();
 
-        return user;
+
+            return user;
+        } catch (err) {
+            console.log(err);
+            return null;
+        }
     }
+
 
     public async findById(id: string): Promise<User | null> {
         const user = await this.ormRepository.findOne({

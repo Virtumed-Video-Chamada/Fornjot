@@ -59,17 +59,14 @@ class User {
 
     @OneToOne(() => Doctor, doctor => doctor.user, { cascade: true })
     @JoinColumn()
-    @Exclude()
     doctor: Doctor;
 
     @OneToOne(() => Pacient, pacient => pacient.user, { cascade: true })
     @JoinColumn()
-    @Exclude()
     pacient: Pacient;
 
     @OneToOne(() => Clinic, clinic => clinic.user, { cascade: true })
     @JoinColumn()
-    @Exclude()
     clinic: Clinic;
 }
 
