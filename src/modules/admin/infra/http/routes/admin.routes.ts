@@ -1,13 +1,16 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
+import auth from '@auth/auth';
 import authAdmin from '@auth/auth.admin';
 import AdminsController from '../controllers/AdminController';
 import ProfileAdiminController from '../controllers/ProfileAdminController';
+import ProfileControllerForAdiminController from '../controllers/ProfileClinicForAdminController';
 
 const adminsRouter = Router();
 const adminsController = new AdminsController();
 const updateAdminsController = new ProfileAdiminController();
+const updateClinicForAdminsController = new ProfileControllerForAdiminController();
 
 adminsRouter.post(
     '/doctor',
@@ -125,7 +128,7 @@ adminsRouter.put(
             state: Joi.string().required(),
         },
     }),
-    updateAdminsController.updateClinic
+    updateClinicForAdminsController.updateClinic
 );
 
 export default adminsRouter;

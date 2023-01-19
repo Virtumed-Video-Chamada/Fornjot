@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { instanceToInstance } from 'class-transformer';
-import UpdateClinicService from '@modules/clinic/services/update/UpdateClinicService';
+import UpdateAdminsService from '@modules/admin/services/update/UpdatesUsersService';
 
 export default class ProfileAdiminController {
     public async updateClinic(
@@ -11,9 +11,9 @@ export default class ProfileAdiminController {
         const { id, razao, cnpj, cep, address, number, city, district, state } =
             request.body;
 
-        const updateUser = container.resolve(UpdateClinicService);
+        const updateUser = container.resolve(UpdateAdminsService);
 
-        const user = await updateUser.execute({
+        const user = await updateUser.updateClinic({
             id,
             razao,
             cnpj,
@@ -32,15 +32,15 @@ export default class ProfileAdiminController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { id, razao, cnpj, cep, address, number, city, district, state } =
+        const { id, rg, cpf, cep, address, number, city, district, state } =
             request.body;
 
-        const updateUser = container.resolve(UpdateClinicService);
+        const updateUser = container.resolve(UpdateAdminsService);
 
-        const user = await updateUser.execute({
+        const user = await updateUser.updatePacient({
             id,
-            razao,
-            cnpj,
+            rg,
+            cpf,
             cep,
             address,
             number,
@@ -56,21 +56,32 @@ export default class ProfileAdiminController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { id, razao, cnpj, cep, address, number, city, district, state } =
-            request.body;
-
-        const updateUser = container.resolve(UpdateClinicService);
-
-        const user = await updateUser.execute({
+        const {
             id,
-            razao,
-            cnpj,
             cep,
+            cpf,
+            crm,
             address,
             number,
             city,
             district,
             state,
+            speciality,
+        } = request.body;
+
+        const updateUser = container.resolve(UpdateAdminsService);
+
+        const user = await updateUser.updateDoctor({
+            id,
+            cep,
+            cpf,
+            crm,
+            address,
+            number,
+            city,
+            district,
+            state,
+            speciality,
         });
 
         return response.json(instanceToInstance(user));

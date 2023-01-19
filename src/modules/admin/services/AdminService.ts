@@ -11,7 +11,7 @@ class AdiminService {
     ) {}
 
     public async execute(): Promise<User[] | null> {
-        const user = await this.usersRepository.find();
+        const user = await this.usersRepository.findAll();
 
         return user;
     }

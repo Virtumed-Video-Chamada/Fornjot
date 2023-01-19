@@ -37,24 +37,23 @@ export default function authAdmin(
             id: sub,
         };
 
-        ormRepository.findOne({
-            where: {
-                id: request.user.id
-            }
-        }).then(user => {
-            if(!user){
-                throw new AppError('Unauthorized', 401);
-            }
-            if (user.role !== "ADMIN") {
-                throw new AppError('Unauthorized', 401);
-            }
-            request.user = user;
-            return next();
-        }).catch(error => {
-            throw new AppError(error.message, 401);
-        });
+        const id = request.user.id
 
-        return next();
+        async function updateUser (id: string) {
+            const user = await ormRepository.findOne({
+                where: {
+                    id,
+                },
+            });
+
+            if(user?.role !== "ADMIN"){
+                throw new AppError('Invalid JWT token', 401);
+            }
+
+            return next();
+        }
+
+        updateUser(id)
     } catch (err) {
         throw new AppError('Invalid JWT token', 401);
     }
