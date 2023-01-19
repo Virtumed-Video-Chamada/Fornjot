@@ -12,7 +12,7 @@ class Conversation {
     @ObjectIdColumn()
     id: ObjectID;
 
-    @Column('timestamp')
+    @Column()
     members: string[];
 
     @CreateDateColumn()

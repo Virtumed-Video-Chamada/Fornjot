@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 class ConversationsRepository implements IConversationRepository {
     private ormRepository: Repository<Conversation>;
     private userOrmRepository: Repository<User>;
+
     constructor() {
         this.ormRepository = MongoDataSource.getMongoRepository(Conversation);
         this.userOrmRepository = PostgresDataSource.getRepository(User);
@@ -27,7 +28,6 @@ class ConversationsRepository implements IConversationRepository {
         const user = this.userOrmRepository.find({
             where: { id },
         });
-
         return user;
     }
 
