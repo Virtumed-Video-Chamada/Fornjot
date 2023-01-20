@@ -16,6 +16,36 @@ export default class ProfileController {
         return response.json(instanceToInstance(user));
     }
 
+    public async showProfileDoctor(request: Request, response: Response): Promise<Response> {
+        const user_id = request.user.id;
+
+        const showProfileService = container.resolve(ShowProfileService);
+
+        const user = await showProfileService.showProfileDoctor({ user_id });
+
+        return response.json(instanceToInstance(user));
+    }
+
+    public async showProfilePacient(request: Request, response: Response): Promise<Response> {
+        const user_id = request.user.id;
+
+        const showProfileService = container.resolve(ShowProfileService);
+
+        const user = await showProfileService.showProfilePacient({ user_id });
+
+        return response.json(instanceToInstance(user));
+    }
+
+    public async showProfileClinic(request: Request, response: Response): Promise<Response> {
+        const user_id = request.user.id;
+
+        const showProfileService = container.resolve(ShowProfileService);
+
+        const user = await showProfileService.showProfileClinic({ user_id });
+
+        return response.json(instanceToInstance(user));
+    }
+
     public async update(
         request: Request,
         response: Response,

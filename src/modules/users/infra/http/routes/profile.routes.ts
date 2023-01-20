@@ -12,6 +12,12 @@ profileRouter.use(authMiddleware);
 
 profileRouter.get('/', profileController.show);
 
+profileRouter.get('/doctor', profileController.showProfileDoctor);
+
+profileRouter.get('/clinic', profileController.showProfileClinic);
+
+profileRouter.get('/pacient', profileController.showProfilePacient);
+
 profileRouter.put(
     '/',
     celebrate({
