@@ -17,14 +17,7 @@ class DeleteUsersService {
     public async delete({
         id,
     }: IRequestDelete): Promise<void> {
-        const user = await this.usersRepository.findById(id);
-
-        if (!user) {
-            throw new AppError('E-mail do not exists');
-        }
-
         await this.usersRepository.delete(id);
-
     }
 }
 

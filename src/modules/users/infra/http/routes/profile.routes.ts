@@ -26,4 +26,14 @@ profileRouter.put(
     profileController.update,
 );
 
+profileRouter.post(
+    '/find',
+    celebrate({
+        [Segments.BODY]: {
+            id: Joi.string().required(),
+        },
+    }),
+    profileController.findByID,
+);
+
 export default profileRouter;

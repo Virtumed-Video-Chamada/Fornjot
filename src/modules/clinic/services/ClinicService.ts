@@ -16,8 +16,8 @@ class ClinicsService {
         return user;
     }
 
-    public async findAllofClinic(): Promise<User[] | null> {
-        const user = await this.usersRepository.findDoctorsAndPacients();
+    public async findAllofClinic(userId: string): Promise<User[] | null> {
+        const user = await this.usersRepository.findDoctorsAndPacients(userId);
 
         return user;
     }

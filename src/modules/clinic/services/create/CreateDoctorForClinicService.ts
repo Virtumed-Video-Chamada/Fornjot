@@ -50,7 +50,7 @@ class CreateDoctorForClinicService {
         number,
         speciality,
         state,
-    }: IRequest): Promise<User> {
+    }: IRequest): Promise<User | null> {
         const user = await this.usersRepository.findByEmail(email);
 
         if (user) {

@@ -124,10 +124,10 @@ export default class AdminsController {
     ): Promise<Response> {
         const { id } = request.body;
 
-        const createUser = container.resolve(DeleteUsersService);
+        const deleteUser = container.resolve(DeleteUsersService);
 
         try {
-            await createUser.delete(id);
+            await deleteUser.delete(id);
             return response.json("User deleted successfully");
         } catch (error) {
             return response.json(error)

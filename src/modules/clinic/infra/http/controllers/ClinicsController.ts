@@ -4,7 +4,8 @@ import { instanceToInstance } from 'class-transformer';
 
 import CreateClinicService from '@modules/clinic/services/create/CreateClinicService';
 import ClinicService from '@modules/clinic/services/ClinicService';
-import CreateDoctorForClinicService from '@modules/clinic/services/create/CreateDoctorForClinic';
+import CreateDoctorForClinicService from '@modules/clinic/services/create/CreateDoctorForClinicService';
+import CreatePacientForClinicService from '@modules/clinic/services/create/CreatePacientForClinicService';
 
 export default class ClinicsController {
     public async create(
@@ -58,9 +59,11 @@ export default class ClinicsController {
         request: Request,
         response: Response,
     ): Promise<Response> {
+        const userId = request.user.id;
+
         const findAllClinics = container.resolve(ClinicService);
 
-        const allClinics = await findAllClinics.execute();
+        const allClinics = await findAllClinics.findAllofClinic(userId);
 
         return response.json(instanceToInstance(allClinics));
     }
@@ -100,6 +103,45 @@ export default class ClinicsController {
             district,
             number,
             speciality,
+            state,
+        });
+
+        return response.json(instanceToInstance(user));
+    }
+
+    public async createPacientforClinic(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const id = request.user.id;
+        const {
+            name,
+            email,
+            password,
+            address,
+            cep,
+            city,
+            cpf,
+            rg,
+            district,
+            number,
+            state,
+        } = request.body;
+
+        const createUser = container.resolve(CreatePacientForClinicService);
+
+        const user = await createUser.execute({
+            id,
+            name,
+            email,
+            password,
+            address,
+            cep,
+            city,
+            cpf,
+            rg,
+            district,
+            number,
             state,
         });
 
