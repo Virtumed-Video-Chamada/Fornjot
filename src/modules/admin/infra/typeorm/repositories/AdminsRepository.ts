@@ -7,6 +7,7 @@ import ICreateClinicDTO from '@modules/clinic/dtos/ICreateClinicDTO';
 import IAdminRepository from '@modules/admin/repositories/IAdminRepository';
 import ICreatePacientDTO from '@modules/pacient/infra/dtos/ICreatePacientDTO';
 import ICreateDoctorDTO from '@modules/doctor/dtos/ICreateDoctorDTO';
+import AppError from '@shared/errors/AppError';
 
 class AdminsRepository implements IAdminRepository {
     private ormRepository: Repository<User>;
@@ -66,7 +67,7 @@ class AdminsRepository implements IAdminRepository {
     public async findByEmail(email: string): Promise<User | undefined | null> {
         const user = await this.ormRepository.findOne({
             where: {
-                email
+                email,
             },
         });
 
@@ -112,8 +113,8 @@ class AdminsRepository implements IAdminRepository {
                 city: userData.city,
                 district: userData.district,
                 number: userData.number,
-                state: userData.state
-            }
+                state: userData.state,
+            },
         });
 
         await this.ormRepository.save(user);
@@ -138,7 +139,7 @@ class AdminsRepository implements IAdminRepository {
                 city: userData.city,
                 district: userData.district,
                 number: userData.number,
-            }
+            },
         });
 
         await this.ormRepository.save(user);
@@ -150,7 +151,17 @@ class AdminsRepository implements IAdminRepository {
     }
 
     public async delete(id: string): Promise<void> {
-        await this.ormRepository.delete(id);
+        const user = await this.ormRepository.findOne({
+            where: {
+                id,
+            },
+        });
+
+        if (!user) {
+            throw new AppError('E-mail do not exists');
+        }
+
+        await this.ormRepository.remove(user);
     }
 }
 

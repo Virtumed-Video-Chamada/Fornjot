@@ -31,6 +31,8 @@ clinicsRouter.post(
 
 clinicsRouter.get('/', authMiddleware, clinicsController.findAllClinics);
 
+clinicsRouter.get('/all', authMiddleware, clinicsController.findDoctorsAndPacients);
+
 clinicsRouter.put(
     '/',
     authMiddleware,
@@ -69,6 +71,27 @@ clinicsRouter.post(
         },
     }),
     clinicsController.createDoctorforClinic,
+);
+
+clinicsRouter.post(
+    '/pacient',
+    authMiddleware,
+    celebrate({
+        [Segments.BODY]: {
+            name: Joi.string().required(),
+            email: Joi.string().required(),
+            password: Joi.string().required(),
+            rg: Joi.string().required(),
+            cpf: Joi.string().required(),
+            cep: Joi.string().required(),
+            address: Joi.string().required(),
+            number: Joi.string().required(),
+            city: Joi.string().required(),
+            district: Joi.string().required(),
+            state: Joi.string().required(),
+        },
+    }),
+    clinicsController.createPacientforClinic,
 );
 
 export default clinicsRouter;

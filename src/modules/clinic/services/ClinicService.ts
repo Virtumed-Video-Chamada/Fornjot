@@ -15,5 +15,11 @@ class ClinicsService {
 
         return user;
     }
+
+    public async findAllofClinic(userId: string): Promise<User[] | null> {
+        const user = await this.usersRepository.findDoctorsAndPacients(userId);
+
+        return user;
+    }
 }
 export default ClinicsService;

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { instanceToInstance } from 'class-transformer';
 import CreateUsersService from '@modules/admin/services/create/CreateUsersServices';
+import DeleteUsersService from '@modules/admin/services/delete/DeleteUsersServices';
 
 export default class AdminsController {
     public async createClinic(
@@ -115,5 +116,21 @@ export default class AdminsController {
         });
 
         return response.json(instanceToInstance(user));
+    }
+
+    public async delete (
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { id } = request.body;
+
+        const deleteUser = container.resolve(DeleteUsersService);
+
+        try {
+            await deleteUser.delete(id);
+            return response.json("User deleted successfully");
+        } catch (error) {
+            return response.json(error)
+        }
     }
 }

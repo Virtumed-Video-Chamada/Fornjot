@@ -6,12 +6,32 @@ import User from '@modules/users/infra/typeorm/entities/User';
 import IClinicRepository from '@modules/clinic/repositories/IClinicsRepository';
 import ICreateClinicDTO from '@modules/clinic/dtos/ICreateClinicDTO';
 import ICreateDoctorDTO from '@modules/doctor/dtos/ICreateDoctorDTO';
+import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
+import Clinic from '../entities/Clinic';
+import ICreatePacientDTO from '@modules/pacient/infra/dtos/ICreatePacientDTO';
 
 class ClinicsRepository implements IClinicRepository {
     private ormRepository: Repository<User>;
+    private doctorRepository: Repository<Doctor>;
+    private clinicRepository: Repository<Clinic>;
 
     constructor() {
         this.ormRepository = PostgresDataSource.getRepository(User);
+        this.doctorRepository = PostgresDataSource.getRepository(Doctor);
+        this.clinicRepository = PostgresDataSource.getRepository(Clinic);
+    }
+
+    public async findDoctorsAndPacients(userId: string): Promise<User[] | null> {
+        const users = await this.ormRepository
+        .createQueryBuilder("users")
+        .leftJoinAndSelect("users.clinic", "clinic")
+        .leftJoinAndSelect("clinic.doctors", "doctors")
+        .leftJoinAndSelect("clinic.pacients", "pacients")
+        .where("users.id = :userId", { userId })
+        .getMany();
+
+        return users;
+
     }
 
     public async updateClinic(id: string): Promise<User | null> {
@@ -48,37 +68,38 @@ class ClinicsRepository implements IClinicRepository {
     public async findByEmail(email: string): Promise<User | undefined | null> {
         const user = await this.ormRepository.findOne({
             where: {
-                email
+                email,
             },
         });
 
         return user;
     }
 
-    public async createDoctorforClinic(userData: ICreateDoctorDTO): Promise<User> {
+    public async createDoctorforClinic(
+        userData: ICreateDoctorDTO,
+    ): Promise<User | null> {
         const clinics = await this.updateClinic(userData.id);
 
         const user = this.ormRepository.create({
             name: userData.name,
             email: userData.email,
-            password: userData.password,
             role: 'DOCTOR',
+            password: userData.password,
             doctor: {
-                id: uuid(),
-                speciality: userData.speciality,
-                state: userData.state,
-                cep: userData.cep,
-                cpf: userData.cpf,
                 crm: userData.crm,
+                cpf: userData.cpf,
+                cep: userData.cep,
                 address: userData.address,
-                city: userData.city,
-                district: userData.district,
                 number: userData.number,
+                district: userData.district,
+                city: userData.city,
+                state: userData.state,
+                speciality: userData.speciality,
                 clinics: [
                     {
-                        id: clinics?.clinic.id
-                    }
-                ]
+                        id: clinics?.clinic.id,
+                    },
+                ],
             },
         });
 
@@ -87,7 +108,9 @@ class ClinicsRepository implements IClinicRepository {
         return user;
     }
 
-    public async createPacientforClinic(userData: ICreateDoctorDTO): Promise<User> {
+    public async createPacientforClinic(
+        userData: ICreatePacientDTO,
+    ): Promise<User> {
         const clinics = await this.updateClinic(userData.id);
 
         const user = this.ormRepository.create({
@@ -97,20 +120,18 @@ class ClinicsRepository implements IClinicRepository {
             role: 'DOCTOR',
             doctor: {
                 id: uuid(),
-                speciality: userData.speciality,
                 state: userData.state,
                 cep: userData.cep,
                 cpf: userData.cpf,
-                crm: userData.crm,
                 address: userData.address,
                 city: userData.city,
                 district: userData.district,
                 number: userData.number,
                 clinics: [
                     {
-                        id: clinics?.clinic.id
-                    }
-                ]
+                        id: clinics?.clinic.id,
+                    },
+                ],
             },
         });
 

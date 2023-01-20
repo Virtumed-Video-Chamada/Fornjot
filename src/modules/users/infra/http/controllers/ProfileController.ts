@@ -35,4 +35,17 @@ export default class ProfileController {
 
         return response.json(instanceToInstance(user));
     }
+
+    public async findByID(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const id = request.body;
+
+        const updateUser = container.resolve(UpdateProfileService);
+
+        const user = await updateUser.findById(id);
+
+        return response.json(instanceToInstance(user));
+    }
 }
