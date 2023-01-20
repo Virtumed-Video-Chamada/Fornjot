@@ -25,6 +25,8 @@ import IPacientRepository from '@modules/pacient/repositories/IPacientRepository
 import PacientsRepository from '@modules/pacient/infra/typeorm/repositories/PacientsRepository';
 import IConversationRepository from '@modules/chat/repositories/IConversationRepository';
 import ConversationsRepository from '@modules/chat/infra/typeorm/repositories/ConversationRepository';
+import IMessageRepository from '@modules/chat/repositories/IMessageRepository';
+import MessageRepository from '@modules/chat/infra/typeorm/repositories/MessageRepository';
 
 container.registerSingleton<IAppointmentsRepository>(
     'AppointmentsRepository',
@@ -64,4 +66,9 @@ container.registerSingleton<INotificationsRepository>(
 container.registerSingleton<IConversationRepository>(
     'ConversationsRepository',
     ConversationsRepository,
+);
+
+container.registerSingleton<IMessageRepository>(
+    'MessageRepository',
+    MessageRepository,
 );
