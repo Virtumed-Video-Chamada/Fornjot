@@ -9,6 +9,7 @@ export default interface IClinicRepository {
     createClinic(data: ICreateClinicDTO): Promise<User>;
     createDoctorforClinic(data: ICreateDoctorDTO): Promise<User>;
     findAllClinics(): Promise<User[] | null>;
+    findDoctorsAndPacients(): Promise<User[] | null>;
     save(user: User): Promise<User>;
 }
 

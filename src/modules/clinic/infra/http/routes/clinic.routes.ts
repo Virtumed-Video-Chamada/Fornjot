@@ -31,6 +31,8 @@ clinicsRouter.post(
 
 clinicsRouter.get('/', authMiddleware, clinicsController.findAllClinics);
 
+clinicsRouter.get('/all', authMiddleware, clinicsController.findDoctorsAndPacients);
+
 clinicsRouter.put(
     '/',
     authMiddleware,

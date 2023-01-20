@@ -54,6 +54,16 @@ export default class ClinicsController {
 
         return response.json(instanceToInstance(allClinics));
     }
+    public async findDoctorsAndPacients(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const findAllClinics = container.resolve(ClinicService);
+
+        const allClinics = await findAllClinics.execute();
+
+        return response.json(instanceToInstance(allClinics));
+    }
 
     public async createDoctorforClinic(
         request: Request,

@@ -7,10 +7,13 @@ import {
     UpdateDateColumn,
     OneToMany,
     JoinColumn,
+    ManyToMany,
+    JoinTable,
 } from 'typeorm';
 import User from '@modules/users/infra/typeorm/entities/User';
 import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
 import FavoriteDoctor from '@modules/favoriteDoctor/infra/typeorm/entities/FavoriteDoctor';
+import Clinic from '@modules/clinic/infra/typeorm/entities/Clinic';
 
 @Entity()
 class Pacient {
@@ -43,6 +46,10 @@ class Pacient {
 
     @OneToOne(() => Pacient, pacient => pacient.user)
     user: User;
+
+    @ManyToMany(() => Clinic, clinic => clinic.pacients)
+    @JoinTable()
+    clinics?: Clinic[];
 
     @OneToMany(() => FavoriteDoctor, favoriteDoctor => favoriteDoctor.doctors)
     @JoinColumn()

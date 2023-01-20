@@ -14,6 +14,17 @@ class ClinicsRepository implements IClinicRepository {
         this.ormRepository = PostgresDataSource.getRepository(User);
     }
 
+    public async findDoctorsAndPacients(): Promise<User[] | null> {
+        const user = await this.ormRepository.find({
+            where: {
+                doctor: true,
+                pacient: true,
+            },
+        });
+
+        return user;
+    }
+
     public async updateClinic(id: string): Promise<User | null> {
         const user = await this.ormRepository.findOne({
             where: {
