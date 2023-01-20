@@ -24,6 +24,39 @@ class UsersRepository implements IUsersRepository {
         return user;
     }
 
+    public async findClinicId(id: string): Promise<User | null> {
+        const user = await this.ormRepository.findOne({
+            where: {
+                id: id,
+            },
+            relations: ['clinic'],
+        });
+
+        return user;
+    }
+
+    public async findDoctorId(id: string): Promise<User | null> {
+        const user = await this.ormRepository.findOne({
+            where: {
+                id: id,
+            },
+            relations: ['doctor'],
+        });
+
+        return user;
+    }
+
+    public async findPacientId(id: string): Promise<User | null> {
+        const user = await this.ormRepository.findOne({
+            where: {
+                id: id,
+            },
+            relations: ['pacient'],
+        });
+
+        return user;
+    }
+
     public async findByEmail(email: string): Promise<User | undefined | null> {
         const user = await this.ormRepository.findOne({
             where: { email },

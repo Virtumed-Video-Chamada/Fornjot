@@ -1,24 +1,23 @@
 import { injectable, inject } from 'tsyringe';
 
 import User from '@modules/users/infra/typeorm/entities/User';
-import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
-import IDoctorRepository from '@modules/doctor/repositories/IDoctorRepository';
+import IClinicRepository from '../repositories/IClinicsRepository';
 
 @injectable()
 class ClinicsService {
     constructor(
         @inject('ClinicsRepository')
-        private usersRepository: IDoctorRepository,
-    ) /* @inject("HashProvider")
-    private hashProvider: IHashProvider,
-
-    @inject("CacheProvider")
-    private cacheProvider: ICacheProvider, */
-    {}
+        private usersRepository: IClinicRepository,
+    ) {}
 
     public async execute(): Promise<User[] | null> {
-        const user = await this.usersRepository.findAllDoctors();
+        const user = await this.usersRepository.findAllClinics();
+
+        return user;
+    }
+
+    public async findAllofClinic(userId: string): Promise<User[] | null> {
+        const user = await this.usersRepository.findDoctorsAndPacients(userId);
 
         return user;
     }

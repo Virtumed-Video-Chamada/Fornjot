@@ -23,6 +23,8 @@ import ClinicsRepository from '@modules/clinic/infra/typeorm/repositories/Clinic
 
 import IPacientRepository from '@modules/pacient/repositories/IPacientRepository';
 import PacientsRepository from '@modules/pacient/infra/typeorm/repositories/PacientsRepository';
+import IAdiminRepository from '@modules/admin/repositories/IAdminRepository';
+import AdminsRepository from '@modules/admin/infra/typeorm/repositories/AdminsRepository';
 import IConversationRepository from '@modules/chat/repositories/IConversationRepository';
 import ConversationsRepository from '@modules/chat/infra/typeorm/repositories/ConversationRepository';
 import IMessageRepository from '@modules/chat/repositories/IMessageRepository';
@@ -36,6 +38,11 @@ container.registerSingleton<IAppointmentsRepository>(
 container.registerSingleton<IUsersRepository>(
     'UsersRepository',
     UsersRepository,
+);
+
+container.registerSingleton<IAdiminRepository>(
+    'AdminsRepository',
+    AdminsRepository,
 );
 
 container.registerSingleton<IDoctorRepository>(

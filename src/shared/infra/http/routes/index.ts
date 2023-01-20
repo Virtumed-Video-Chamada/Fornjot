@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import { Request, Response} from "express";
+
 import usersRouter from "@modules/users/infra/http/routes/users.routes";
 import sessionsRouter from "@modules/users/infra/http/routes/sessions.routes";
 import passwordRouter from "@modules/users/infra/http/routes/password.routes";
@@ -10,6 +11,7 @@ import providersRouter from "@modules/appointments/infra/http/routes/providers.r
 import doctorsRouter from "@modules/doctor/infra/http/routes/doctor.routes";
 import pacientRouter from "@modules/pacient/infra/http/routes/pacient.routes";
 import clinicsRouter from "@modules/clinic/infra/http/routes/clinic.routes";
+import adminsRouter from "@modules/admin/infra/http/routes/admin.routes";
 import conversationsRouter from "@modules/chat/infra/http/routes/conversation.routes";
 import messagesRouter from "@modules/chat/infra/http/routes/message.routes";
 
@@ -19,6 +21,7 @@ routes.get("/", (req: Request, res: Response) => {
     res.json("Wellcome to vitumed-aplication")
 })
 
+routes.use("/admin", adminsRouter);
 routes.use("/clinic", clinicsRouter);
 routes.use("/pacient", pacientRouter);
 routes.use("/doctors", doctorsRouter);
@@ -30,6 +33,5 @@ routes.use("/appointments", appointmentsRouter);
 routes.use("/providers", providersRouter);
 routes.use("/conversations", conversationsRouter);
 routes.use("/messages", messagesRouter);
-
 
 export default routes;

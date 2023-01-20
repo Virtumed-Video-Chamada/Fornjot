@@ -4,6 +4,8 @@ import { verify } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 
 import AppError from '@shared/errors/AppError';
+import User from '@modules/users/infra/typeorm/entities/User';
+import { PostgresDataSource } from '@shared/infra/typeorm';
 
 interface ITokenPayload {
     iat: number;
@@ -11,12 +13,14 @@ interface ITokenPayload {
     sub: string;
 }
 
-export default function auth(
+export default function authAdmin(
     request: Request,
     response: Response,
     next: NextFunction,
 ): void {
     const authHeader = request.headers.authorization;
+
+    const ormRepository = PostgresDataSource.getRepository(User);
 
     if (!authHeader) {
         throw new AppError('JWT token is missing', 401);
@@ -33,7 +37,23 @@ export default function auth(
             id: sub,
         };
 
-        return next();
+        const id = request.user.id
+
+        async function updateUser (id: string) {
+            const user = await ormRepository.findOne({
+                where: {
+                    id,
+                },
+            });
+
+            if(user?.role !== "ADMIN"){
+                throw new AppError('Invalid JWT token', 401);
+            }
+
+            return next();
+        }
+
+        updateUser(id)
     } catch (err) {
         throw new AppError('Invalid JWT token', 401);
     }

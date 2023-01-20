@@ -1,6 +1,5 @@
-import { delay, inject, injectable } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
-import ConversationsRepository from '@modules/chat/infra/typeorm/repositories/ConversationRepository';
 import Conversation from '@modules/chat/infra/typeorm/schemas/Conversation';
 import IConversationRepository from '@modules/chat/repositories/IConversationRepository';
 

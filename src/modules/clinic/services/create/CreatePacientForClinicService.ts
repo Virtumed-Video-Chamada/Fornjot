@@ -8,21 +8,22 @@ import IHashProvider from '@modules/users/providers/HashProvider/models/IHashPro
 import IClinicsRepository from '@modules/clinic/repositories/IClinicsRepository';
 
 interface IRequest {
+    id: string;
     name: string;
-    email: string;
-    password: string;
-    razao: string;
-    cnpj: string;
-    cep: string;
-    address: string;
-    number: string;
-    city: string;
-    district: string;
-    state: string;
+	rg: string;
+	cpf: string;
+	cep: string;
+	address: string;
+	number: string;
+	city: string;
+	district: string;
+	state: string;
+	email: string;
+	password: string;
 }
 
 @injectable()
-class CreateClinicService {
+class CreatePacientForClinicService {
     constructor(
         @inject('ClinicsRepository')
         private usersRepository: IClinicsRepository,
@@ -35,18 +36,19 @@ class CreateClinicService {
     ) {}
 
     public async execute({
+        id,
         name,
-        razao,
-        cnpj,
-        cep,
-        address,
-        number,
-        city,
-        district,
-        state,
         email,
         password,
-    }: IRequest): Promise<User> {
+        address,
+        cep,
+        city,
+        cpf,
+        district,
+        number,
+        rg,
+        state,
+    }: IRequest): Promise<User | null> {
         const user = await this.usersRepository.findByEmail(email);
 
         if (user) {
@@ -55,17 +57,18 @@ class CreateClinicService {
 
         const passwordHash = await this.hashProvider.generateHash(password);
 
-        const userExist = await this.usersRepository.createClinic({
+        const userExist = await this.usersRepository.createPacientforClinic({
+            id,
             name,
-            razao,
-            cnpj,
-            cep,
-            address,
-            number,
-            city,
-            district,
-            state,
             email,
+            address,
+            cep,
+            city,
+            cpf,
+            rg,
+            district,
+            number,
+            state,
             password: passwordHash,
         });
 
@@ -75,4 +78,4 @@ class CreateClinicService {
     }
 }
 
-export default CreateClinicService;
+export default CreatePacientForClinicService;

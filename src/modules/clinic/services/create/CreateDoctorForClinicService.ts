@@ -50,18 +50,12 @@ class CreateDoctorForClinicService {
         number,
         speciality,
         state,
-    }: IRequest): Promise<User> {
+    }: IRequest): Promise<User | null> {
         const user = await this.usersRepository.findByEmail(email);
 
         if (user) {
             throw new AppError('E-mail already exists');
         }
-
-       /*  const clinic_id = await this.usersRepository.updateClinic(id)
-
-        if(!clinic_id?.clinic.id) {
-            throw new AppError('Você não é uma clínica');
-        } */
 
         const passwordHash = await this.hashProvider.generateHash(password);
 

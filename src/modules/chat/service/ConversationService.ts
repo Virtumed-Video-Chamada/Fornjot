@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 import IConversationRepository from '../repositories/IConversationRepository';
 import User from '@modules/users/infra/typeorm/entities/User';
 
+injectable()
 class ConversationService {
     constructor(
         @inject('ConversationsRepository')
