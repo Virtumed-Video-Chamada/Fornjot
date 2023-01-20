@@ -1,7 +1,7 @@
 {
     "_type": "export",
     "__export_format": 4,
-    "__export_date": "2023-01-20T22:34:59.698Z",
+    "__export_date": "2023-01-20T23:00:50.283Z",
     "__export_source": "insomnia.desktop.app:v2022.7.5",
     "resources": [
         {
@@ -584,6 +584,84 @@
             "environmentPropertyOrder": { "&": ["resource"] },
             "metaSortKey": -1587333888540,
             "_type": "request_group"
+        },
+        {
+            "_id": "req_187db6de49a94ee885c535c574254b0d",
+            "parentId": "fld_9e4693e29b6e44478e25d488372d1c08",
+            "modified": 1674255369409,
+            "created": 1674254614186,
+            "url": "{{ base_url  }}/{{ resource  }}/clinic",
+            "name": "MyProfileCLINIC",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_cf3c05e410f24fc08f196e9a9dd7adb8', 'b64::JC50b2tlbg==::46b', 'no-history' %}"
+            },
+            "metaSortKey": -1673130435409.3125,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_3023e7af98cc491eba4ab3af6af40c47",
+            "parentId": "fld_9e4693e29b6e44478e25d488372d1c08",
+            "modified": 1674255375939,
+            "created": 1674254607646,
+            "url": "{{ base_url  }}/{{ resource  }}/pacient",
+            "name": "MyProfilePACIENT",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_cf3c05e410f24fc08f196e9a9dd7adb8', 'b64::JC50b2tlbg==::46b', 'no-history' %}"
+            },
+            "metaSortKey": -1673130435404.625,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_0c6dd47528494e5c8cfea208dc9f6c01",
+            "parentId": "fld_9e4693e29b6e44478e25d488372d1c08",
+            "modified": 1674255393166,
+            "created": 1674254599443,
+            "url": "{{ base_url  }}/{{ resource  }}/doctor",
+            "name": "MyProfileDOCTOR",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_cf3c05e410f24fc08f196e9a9dd7adb8', 'b64::JC50b2tlbg==::46b', 'no-history' %}"
+            },
+            "metaSortKey": -1673130435395.25,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
         },
         {
             "_id": "req_bac690e92bae48b5b18720105c6a22b2",

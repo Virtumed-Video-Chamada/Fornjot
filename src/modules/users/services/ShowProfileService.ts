@@ -25,6 +25,37 @@ class ShowProfileService {
 
     return user;
   }
+
+  public async showProfileDoctor({ user_id }: IRequest): Promise<User> {
+    const user = await this.usersRepository.findDoctorId(user_id);
+
+    if (!user) {
+      throw new AppError("User not found.");
+    }
+
+    return user;
+  }
+
+  public async showProfilePacient({ user_id }: IRequest): Promise<User> {
+    const user = await this.usersRepository.findPacientId(user_id);
+
+    if (!user) {
+      throw new AppError("User not found.");
+    }
+
+    return user;
+  }
+
+  public async showProfileClinic({ user_id }: IRequest): Promise<User> {
+    const user = await this.usersRepository.findClinicId(user_id);
+
+    if (!user) {
+      throw new AppError("User not found.");
+    }
+
+    return user;
+  }
+  
 }
 
 export default ShowProfileService;
