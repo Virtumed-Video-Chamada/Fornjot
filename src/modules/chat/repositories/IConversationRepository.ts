@@ -5,5 +5,9 @@ import Conversation from '../infra/typeorm/schemas/Conversation';
 
 export default interface IConversationRepository {
     save(data: ICreateConversationDTO): Promise<Conversation>;
-    findConversation(id: string): Promise<User[] | null | void>;
+    findConversation(user_id: string): Promise<Conversation[] | undefined>;
+    findTwoConversation(
+        firstUserId: string,
+        secondUserId: string,
+    ): Promise<Conversation | null>;
 }

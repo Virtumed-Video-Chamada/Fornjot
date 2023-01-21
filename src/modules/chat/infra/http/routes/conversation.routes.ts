@@ -16,6 +16,27 @@ conversationsRouter.post(
     conversationsController.create,
 );
 
-conversationsRouter.get('/:id', conversationsController.findConversation);
+conversationsRouter.get(
+    '/:user_id',
+    celebrate({
+        [Segments.PARAMS]: {
+            user_id: Joi.string().required(),
+        },
+    }),
+    conversationsController.findConversation,
+);
+
+// get conversations incluindo dois users_id
+
+conversationsRouter.get(
+    '/:firstUserId/:seconUserdId',
+    celebrate({
+        [Segments.PARAMS]: {
+            firstUserId: Joi.string().required(),
+            seconUserdId: Joi.string().required(),
+        },
+    }),
+    conversationsController.findTwoConversation,
+);
 
 export default conversationsRouter;
