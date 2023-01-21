@@ -21,6 +21,16 @@ class MessageRepository implements IMessageRepository {
 
         return message;
     }
+
+    public async findMessage(conversationId: string): Promise<Message[]> {
+        const message = this.ormRepository.find({
+            where: {
+                conversationId,
+            },
+        });
+
+        return message;
+    }
 }
 
 export default MessageRepository;

@@ -17,6 +17,14 @@ messagesRouter.post(
     messageController.newMessage,
 );
 
-// messagesRouter.get('/', messageController.findMesage)
+messagesRouter.get(
+    '/:conversationId',
+    celebrate({
+        [Segments.PARAMS]: {
+            conversationId: Joi.string().required(),
+        },
+    }),
+    messageController.findMessage,
+);
 
 export default messagesRouter;
