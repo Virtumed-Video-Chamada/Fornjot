@@ -31,9 +31,8 @@ class DoctorsRepository implements IDoctorRepository {
                 .createQueryBuilder("user")
                 .leftJoinAndSelect("user.doctor", "doctor")
                 .where("user.role = :role", { role: "DOCTOR" })
-                .select(["user.id", "user.name", "user.email", "user.role", "user.avatar", "user.created_at", "user.updated_at", "doctor.speciality"])
+                .select(["user.id", "user.name", "user.email", "user.role", "user.avatar", "user.created_at", "user.updated_at", "doctor"])
                 .getMany();
-
 
             return user;
         } catch (err) {

@@ -66,7 +66,7 @@ export default class ProfileController {
         return response.json(instanceToInstance(user));
     }
 
-    public async findByID(
+    public async findDoctorId(
         request: Request,
         response: Response,
     ): Promise<Response> {
@@ -74,7 +74,33 @@ export default class ProfileController {
 
         const updateUser = container.resolve(UpdateProfileService);
 
-        const user = await updateUser.findById(id);
+        const user = await updateUser.findDoctorId(id);
+
+        return response.json(instanceToInstance(user));
+    }
+
+    public async findClinicId(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const id = request.body;
+
+        const updateUser = container.resolve(UpdateProfileService);
+
+        const user = await updateUser.findClinicId(id);
+
+        return response.json(instanceToInstance(user));
+    }
+
+    public async findPacientId(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const id = request.body;
+
+        const updateUser = container.resolve(UpdateProfileService);
+
+        const user = await updateUser.findPacientId(id);
 
         return response.json(instanceToInstance(user));
     }

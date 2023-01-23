@@ -33,13 +33,33 @@ profileRouter.put(
 );
 
 profileRouter.post(
-    '/find',
+    '/findPacient',
     celebrate({
         [Segments.BODY]: {
             id: Joi.string().required(),
         },
     }),
-    profileController.findByID,
+    profileController.findPacientId,
+);
+
+profileRouter.post(
+    '/findDoctor',
+    celebrate({
+        [Segments.BODY]: {
+            id: Joi.string().required(),
+        },
+    }),
+    profileController.findDoctorId,
+);
+
+profileRouter.post(
+    '/findClinic',
+    celebrate({
+        [Segments.BODY]: {
+            id: Joi.string().required(),
+        },
+    }),
+    profileController.findClinicId,
 );
 
 export default profileRouter;
