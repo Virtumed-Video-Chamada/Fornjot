@@ -41,7 +41,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   });
 });
 
-httpServer.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log("🚀 Server started on port http://localhost:3333");
 });
 
