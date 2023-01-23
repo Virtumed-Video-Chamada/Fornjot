@@ -30,6 +30,7 @@ class PacientsRepository implements IPacientRepository {
             where: {
                 role: 'PACIENT',
             },
+            relations: ['pacient'],
         });
 
         return user;

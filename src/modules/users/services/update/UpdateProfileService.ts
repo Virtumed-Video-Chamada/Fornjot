@@ -74,10 +74,34 @@ class UpdateProfileService {
         return this.usersRepository.save(user);
     }
 
-    public async findById({
+    public async findClinicId({
         id,
     }: IRequestId): Promise<User | undefined | null> {
-        const user = await this.usersRepository.findById(id);
+        const user = await this.usersRepository.findClinicId(id);
+
+        if (!user) {
+            throw new AppError('User not found.');
+        }
+
+        return user;
+    }
+
+    public async findDoctorId({
+        id,
+    }: IRequestId): Promise<User | undefined | null> {
+        const user = await this.usersRepository.findDoctorId(id);
+
+        if (!user) {
+            throw new AppError('User not found.');
+        }
+
+        return user;
+    }
+
+    public async findPacientId({
+        id,
+    }: IRequestId): Promise<User | undefined | null> {
+        const user = await this.usersRepository.findPacientId(id);
 
         if (!user) {
             throw new AppError('User not found.');
