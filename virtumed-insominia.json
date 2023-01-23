@@ -1,7 +1,7 @@
 {
     "_type": "export",
     "__export_format": 4,
-    "__export_date": "2023-01-20T23:00:50.283Z",
+    "__export_date": "2023-01-23T22:17:36.076Z",
     "__export_source": "insomnia.desktop.app:v2022.7.5",
     "resources": [
         {
@@ -282,7 +282,7 @@
         {
             "_id": "req_79a938e8c35940c0abd9549d67b7e303",
             "parentId": "fld_3671d2315c454891b0b9f744634cf7ca",
-            "modified": 1674143926218,
+            "modified": 1674499395177,
             "created": 1674073482341,
             "url": "{{ base_url  }}/{{ resource  }}/pacient",
             "name": "Update-Pacient",
@@ -290,7 +290,7 @@
             "method": "PUT",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n    \"rg\": \"123456789\",\n    \"cpf\": \"12345678910\",\n    \"cep\": \"12345678\",\n    \"address\": \"Rua das Flores\",\n    \"number\": \"123\",\n    \"city\": \"São Paulo\",\n    \"district\": \"Jardins\",\n    \"state\": \"SP\",\n \n}"
+                "text": "{\n    \"rg\": \"123456789\",\n    \"cpf\": \"12345678910\",\n    \"cep\": \"12345678\",\n    \"address\": \"Rua das Flores\",\n    \"number\": \"123\",\n    \"city\": \"São Paulo\",\n    \"district\": \"Jardins\",\n    \"state\": \"SP\"\n}"
             },
             "parameters": [],
             "headers": [
@@ -496,7 +496,7 @@
         {
             "_id": "req_cf3c05e410f24fc08f196e9a9dd7adb8",
             "parentId": "fld_2e05295061e1423eae312553bf09ca92",
-            "modified": 1674244901418,
+            "modified": 1674511867190,
             "created": 1587336704660,
             "url": "{{ base_url  }}/{{ resource  }}",
             "name": "Login",
@@ -504,7 +504,7 @@
             "method": "POST",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"email\": \"humberto.araripe14@gmail.com\",\n\t\"password\": \"123456\"\n}"
+                "text": "{\n\t\"email\": \"admin@email.com\",\n\t\"password\": \"123456\"\n}"
             },
             "parameters": [],
             "headers": [
@@ -666,15 +666,15 @@
         {
             "_id": "req_bac690e92bae48b5b18720105c6a22b2",
             "parentId": "fld_0295c97206fc41ddb7316435cd004adc",
-            "modified": 1674237353612,
+            "modified": 1674487081351,
             "created": 1674235049007,
-            "url": "{{ base_url  }}/{{ resource  }}/find",
-            "name": "FindById",
+            "url": "{{ base_url  }}/{{ resource  }}/findPacient",
+            "name": "FindByIdPacient",
             "description": "",
             "method": "POST",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"id\": \"2d5aab52-b4e8-4527-a88f-11c0bbd69347\"\n}"
+                "text": "{\n\t\"id\": \"08651fa6-cfc4-4b59-9749-1fc467be63d5\"\n}"
             },
             "parameters": [],
             "headers": [
@@ -705,6 +705,68 @@
             "environmentPropertyOrder": { "&": ["resource"] },
             "metaSortKey": -1673130435389,
             "_type": "request_group"
+        },
+        {
+            "_id": "req_81b2bdb12fde4b949548608f7a82b5a5",
+            "parentId": "fld_0295c97206fc41ddb7316435cd004adc",
+            "modified": 1674509353779,
+            "created": 1674486933676,
+            "url": "{{ base_url  }}/{{ resource  }}/findClinic",
+            "name": "FindByIdClinic",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"id\": \"ab80a4c6-30a2-4e24-b1bb-512fb87309eb\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_cf3c05e410f24fc08f196e9a9dd7adb8', 'b64::JC50b2tlbg==::46b', 'no-history' %}"
+            },
+            "metaSortKey": -1673129727162.75,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_acc201c8859e4e539c08774a6d37e243",
+            "parentId": "fld_0295c97206fc41ddb7316435cd004adc",
+            "modified": 1674486964075,
+            "created": 1674486941798,
+            "url": "{{ base_url  }}/{{ resource  }}/findDoctor",
+            "name": "FindByIdDoctor",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"id\": \"2d5aab52-b4e8-4527-a88f-11c0bbd69347\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_cf3c05e410f24fc08f196e9a9dd7adb8', 'b64::JC50b2tlbg==::46b', 'no-history' %}"
+            },
+            "metaSortKey": -1673129373055.875,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
         },
         {
             "_id": "req_16c58453135b4832b8dafd3e12f35c48",
@@ -747,9 +809,9 @@
         {
             "_id": "req_86235c5d770644b3aff374643aee3d96",
             "parentId": "fld_f1b33fccb8ac41798863824b5cbf7868",
-            "modified": 1590111662518,
+            "modified": 1674511371351,
             "created": 1589073306740,
-            "url": "{{ base_url  }}/{{ resource  }}/f990c0f4-fce8-48ae-8c02-5c15b688c773/month-availability",
+            "url": "{{ base_url  }}/{{ resource  }}/d0ec824ce8b2f652668f3022f7aa7dc7/month-availability",
             "name": "Month",
             "description": "",
             "method": "GET",
@@ -798,9 +860,9 @@
         {
             "_id": "req_885ae187c55f47debfa2dac32c7cf13c",
             "parentId": "fld_f1b33fccb8ac41798863824b5cbf7868",
-            "modified": 1590111659835,
+            "modified": 1674511358319,
             "created": 1589073526908,
-            "url": "{{ base_url  }}/{{ resource  }}/f990c0f4-fce8-48ae-8c02-5c15b688c773/day-availability",
+            "url": "{{ base_url  }}/{{ resource  }}/d0ec824ce8b2f652668f3022f7aa7dc7/day-availability",
             "name": "Day",
             "description": "",
             "method": "GET",
@@ -843,7 +905,7 @@
         {
             "_id": "req_a14e484fb41f49999052bb8cb68b1f71",
             "parentId": "fld_9295d7375db34d588b4631ea8a5fecc8",
-            "modified": 1672876461229,
+            "modified": 1674509817798,
             "created": 1586901740815,
             "url": "{{ base_url  }}/{{ resource  }}",
             "name": "Create",
@@ -851,7 +913,7 @@
             "method": "POST",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"provider_id\": \"84616a6f-6ab3-4937-be46-66ca36a30dfc\",\n\t\"date\": \"2023-01-21 13:00:00\"\n}"
+                "text": "{\n\t\"provider_id\": \"cb30d452-5456-4d34-92e7-df99ca159b78\",\n\t\"date\": \"2023-01-23 20:00:00\"\n}"
             },
             "parameters": [],
             "headers": [
@@ -890,9 +952,9 @@
         {
             "_id": "req_944ea1bed12f4ee19c85585d99d82932",
             "parentId": "fld_9295d7375db34d588b4631ea8a5fecc8",
-            "modified": 1590111713505,
+            "modified": 1674486278718,
             "created": 1586908244354,
-            "url": "{{ base_url  }}/{{ resource  }}",
+            "url": "{{ base_url  }}/{{ resource  }}/me",
             "name": "List",
             "description": "",
             "method": "GET",
@@ -1407,7 +1469,7 @@
         {
             "_id": "env_b6c04d6e04874b328c09bc7c774ff830",
             "parentId": "env_eecdeabfa88846e097ae808ea8ab0f2d6473b846",
-            "modified": 1673716986481,
+            "modified": 1674501837006,
             "created": 1590110473228,
             "name": "dev",
             "data": {
@@ -1423,11 +1485,11 @@
         {
             "_id": "env_dab38405653046d3beb555825992a4af",
             "parentId": "env_eecdeabfa88846e097ae808ea8ab0f2d6473b846",
-            "modified": 1673992986320,
+            "modified": 1674509313251,
             "created": 1590110564582,
             "name": "prod",
             "data": {
-                "base_url": "http://159.223.106.132",
+                "base_url": "https://humberto.online",
                 "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTAxMDg0NDQsImV4cCI6MTU5MDE5NDg0NCwic3ViIjoiODMxNTE4ODQtYzliOS00YzdlLWJiOTctZGJkODFlOWYzNjQ4In0.iRZuUYQAxbdyYKbpPa2BN7ZxiPBJymEXP5yxtcRtUeA"
             },
             "dataPropertyOrder": { "&": ["base_url", "token"] },

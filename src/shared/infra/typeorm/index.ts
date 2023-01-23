@@ -33,10 +33,10 @@ PostgresDataSource.initialize()
     });
 
 export const MongoDataSource = new DataSource({
-    name: process.env.DB_USER_MONGO,
+    name: "mongodb",
     type: 'mongodb',
     host: process.env.DB_HOST,
-    password: process.env.DB_PASS_MONGO,
+    //password: process.env.DB_PASS_MONGO,
     port: portMongoDB,
     database: process.env.DB_NAME,
     useUnifiedTopology: true,
