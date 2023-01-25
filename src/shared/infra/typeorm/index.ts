@@ -21,7 +21,7 @@ export const PostgresDataSource = new DataSource({
         },
     },
     synchronize: true,
-    logging: false,
+    logging: true,
 });
 
 PostgresDataSource.initialize()
@@ -40,7 +40,7 @@ export const MongoDataSource = new DataSource({
     port: portMongoDB,
     database: process.env.DB_NAME,
     useUnifiedTopology: true,
-    logging: false,
+    logging: true,
     entities: ['./dist/modules/**/infra/typeorm/schemas/*.js'],
 });
 

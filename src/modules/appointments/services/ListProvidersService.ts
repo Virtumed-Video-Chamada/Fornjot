@@ -20,7 +20,7 @@ class ListProvidersService {
     ) {}
 
     public async execute({ user_id }: IRequest): Promise<User[]> {
-        /*let users = await this.cacheProvider.recover<User[]>(
+        let users = await this.cacheProvider.recover<User[]>(
             `providers-list:${user_id}`,
         );
 
@@ -33,12 +33,8 @@ class ListProvidersService {
                 `providers-list:${user_id}`,
                 instanceToInstance(users),
             );
-        }*/
+        }
 
-        const users = await this.usersRepository.findAllProviders({
-            expect_user_id: user_id,
-        });
-        
         return users;
     }
 }

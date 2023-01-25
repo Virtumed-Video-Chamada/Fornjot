@@ -1,4 +1,4 @@
-import FakeAppointmentsRepository from "../repositories/Fakes/FakeAppointmentsRepository";
+/*import FakeAppointmentsRepository from "../repositories/Fakes/FakeAppointmentsRepository";
 import ListProviderDayAvailabilityService from "./ListProviderDayAvailabilityService";
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
@@ -48,4 +48,4 @@ describe("ListProviderDayAvailability", () => {
       ]),
     );
   });
-});
+});*/

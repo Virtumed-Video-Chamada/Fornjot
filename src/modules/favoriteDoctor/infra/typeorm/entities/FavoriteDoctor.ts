@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import Pacient from '../../../../pacient/infra/typeorm/entities/Pacient';
 
-@Entity()
+@Entity("favorite")
 class FavoriteDoctor {
     @PrimaryGeneratedColumn('uuid')
     id: string;

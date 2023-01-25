@@ -50,6 +50,8 @@ class ListProvidersDayAvailabilityService {
                 appointment => getHours(appointment.date) === hour,
             );
 
+            console.log(hasAppointmentInHour);
+
             const compareDate = new Date(year, month - 1, day, hour);
 
             return {

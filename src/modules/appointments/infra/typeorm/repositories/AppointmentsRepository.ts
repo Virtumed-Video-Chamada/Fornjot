@@ -53,16 +53,19 @@ class AppointmentsRepository implements IAppointmentsRepository {
     month,
     year,
   }: IFindAllInDayFromProviderDTO): Promise<Appointment[]> {
-    //const parsedDay = String(day).padStart(2, "0");
-    //const parsedMonth = String(month).padStart(2, "0");
+    const parsedDay = String(day).padStart(2, "0");
+    const parsedMonth = String(month).padStart(2, "0");
 
-    const appointments = await this.ormRepository
-          .createQueryBuilder('appointment')
-          .where('appointment.provider_id = :provider_id', { provider_id })
-          .andWhere('EXTRACT(DAY FROM appointment.date) = :day', { day })
-          .andWhere('EXTRACT(MONTH FROM appointment.date) = :month', { month })
-          .andWhere('EXTRACT(YEAR FROM appointment.date) = :year', { year })
-          .getMany();
+    const appointments = await this.ormRepository.find({
+      where: {
+        provider_id,
+        date: Raw(
+          dateFieldName =>
+            `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`,
+        ),
+      },
+      relations: ["user"],
+    });
 
     return appointments;
   }
