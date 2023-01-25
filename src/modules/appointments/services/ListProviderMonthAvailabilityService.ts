@@ -36,10 +36,9 @@ class ListProvidersMonthAvailabilityService {
 
     const numberOfDaysInMonth = getDaysInMonth(new Date(year, month - 1));
 
-    const eachDayArray = Array.from(
-      { length: numberOfDaysInMonth },
-      (_, index) => index + 1,
-    );
+    const eachDayArray = Array.from({
+        length: numberOfDaysInMonth
+    },(_, index) => index + 1);
 
     const availability = eachDayArray.map(day => {
       const compareDate = new Date(year, month - 1, day, 23, 59, 59);

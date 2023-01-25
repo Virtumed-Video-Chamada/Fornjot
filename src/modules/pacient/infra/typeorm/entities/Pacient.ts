@@ -19,28 +19,28 @@ class Pacient {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     rg: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     cpf: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     cep: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     address: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     number: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     state: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     district: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     city: string;
 
     @OneToOne(() => Pacient, pacient => pacient.user)
@@ -52,7 +52,7 @@ class Pacient {
 
     @OneToMany(() => FavoriteDoctor, favoriteDoctor => favoriteDoctor.doctors)
     @JoinColumn()
-    favoriteDoctor: FavoriteDoctor[];
+    favoriteDoctor?: FavoriteDoctor[];
 
     @CreateDateColumn()
     created_at: Date;
