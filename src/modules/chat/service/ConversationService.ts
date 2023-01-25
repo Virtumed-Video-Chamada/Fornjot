@@ -1,18 +1,34 @@
-import { injectable, inject } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
+import Conversation from '../infra/typeorm/schemas/Conversation';
 import IConversationRepository from '../repositories/IConversationRepository';
-import User from '@modules/users/infra/typeorm/entities/User';
 
-injectable()
+@injectable()
 class ConversationService {
     constructor(
         @inject('ConversationsRepository')
         private conversationResitory: IConversationRepository,
     ) {}
 
-    public async execute(id: string): Promise<User[] | null | void> {
-        const user = await this.conversationResitory.findConversation(id);
+    public async execute(user_id: string): Promise<Conversation[] | undefined> {
+        const conversation = await this.conversationResitory.findConversation(
+            user_id,
+        );
 
-        return user;
+        console.log(user_id)
+        return conversation;
+    }
+
+    public async twoUsers(
+        firstUserId: string,
+        secondUserId: string,
+    ): Promise<Conversation | null> {
+        const conversation =
+            await this.conversationResitory.findTwoConversation(
+                firstUserId,
+                secondUserId,
+            );
+
+        return conversation;
     }
 }
 

@@ -1,17 +1,14 @@
 import ICreateConversationDTO from '@modules/chat/dtos/ICreateConversationDTO';
 import Conversation from '@modules/chat/infra/typeorm/schemas/Conversation';
 import IConversationRepository from '@modules/chat/repositories/IConversationRepository';
-import User from '@modules/users/infra/typeorm/entities/User';
-import { MongoDataSource, PostgresDataSource } from '@shared/infra/typeorm';
-import { Repository } from 'typeorm';
+import { MongoDataSource } from '@shared/infra/typeorm';
+import { And, In, Repository } from 'typeorm';
 
 class ConversationsRepository implements IConversationRepository {
     private ormRepository: Repository<Conversation>;
-    private userOrmRepository: Repository<User>;
 
     constructor() {
         this.ormRepository = MongoDataSource.getMongoRepository(Conversation);
-        this.userOrmRepository = PostgresDataSource.getRepository(User);
     }
 
     public async save(data: ICreateConversationDTO): Promise<Conversation> {
@@ -24,23 +21,29 @@ class ConversationsRepository implements IConversationRepository {
         return newConversation;
     }
 
-    public async findConversation(id: string): Promise<User[] | null | void> {
-        const user = this.userOrmRepository.find({
-            where: { id },
+    public async findConversation(
+        user_id: string,
+    ): Promise<Conversation[] | undefined> {
+        const conversation = await this.ormRepository.find({
+            where: {
+                members: In([user_id]),
+            },
         });
-        return user;
+        return conversation;
     }
 
-    // public async findIncludeTwoUsers(
-    //     id: string,
-    //     secondId: string,
-    // ): Promise<User[] | undefined> {
-    //     const firstUser = this.userOrmRepository.findOne({
-    //         where: { id },
-    //     });
-
-    //     return user;
-    // }
+    public async findTwoConversation(
+        firstUserId: string,
+        secondUserId: string,
+    ): Promise<Conversation | null> {
+        const conversation = await this.ormRepository.findOne({
+            where: {
+                members: In([firstUserId, secondUserId]),
+            },
+        });
+        return conversation;
+        // console.log(JSON.stringify(conversation))
+    }
 }
 
 export default ConversationsRepository;

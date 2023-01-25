@@ -9,8 +9,11 @@ import AppError from "@shared/errors/AppError";
 import routes from "./routes";
 import rateLimiter from "./middlewares/rateLimiter";
 
+
 import "@shared/infra/typeorm/index";
 import "@shared/container";
+import { httpServer } from "./routes/socket";
+
 
 const app = express();
 
@@ -41,3 +44,4 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
 app.listen(process.env.PORT, () => {
   console.log("🚀 Server started on port http://localhost:3333");
 });
+

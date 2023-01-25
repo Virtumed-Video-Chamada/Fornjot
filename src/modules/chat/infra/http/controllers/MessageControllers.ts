@@ -1,3 +1,4 @@
+import MessageService from '@modules/chat/service/MessageService';
 import CreateMessageService from '@modules/chat/service/create/CreateMessageService';
 import { instanceToInstance } from 'class-transformer';
 import { Request, Response } from 'express';
@@ -17,6 +18,19 @@ export default class MessageController {
             sender,
             text,
         });
+
+        return response.json(instanceToInstance(message));
+    }
+
+    public async findMessage(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { converesationId } = request.params;
+
+        const findMessage = container.resolve(MessageService);
+
+        const message = await findMessage.execute(converesationId);
 
         return response.json(instanceToInstance(message));
     }

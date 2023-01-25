@@ -3,30 +3,32 @@ import { container } from 'tsyringe';
 import '@modules/users/providers';
 import './providers';
 
-import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
 import AppointmentsRepository from '@modules/appointments/infra/typeorm/repositories/AppointmentsRepository';
+import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
 
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
-import IUsersTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UsersTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
+import IUsersTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 
-import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import NotificationsRepository from '@modules/notifications/infra/typeorm/repositories/NotificationsRepository';
+import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 
-import IDoctorRepository from '@modules/doctor/repositories/IDoctorRepository';
 import DoctorsRepository from '@modules/doctor/infra/typeorm/repositories/DoctorsRepository';
+import IDoctorRepository from '@modules/doctor/repositories/IDoctorRepository';
 
-import IClinicRepository from '@modules/clinic/repositories/IClinicsRepository';
 import ClinicsRepository from '@modules/clinic/infra/typeorm/repositories/ClinicsRepository';
+import IClinicRepository from '@modules/clinic/repositories/IClinicsRepository';
 
-import IPacientRepository from '@modules/pacient/repositories/IPacientRepository';
-import PacientsRepository from '@modules/pacient/infra/typeorm/repositories/PacientsRepository';
-import IAdiminRepository from '@modules/admin/repositories/IAdminRepository';
 import AdminsRepository from '@modules/admin/infra/typeorm/repositories/AdminsRepository';
-import IConversationRepository from '@modules/chat/repositories/IConversationRepository';
+import IAdiminRepository from '@modules/admin/repositories/IAdminRepository';
 import ConversationsRepository from '@modules/chat/infra/typeorm/repositories/ConversationRepository';
+import MessageRepository from '@modules/chat/infra/typeorm/repositories/MessageRepository';
+import IConversationRepository from '@modules/chat/repositories/IConversationRepository';
+import IMessageRepository from '@modules/chat/repositories/IMessageRepository';
+import PacientsRepository from '@modules/pacient/infra/typeorm/repositories/PacientsRepository';
+import IPacientRepository from '@modules/pacient/repositories/IPacientRepository';
 
 container.registerSingleton<IAppointmentsRepository>(
     'AppointmentsRepository',
@@ -71,4 +73,9 @@ container.registerSingleton<INotificationsRepository>(
 container.registerSingleton<IConversationRepository>(
     'ConversationsRepository',
     ConversationsRepository,
+);
+
+container.registerSingleton<IMessageRepository>(
+    'MessageRepository',
+    MessageRepository,
 );

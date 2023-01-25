@@ -25,13 +25,28 @@ export default class ConversationsController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-
-        const { id } = request.params;
+        const { user_id } = request.params;
 
         const findConversation = container.resolve(ConversationService);
 
-        const conversation = await findConversation.execute(id);
+        const conversation = await findConversation.execute(user_id);
 
+        console.log(conversation)
+        return response.json(instanceToInstance(conversation));
+    }
+
+    public async findTwoConversation(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { firstUserId, secondUserId } = request.params;
+
+        const findConversation = container.resolve(ConversationService);
+
+        const conversation = await findConversation.twoUsers(
+            firstUserId,
+            secondUserId,
+        );
         return response.json(instanceToInstance(conversation));
     }
 }
