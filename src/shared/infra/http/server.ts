@@ -9,11 +9,9 @@ import AppError from "@shared/errors/AppError";
 import routes from "./routes";
 import rateLimiter from "./middlewares/rateLimiter";
 
-
 import "@shared/infra/typeorm/index";
 import "@shared/container";
 import { httpServer } from "./routes/socket";
-
 
 const app = express();
 

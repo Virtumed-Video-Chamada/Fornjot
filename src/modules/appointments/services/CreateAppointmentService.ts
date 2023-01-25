@@ -42,6 +42,12 @@ class CreateAppointmentService {
       throw new AppError("You can't create an appointment with yourself");
     }
 
+    /* if (getHours(appointmentDate) < 6 || getHours(appointmentDate) > 23) {
+        throw new AppError(
+          "You can only create appointments",
+        );
+      } */
+
     const findAppoitmentInSameDate = await this.appointmentsRepository.findByDate(
       appointmentDate,
       provider_id,
