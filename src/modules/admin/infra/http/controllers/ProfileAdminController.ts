@@ -32,21 +32,21 @@ export default class ProfileAdiminController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { id, rg, cpf, cep, address, number, city, district, state } =
+        const { id, cep, rg, cpf, address, number, city, district, state } =
             request.body;
 
         const updateUser = container.resolve(UpdateAdminsService);
 
         const user = await updateUser.updatePacient({
             id,
+            cep,
             rg,
             cpf,
-            cep,
             address,
             number,
             city,
             district,
-            state,
+            state
         });
 
         return response.json(instanceToInstance(user));

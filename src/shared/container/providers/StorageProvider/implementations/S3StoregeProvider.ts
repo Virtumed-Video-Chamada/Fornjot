@@ -5,7 +5,7 @@ import uploadConfig from '@config/upload';
 import IStorageProvider from '../models/IStorageProvider';
 import mime from 'mime';
 
-class S3StoregeProvider implements IStorageProvider {
+class S3StorageProvider implements IStorageProvider {
     private client: S3;
 
     constructor() {
@@ -49,4 +49,4 @@ class S3StoregeProvider implements IStorageProvider {
     }
 }
 
-export default S3StoregeProvider;
+export default S3StorageProvider;

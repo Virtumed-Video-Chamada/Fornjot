@@ -1,6 +1,5 @@
 import { injectable, inject } from 'tsyringe';
 
-import AppError from '@shared/errors/AppError';
 import IAdiminRepository from '@modules/admin/repositories/IAdminRepository';
 
 interface IRequestDelete {

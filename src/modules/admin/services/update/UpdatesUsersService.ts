@@ -124,7 +124,7 @@ class UpdateAdminsService {
         district,
         state,
     }: IRequestPacient): Promise<User | null> {
-        const user = await this.usersRepository.findById(id);
+        const user = await this.usersRepository.updatePacient(id);
 
         if (!user) {
             throw new AppError('User not found.');

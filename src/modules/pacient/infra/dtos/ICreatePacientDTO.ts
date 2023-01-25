@@ -1,5 +1,5 @@
 export default interface ICreatePacientDTO {
-    id: string;
+    id?: string;
     name: string;
 	rg: string;
 	cpf: string;

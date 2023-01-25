@@ -31,6 +31,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
     month,
     year,
   }: IFindAllInMonthFromProviderDTO): Promise<Appointment[]> {
+    //Formato que deve ser enviado a data ["01, 02, 03, até 12"]
     const parsedMonth = String(month).padStart(2, "0");
 
     const appointments = await this.ormRepository.find({
@@ -66,6 +67,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
       relations: ["user"],
     });
 
+    
     return appointments;
   }
 

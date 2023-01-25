@@ -5,18 +5,17 @@ import {
     JoinColumn,
     ManyToOne,
     OneToMany,
-    OneToOne,
     PrimaryGeneratedColumn
 } from 'typeorm';
 import Pacient from '../../../../pacient/infra/typeorm/entities/Pacient';
 
-@Entity()
+@Entity("favorite")
 class FavoriteDoctor {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column('varchar')
-    doctorsId:string[];
+    doctorsId: string[];
 
     @OneToMany(() => Doctor, doctor => doctor.id)
     @JoinColumn()

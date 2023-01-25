@@ -20,8 +20,8 @@ export const PostgresDataSource = new DataSource({
             migrationsDir: './dist/shared/infra/typeorm/migrations',
         },
     },
-    synchronize: true,
-    logging: false,
+    synchronize: false,
+    logging: true,
 });
 
 PostgresDataSource.initialize()
@@ -33,7 +33,7 @@ PostgresDataSource.initialize()
     });
 
 export const MongoDataSource = new DataSource({
-    name: "mongodb",
+    username: "mongodb",
     type: 'mongodb',
     host: process.env.DB_HOST,
     //password: process.env.DB_PASS_MONGO,
