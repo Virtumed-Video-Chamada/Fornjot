@@ -14,13 +14,13 @@ export const PostgresDataSource = new DataSource({
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     entities: ['./dist/modules/**/infra/typeorm/entities/*.js'],
-    migrations: ['./dist/shared/infra/db/migrations/*.js'],
+    migrations: ['./dist/shared/infra/typeorm/migrations/*.js'],
     extra: {
         cli: {
             migrationsDir: './dist/shared/infra/typeorm/migrations',
         },
     },
-    synchronize: false,
+    synchronize: true,
     logging: true,
 });
 
@@ -40,7 +40,7 @@ export const MongoDataSource = new DataSource({
     port: portMongoDB,
     database: process.env.DB_NAME,
     useUnifiedTopology: true,
-    logging: false,
+    logging: true,
     entities: ['./dist/modules/**/infra/typeorm/schemas/*.js'],
 });
 
