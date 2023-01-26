@@ -21,6 +21,7 @@
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
     },
     "include": [
         "dist/**/*.js",
