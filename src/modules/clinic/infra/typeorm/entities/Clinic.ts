@@ -3,7 +3,7 @@ import User from "@modules/users/infra/typeorm/entities/User";
 import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
 import Pacient from '@modules/pacient/infra/typeorm/entities/Pacient';
 
-@Entity("clinic")
+@Entity()
 class Clinic {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
