@@ -14,7 +14,7 @@ import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
 import Pacient from '@modules/pacient/infra/typeorm/entities/Pacient';
 import Clinic from '@modules/clinic/infra/typeorm/entities/Clinic';
 
-@Entity()
+@Entity("users")
 class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
