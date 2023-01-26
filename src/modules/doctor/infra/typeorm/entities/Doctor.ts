@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, CreateDate
 import User from "@modules/users/infra/typeorm/entities/User";
 import Clinic from '@modules/clinic/infra/typeorm/entities/Clinic';
 
-@Entity("doctor")
+@Entity()
 class Doctor {
   @PrimaryGeneratedColumn("uuid")
   id: string;
