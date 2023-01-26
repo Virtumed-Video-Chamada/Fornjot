@@ -8,14 +8,17 @@ import uploadConfig from "@config/upload";
 import AppError from "@shared/errors/AppError";
 import routes from "./routes";
 import rateLimiter from "./middlewares/rateLimiter";
-
-
+import swaggerUI from "swagger-ui-express"
 import "@shared/infra/typeorm/index";
 import "@shared/container";
-import { httpServer } from "./routes/socket";
+import { httpServer } from "./middlewares/socket";
+import swaggerDocs from "./swagger.json"
 
 
 const app = express();
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
+
 
 app.use(cors());
 app.use(express.json());
