@@ -36,7 +36,6 @@ export const MongoDataSource = new DataSource({
     username: "mongodb",
     type: 'mongodb',
     host: process.env.DB_HOST,
-    //password: process.env.DB_PASS_MONGO,
     port: portMongoDB,
     database: process.env.DB_NAME,
     useUnifiedTopology: true,

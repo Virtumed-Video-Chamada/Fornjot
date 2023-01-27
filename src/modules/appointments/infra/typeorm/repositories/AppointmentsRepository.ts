@@ -67,8 +67,17 @@ class AppointmentsRepository implements IAppointmentsRepository {
       relations: ["user"],
     });
 
-    
-    return appointments;
+    const cleanedAppointments = appointments.map(appointment => {
+        const cleanedUser = Object.entries(appointment.user).reduce((obj: { [key: string]: any }, [key, value]) => {
+          if(key !== "password" && key !== "created_at" && key !== "avatar" && key !== "updated_at" )
+            obj[key] = value;
+          return obj;
+        }, {});
+        return Object.assign({}, appointment, { user: cleanedUser });
+    });
+
+
+    return cleanedAppointments;
   }
 
   public async create({
