@@ -13,6 +13,9 @@ import {
 import User from '@modules/users/infra/typeorm/entities/User';
 import FavoriteDoctor from '@modules/favoriteDoctor/infra/typeorm/entities/FavoriteDoctor';
 import Clinic from '@modules/clinic/infra/typeorm/entities/Clinic';
+import PatientInfo from '@modules/infoPacient/infra/typeorm/entities/InfoPacient';
+import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
+import MedicalRecord from '@modules/medicalRecord/infra/typeorm/entities/MedicalRecord';
 
 @Entity()
 class Pacient {
@@ -49,6 +52,16 @@ class Pacient {
     @ManyToMany(() => Clinic, clinic => clinic.pacients)
     @JoinTable()
     clinics?: Clinic[];
+
+    @ManyToMany(() => Doctor, doctor => doctor.pacients)
+    @JoinTable()
+    doctors?: Doctor[];
+
+    @OneToMany(() => PatientInfo, patientInfo => patientInfo.pacient)
+    info: PatientInfo;
+
+    @OneToMany(() => MedicalRecord, medicalRecord => medicalRecord.pacient)
+    medicalRecords: MedicalRecord;
 
     @OneToMany(() => FavoriteDoctor, favoriteDoctor => favoriteDoctor.doctors)
     @JoinColumn()

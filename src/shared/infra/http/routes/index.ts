@@ -14,6 +14,8 @@ import clinicsRouter from "@modules/clinic/infra/http/routes/clinic.routes";
 import adminsRouter from "@modules/admin/infra/http/routes/admin.routes";
 import conversationsRouter from "@modules/chat/infra/http/routes/conversation.routes";
 import messagesRouter from "@modules/chat/infra/http/routes/message.routes";
+import infoPacient from "@modules/infoPacient/infra/http/routes/infoPatient.routes";
+import medicalRecord from "@modules/medicalRecord/infra/http/routes/medicalRecord.routes";
 
 const routes = Router();
 
@@ -22,8 +24,10 @@ routes.get("/", (req: Request, res: Response) => {
 })
 
 routes.use("/admin", adminsRouter);
+routes.use("/medicalRecord", medicalRecord);
 routes.use("/clinic", clinicsRouter);
 routes.use("/pacient", pacientRouter);
+routes.use("/infoPacient", infoPacient);
 routes.use("/doctors", doctorsRouter);
 routes.use("/sessions", sessionsRouter);
 routes.use("/users", usersRouter);
