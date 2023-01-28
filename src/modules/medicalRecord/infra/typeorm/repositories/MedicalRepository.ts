@@ -42,6 +42,39 @@ class MedicalRecordRepository implements IMedicalRecordRepository {
         return medicalRecord;
     }
 
+    public async findByIdMedicalRecordForDoctor(id: string): Promise<MedicalRecord[] | null> {
+        const user = await this.findDoctorById(id);
+
+        const infoUser = user?.doctor.id
+
+        const medicalRecord = await this.medicalRecordRepository.find({
+            where: {
+                doctor: {
+                    id: infoUser
+                }
+            }
+        })
+
+
+        return medicalRecord;
+    }
+
+    public async findByIdMedicalRecordForPatient(id: string): Promise<MedicalRecord[] | null> {
+        const user = await this.findById(id);
+
+        const infoUser = user?.pacient.id
+
+        const medicalRecord = await this.medicalRecordRepository.find({
+            where: {
+                pacient: {
+                    id: infoUser
+                }
+            }
+        })
+
+
+        return medicalRecord;
+    }
 
     public async findById(id: string): Promise<User | null> {
         const user = await this.ormRepository.findOne({

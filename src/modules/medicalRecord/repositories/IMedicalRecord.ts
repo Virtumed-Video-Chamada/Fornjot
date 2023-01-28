@@ -4,6 +4,9 @@ import MedicalRecord from '../infra/typeorm/entities/MedicalRecord';
 
 export default interface IMedicalRecordRepository {
     createMedicalRecord(data: ICreateMedicalRecordDTO): Promise<MedicalRecord | null>;
+    findByIdMedicalRecordForDoctor(id: string): Promise<MedicalRecord[] | null>;
+    findByIdMedicalRecordForPatient(id: string): Promise<MedicalRecord[] | null>;
+    findById(id: string): Promise<User | undefined | null>;
     findById(id: string): Promise<User | undefined | null>;
     findByEmail(email: string): Promise<User | undefined | null>;
     save(user: User): Promise<User>;

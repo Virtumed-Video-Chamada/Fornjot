@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
-import authMiddleware from '@shared/infra/http/middlewares/auth.doctor';
+import authDoctor from '@shared/infra/http/middlewares/auth.doctor';
+import authPatient from '@shared/infra/http/middlewares/auth.patient';
 import MedicalRecordController from '../controllers/MedicalRecordController';
 
 const medicalRecord = Router();
@@ -9,7 +10,7 @@ const medicalRecordController = new MedicalRecordController();
 
 medicalRecord.post(
     '/',
-    authMiddleware,
+    authDoctor,
     celebrate({
         [Segments.BODY]: {
             pacientId: Joi.string().required(),
@@ -19,34 +20,40 @@ medicalRecord.post(
         },
     }),
     medicalRecordController.create,
+);
+
+medicalRecord.get(
+    '/me/patient',
+    authPatient,
+    medicalRecordController.findForPatient,
+);
+
+medicalRecord.get(
+    '/me/doctor',
+    authDoctor,
+    medicalRecordController.findForDoctor,
 );
 
 medicalRecord.get(
     '/patient',
-    authMiddleware,
+    authDoctor,
     celebrate({
         [Segments.BODY]: {
-            pacientId: Joi.string().required(),
-            diagnosis: Joi.string().required(),
-            observations: Joi.string().required(),
-            date: Joi.date(),
+            id: Joi.string().required(),
         },
     }),
-    medicalRecordController.create,
+    medicalRecordController.findForPatientBody,
 );
 
-medicalRecord.get(
+/* medicalRecord.get(
     '/doctor',
     authMiddleware,
     celebrate({
         [Segments.BODY]: {
-            pacientId: Joi.string().required(),
-            diagnosis: Joi.string().required(),
-            observations: Joi.string().required(),
-            date: Joi.date(),
+            id: Joi.string().required(),
         },
     }),
-    medicalRecordController.create,
-);
+    medicalRecordController.findForPatient,
+); */
 
 export default medicalRecord;
