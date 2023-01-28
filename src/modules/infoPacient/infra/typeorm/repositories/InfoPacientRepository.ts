@@ -47,6 +47,36 @@ class InfoPacientRepository implements IInfoPacientRepository {
         return user;
     }
 
+    public async findInfoPatient(id: string): Promise<PatientInfo[] | null> {
+        const user = await this.findById(id)
+        const pacientId = user?.pacient.id
+
+        const Patientinfo = await this.infoPacientRepository.find({
+            where: {
+                pacient: {
+                    id: pacientId
+                }
+            }
+        });
+
+        return Patientinfo;
+    }
+
+    public async findInfoPatientForDoctor(id: string): Promise<PatientInfo[] | null> {
+        const user = await this.findById(id)
+        const pacientId = user?.pacient.id
+
+        const Patientinfo = await this.infoPacientRepository.find({
+            where: {
+                pacient: {
+                    id: pacientId
+                }
+            }
+        });
+
+        return Patientinfo;
+    }
+
     public async findByEmail(email: string): Promise<User | undefined | null> {
         const user = await this.ormRepository.findOne({
             where: { email },
