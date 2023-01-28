@@ -21,5 +21,32 @@ medicalRecord.post(
     medicalRecordController.create,
 );
 
+medicalRecord.get(
+    '/patient',
+    authMiddleware,
+    celebrate({
+        [Segments.BODY]: {
+            pacientId: Joi.string().required(),
+            diagnosis: Joi.string().required(),
+            observations: Joi.string().required(),
+            date: Joi.date(),
+        },
+    }),
+    medicalRecordController.create,
+);
+
+medicalRecord.get(
+    '/doctor',
+    authMiddleware,
+    celebrate({
+        [Segments.BODY]: {
+            pacientId: Joi.string().required(),
+            diagnosis: Joi.string().required(),
+            observations: Joi.string().required(),
+            date: Joi.date(),
+        },
+    }),
+    medicalRecordController.create,
+);
 
 export default medicalRecord;
