@@ -16,7 +16,6 @@ class MessageService {
             conversationId,
         );
 
-        console.log(findMessage);
         return findMessage;
     }
 }

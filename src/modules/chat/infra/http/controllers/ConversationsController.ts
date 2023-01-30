@@ -31,7 +31,6 @@ export default class ConversationsController {
 
         const conversation = await findConversation.execute(user_id);
 
-        console.log(conversation)
         return response.json(instanceToInstance(conversation));
     }
 
@@ -43,10 +42,11 @@ export default class ConversationsController {
 
         const findConversation = container.resolve(ConversationService);
 
-        const conversation = await findConversation.twoUsers(
+        const conversation = await findConversation.twoUsers({
             firstUserId,
             secondUserId,
-        );
+        });
+
         return response.json(instanceToInstance(conversation));
     }
 }

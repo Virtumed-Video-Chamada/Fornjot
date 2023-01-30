@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import ITwoConversationDTO from '../dtos/ITwoConversatiosDTO';
 import Conversation from '../infra/typeorm/schemas/Conversation';
 import IConversationRepository from '../repositories/IConversationRepository';
 
@@ -14,19 +15,18 @@ class ConversationService {
             user_id,
         );
 
-        console.log(user_id)
         return conversation;
     }
 
-    public async twoUsers(
-        firstUserId: string,
-        secondUserId: string,
-    ): Promise<Conversation | null> {
+    public async twoUsers({
+        firstUserId,
+        secondUserId,
+    }: ITwoConversationDTO): Promise<Conversation | null> {
         const conversation =
-            await this.conversationResitory.findTwoConversation(
+            await this.conversationResitory.findTwoConversation({
                 firstUserId,
                 secondUserId,
-            );
+            });
 
         return conversation;
     }

@@ -16,6 +16,7 @@ import Clinic from '@modules/clinic/infra/typeorm/entities/Clinic';
 import PatientInfo from '@modules/infoPacient/infra/typeorm/entities/InfoPacient';
 import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
 import MedicalRecord from '@modules/medicalRecord/infra/typeorm/entities/MedicalRecord';
+import S3MedicalRecord from '@modules/medicalRecord/infra/typeorm/entities/MedicalRecordS3';
 
 @Entity()
 class Pacient {
@@ -62,6 +63,9 @@ class Pacient {
 
     @OneToMany(() => MedicalRecord, medicalRecord => medicalRecord.pacient)
     medicalRecords: MedicalRecord;
+
+    @OneToMany(() => S3MedicalRecord, s3medicalRecord => s3medicalRecord.pacient)
+    medicalRecordsS3: S3MedicalRecord;
 
     @OneToMany(() => FavoriteDoctor, favoriteDoctor => favoriteDoctor.doctors)
     @JoinColumn()

@@ -1,6 +1,5 @@
-import { delay, inject, injectable } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
-import ConversationsRepository from '@modules/chat/infra/typeorm/repositories/ConversationRepository';
 import Conversation from '@modules/chat/infra/typeorm/schemas/Conversation';
 import IConversationRepository from '@modules/chat/repositories/IConversationRepository';
 
@@ -20,11 +19,11 @@ class CreateConversationService {
         senderId,
         receiverId,
     }: IRequest): Promise<Conversation> {
-        const newConveration = await this.conversationsRepository.save({
+        const newConveration = await this.conversationsRepository.createConversation({
             senderId,
             receiverId,
         });
-        console.log(newConveration)
+
         return newConveration;
     }
 }

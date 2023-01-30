@@ -17,7 +17,7 @@ class CreateMessageService {
     ) {}
 
     public async execute({
-        conversationId,
+        conversationId ,
         sender,
         text,
     }: IRequest): Promise<Message> {

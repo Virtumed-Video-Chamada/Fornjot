@@ -1,11 +1,12 @@
 import IMessageRepository from '@modules/chat/repositories/IMessageRepository';
 import Message from '../schemas/Message';
-import { Repository } from 'typeorm';
+import { MongoRepository } from 'typeorm';
 import { MongoDataSource } from '@shared/infra/typeorm';
 import ICreateMessageDTO from '@modules/chat/dtos/ICreateMessageDTO';
 
 class MessageRepository implements IMessageRepository {
-    private ormRepository: Repository<Message>;
+    private ormRepository: MongoRepository<Message>;
+
     constructor() {
         this.ormRepository = MongoDataSource.getMongoRepository(Message);
     }
@@ -17,19 +18,23 @@ class MessageRepository implements IMessageRepository {
             text: data.text,
         });
 
-        const message = await this.ormRepository.save(newMessage);
+        const message = await this.save(newMessage);
 
         return message;
     }
 
     public async findMessage(conversationId: string): Promise<Message[]> {
-        const message = this.ormRepository.find({
+        const message = await this.ormRepository.find({
             where: {
-                conversationId,
+                conversationId: conversationId,
             },
         });
 
         return message;
+    }
+
+    public async save(data: Message): Promise<Message> {
+        return await this.ormRepository.save(data);
     }
 }
 

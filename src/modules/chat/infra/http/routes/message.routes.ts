@@ -1,9 +1,12 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 import MessageController from '../controllers/MessageControllers';
+import authMiddleware from '@auth/auth';
 
 const messagesRouter = Router();
 const messageController = new MessageController();
+
+messagesRouter.use(authMiddleware);
 
 messagesRouter.post(
     '/',

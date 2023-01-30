@@ -16,6 +16,7 @@ import conversationsRouter from "@modules/chat/infra/http/routes/conversation.ro
 import messagesRouter from "@modules/chat/infra/http/routes/message.routes";
 import infoPacient from "@modules/infoPacient/infra/http/routes/infoPatient.routes";
 import medicalRecord from "@modules/medicalRecord/infra/http/routes/medicalRecord.routes";
+import s3medicalRecord from "@modules/medicalRecord/infra/http/routes/s3medicalRecord.routes";
 
 const routes = Router();
 
@@ -25,6 +26,7 @@ routes.get("/", (req: Request, res: Response) => {
 
 routes.use("/admin", adminsRouter);
 routes.use("/medicalRecord", medicalRecord);
+routes.use("/s3medicalRecord", s3medicalRecord);
 routes.use("/clinic", clinicsRouter);
 routes.use("/pacient", pacientRouter);
 routes.use("/infoPacient", infoPacient);
