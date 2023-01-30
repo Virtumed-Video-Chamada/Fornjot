@@ -1,51 +1,71 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinColumn, JoinTable } from 'typeorm';
-import User from "@modules/users/infra/typeorm/entities/User";
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    OneToOne,
+    CreateDateColumn,
+    UpdateDateColumn,
+    ManyToMany,
+    JoinColumn,
+    JoinTable,
+    OneToMany,
+} from 'typeorm';
+import User from '@modules/users/infra/typeorm/entities/User';
 import Clinic from '@modules/clinic/infra/typeorm/entities/Clinic';
+import Pacient from '@modules/pacient/infra/typeorm/entities/Pacient';
+import MedicalRecord from '@modules/medicalRecord/infra/typeorm/entities/MedicalRecord';
 
 @Entity()
 class Doctor {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
-  @Column({type: 'varchar'})
-  crm: string;
+    @Column()
+    crm: string;
 
-  @Column({type: 'varchar'})
-  cpf: string;
+    @Column()
+    cpf: string;
 
-  @Column({type: 'varchar'})
-  cep: string;
+    @Column()
+    cep: string;
 
-  @Column({type: 'varchar'})
-  address: string;
+    @Column()
+    address: string;
 
-  @Column({type: 'varchar'})
-  number: string ;
+    @Column()
+    number: string;
 
-  @Column({type: 'varchar'})
-  district: string;
+    @Column()
+    district: string;
 
-  @Column({type: 'varchar'})
-  city: string;
+    @Column()
+    city: string;
 
-  @Column({type: 'varchar'})
-  state: string;
+    @Column()
+    state: string;
 
-  @Column({type: 'varchar'})
-  speciality: string;
+    @Column()
+    speciality: string;
 
-  @ManyToMany(() => Clinic, clinic => clinic.doctors)
-  @JoinTable()
-  clinics?: Clinic[];
+    @ManyToMany(() => Clinic, clinic => clinic.doctors)
+    @JoinTable()
+    clinics?: Clinic[];
 
-  @OneToOne(() => Doctor, doctor => doctor.user)
-  user: User;
+    @ManyToMany(() => Pacient, pacient => pacient.doctors)
+    @JoinTable()
+    pacients?: Pacient[];
 
-  @CreateDateColumn()
-  created_at: Date;
+    @OneToMany(() => MedicalRecord, medicalRecord => medicalRecord.doctor)
+    medicalRecords?: MedicalRecord
 
-  @UpdateDateColumn()
-  updated_at: Date;
+    @OneToOne(() => Doctor, doctor => doctor.user)
+    user: User;
+
+    @CreateDateColumn()
+    created_at: Date;
+
+    @UpdateDateColumn()
+    updated_at: Date;
 }
 
-export default Doctor
+export default Doctor;

@@ -8,28 +8,28 @@ class Clinic {
   @PrimaryGeneratedColumn("uuid")
   id?: string;
 
-  @Column({type: 'varchar'})
+  @Column()
   razao: string;
 
-  @Column({type: 'varchar'})
+  @Column()
   cnpj: string;
 
-  @Column({type: 'varchar'})
+  @Column()
   cep: string;
 
-  @Column({type: 'varchar'})
+  @Column()
   address: string;
 
-  @Column({type: 'varchar'})
+  @Column()
   number: string;
 
-  @Column({type: 'varchar'})
+  @Column()
   district: string;
 
-  @Column({type: 'varchar'})
+  @Column()
   city: string;
 
-  @Column({type: 'varchar'})
+  @Column()
   state: string;
 
   @ManyToMany(() => Doctor, doctor => doctor.clinics)

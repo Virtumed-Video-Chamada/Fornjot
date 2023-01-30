@@ -8,12 +8,15 @@ import IAdminRepository from '@modules/admin/repositories/IAdminRepository';
 import ICreatePacientDTO from '@modules/pacient/infra/dtos/ICreatePacientDTO';
 import ICreateDoctorDTO from '@modules/doctor/dtos/ICreateDoctorDTO';
 import AppError from '@shared/errors/AppError';
+import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
 class AdminsRepository implements IAdminRepository {
     private ormRepository: Repository<User>;
+    private appointmentRepository: Repository<Appointment>;
 
     constructor() {
         this.ormRepository = PostgresDataSource.getRepository(User);
+        this.appointmentRepository = PostgresDataSource.getRepository(Appointment);
     }
 
     public async findAll(): Promise<User[]> {
@@ -160,6 +163,16 @@ class AdminsRepository implements IAdminRepository {
         if (!user) {
             throw new AppError('E-mail do not exists');
         }
+
+        const appointments = await this.appointmentRepository.find({
+            where: {
+                user_id: id,
+            },
+        });
+
+        appointments.forEach(async appointment => {
+            await this.appointmentRepository.remove(appointment);
+        });
 
         await this.ormRepository.remove(user);
     }

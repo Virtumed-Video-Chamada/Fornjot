@@ -13,34 +13,38 @@ import {
 import User from '@modules/users/infra/typeorm/entities/User';
 import FavoriteDoctor from '@modules/favoriteDoctor/infra/typeorm/entities/FavoriteDoctor';
 import Clinic from '@modules/clinic/infra/typeorm/entities/Clinic';
+import PatientInfo from '@modules/infoPacient/infra/typeorm/entities/InfoPacient';
+import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
+import MedicalRecord from '@modules/medicalRecord/infra/typeorm/entities/MedicalRecord';
+import S3MedicalRecord from '@modules/medicalRecord/infra/typeorm/entities/MedicalRecordS3';
 
 @Entity()
 class Pacient {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     rg: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     cpf: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     cep: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     address: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     number: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     state: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     district: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     city: string;
 
     @OneToOne(() => Pacient, pacient => pacient.user)
@@ -50,9 +54,22 @@ class Pacient {
     @JoinTable()
     clinics?: Clinic[];
 
+    @ManyToMany(() => Doctor, doctor => doctor.pacients)
+    @JoinTable()
+    doctors?: Doctor[];
+
+    @OneToMany(() => PatientInfo, patientInfo => patientInfo.pacient)
+    info: PatientInfo;
+
+    @OneToMany(() => MedicalRecord, medicalRecord => medicalRecord.pacient)
+    medicalRecords: MedicalRecord;
+
+    @OneToMany(() => S3MedicalRecord, s3medicalRecord => s3medicalRecord.pacient)
+    medicalRecordsS3: S3MedicalRecord;
+
     @OneToMany(() => FavoriteDoctor, favoriteDoctor => favoriteDoctor.doctors)
     @JoinColumn()
-    favoriteDoctor: FavoriteDoctor[];
+    favoriteDoctor?: FavoriteDoctor[];
 
     @CreateDateColumn()
     created_at: Date;

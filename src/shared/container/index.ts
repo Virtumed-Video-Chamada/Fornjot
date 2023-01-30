@@ -23,16 +23,35 @@ import IClinicRepository from '@modules/clinic/repositories/IClinicsRepository';
 
 import AdminsRepository from '@modules/admin/infra/typeorm/repositories/AdminsRepository';
 import IAdiminRepository from '@modules/admin/repositories/IAdminRepository';
+
 import ConversationsRepository from '@modules/chat/infra/typeorm/repositories/ConversationRepository';
-import MessageRepository from '@modules/chat/infra/typeorm/repositories/MessageRepository';
 import IConversationRepository from '@modules/chat/repositories/IConversationRepository';
+
+import MessageRepository from '@modules/chat/infra/typeorm/repositories/MessageRepository';
 import IMessageRepository from '@modules/chat/repositories/IMessageRepository';
+
 import PacientsRepository from '@modules/pacient/infra/typeorm/repositories/PacientsRepository';
 import IPacientRepository from '@modules/pacient/repositories/IPacientRepository';
+
+import IInfoPacientRepository from '@modules/infoPacient/repositories/IInfoPacientRepository';
+import InfoPacientRepository from '@modules/infoPacient/infra/typeorm/repositories/InfoPacientRepository';
+
+import IMedicalRecordRepository from '@modules/medicalRecord/repositories/IMedicalRecord';
+import MedicalRecordRepository from '@modules/medicalRecord/infra/typeorm/repositories/MedicalRepository';
 
 container.registerSingleton<IAppointmentsRepository>(
     'AppointmentsRepository',
     AppointmentsRepository,
+);
+
+container.registerSingleton<IInfoPacientRepository>(
+    'InfoPacientRepository',
+    InfoPacientRepository,
+);
+
+container.registerSingleton<IMedicalRecordRepository>(
+    'MedicalRecordRepository',
+    MedicalRecordRepository,
 );
 
 container.registerSingleton<IUsersRepository>(

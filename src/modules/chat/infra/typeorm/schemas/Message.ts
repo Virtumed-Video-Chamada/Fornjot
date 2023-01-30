@@ -1,4 +1,6 @@
 import {
+    BeforeInsert,
+    BeforeUpdate,
     Column,
     CreateDateColumn,
     Entity,
@@ -7,18 +9,18 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity("messages")
 class Message {
     @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
 
-    @Column('timestamp')
+    @Column()
     conversationId: string;
 
-    @Column('timestamp')
+    @Column()
     sender: string;
 
-    @Column('timestamp')
+    @Column()
     text: string;
 
     @CreateDateColumn()
@@ -26,8 +28,16 @@ class Message {
 
     @UpdateDateColumn()
     updated_at: Date;
-}
 
-// 38:19 minutos de video
+    @Column({ type: 'int', default: null })
+    __v: number;
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    incrementVersion() {
+        if(!this.__v) this.__v = 0;
+        else this.__v++;
+    }
+}
 
 export default Message;

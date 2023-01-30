@@ -1,14 +1,14 @@
-import { container } from "tsyringe"
+import { container } from 'tsyringe';
 
-import IMailTemplateProvider from "./models/IMailTemplateProvider";
-import HandlebarsMailTemplateProvider from "./implementations/HandlebarsMailTemplateProvider";
+import IMailTemplateProvider from './models/IMailTemplateProvider';
 
-const providers =  {
-    handlebars: HandlebarsMailTemplateProvider
-}
+import HbsMailTemplateProvider from './implementations/HandlebarsMailTemplateProvider';
+
+const providers = {
+  handlebars: HbsMailTemplateProvider,
+};
 
 container.registerSingleton<IMailTemplateProvider>(
-    "MailTemplateProvider",
-    providers.handlebars,
-  );
-
+  'MailTemplateProvider',
+  providers.handlebars,
+);

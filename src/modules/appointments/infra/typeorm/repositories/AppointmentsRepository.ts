@@ -31,6 +31,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
     month,
     year,
   }: IFindAllInMonthFromProviderDTO): Promise<Appointment[]> {
+    //Formato que deve ser enviado a data ["01, 02, 03, até 12"]
     const parsedMonth = String(month).padStart(2, "0");
 
     const appointments = await this.ormRepository.find({
@@ -66,7 +67,17 @@ class AppointmentsRepository implements IAppointmentsRepository {
       relations: ["user"],
     });
 
-    return appointments;
+    const cleanedAppointments = appointments.map(appointment => {
+        const cleanedUser = Object.entries(appointment.user).reduce((obj: { [key: string]: any }, [key, value]) => {
+          if(key !== "password" && key !== "created_at" && key !== "avatar" && key !== "updated_at" )
+            obj[key] = value;
+          return obj;
+        }, {});
+        return Object.assign({}, appointment, { user: cleanedUser });
+    });
+
+
+    return cleanedAppointments;
   }
 
   public async create({

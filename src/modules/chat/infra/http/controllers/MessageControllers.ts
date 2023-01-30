@@ -26,11 +26,11 @@ export default class MessageController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { converesationId } = request.params;
+        const { conversationId  } = request.params;
 
         const findMessage = container.resolve(MessageService);
 
-        const message = await findMessage.execute(converesationId);
+        const message = await findMessage.execute(conversationId );
 
         return response.json(instanceToInstance(message));
     }

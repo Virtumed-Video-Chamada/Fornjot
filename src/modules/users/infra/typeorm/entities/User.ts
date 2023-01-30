@@ -14,25 +14,25 @@ import Doctor from '@modules/doctor/infra/typeorm/entities/Doctor';
 import Pacient from '@modules/pacient/infra/typeorm/entities/Pacient';
 import Clinic from '@modules/clinic/infra/typeorm/entities/Clinic';
 
-@Entity('users')
+@Entity("users")
 class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('varchar')
+    @Column()
     name: string;
 
-    @Column('varchar')
+    @Column()
     email: string;
 
-    @Column('varchar')
+    @Column()
     @Exclude()
     password: string;
 
-    @Column({ type: 'varchar' })
+    @Column()
     role: string;
 
-    @Column({ type: 'varchar', nullable: true })
+    @Column({ nullable: true })
     avatar: string;
 
     @CreateDateColumn()
