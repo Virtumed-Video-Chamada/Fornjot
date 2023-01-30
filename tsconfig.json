@@ -24,6 +24,6 @@
     },
     "include": [
         "dist/**/*.js",
-        "src/**/*.ts",
+        "src/**/*.ts", "src/shared/infra/http/server/socketServer.js",
     ],
 }

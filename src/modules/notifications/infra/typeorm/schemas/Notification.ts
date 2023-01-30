@@ -10,7 +10,7 @@ import {
 @Entity("notifications")
 class Notification {
   @ObjectIdColumn()
-  id: ObjectID;
+  _id: ObjectID;
 
   @Column()
   content: string;

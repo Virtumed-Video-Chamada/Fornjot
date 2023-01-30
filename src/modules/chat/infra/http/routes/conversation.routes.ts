@@ -1,9 +1,12 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 import ConversationsController from '../controllers/ConversationsController';
+import authMiddleware from "@auth/auth";
 
 const conversationsRouter = Router();
 const conversationsController = new ConversationsController();
+
+conversationsRouter.use(authMiddleware);
 
 conversationsRouter.post(
     '/',
@@ -25,8 +28,6 @@ conversationsRouter.get(
     }),
     conversationsController.findConversation,
 );
-
-// get conversations incluindo dois users_id
 
 conversationsRouter.get(
     '/:firstUserId/:seconUserdId',

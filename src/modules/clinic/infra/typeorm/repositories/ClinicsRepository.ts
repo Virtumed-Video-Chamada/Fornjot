@@ -111,6 +111,7 @@ class ClinicsRepository implements IClinicRepository {
     public async createPacientforClinic(
         userData: ICreatePacientDTO,
     ): Promise<User> {
+
         const clinics = await this.updateClinic(userData.id);
 
         const user = this.ormRepository.create({

@@ -1,11 +1,11 @@
-/* import { injectable, inject } from 'tsyringe';
+import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import IMedicalRecordRepository from '../repositories/IMedicalRecord';
 import MedicalRecord from '../infra/typeorm/entities/MedicalRecord';
 
 @injectable()
-class InfoPacientService {
+class MedicalRecordForPatient {
     constructor(
         @inject('MedicalRecordRepository')
         private usersRepository: IMedicalRecordRepository,
@@ -18,9 +18,9 @@ class InfoPacientService {
             throw new AppError('User do not exists');
         }
 
-        const user = await this.usersRepository.(id);
+        const infoMedical = await this.usersRepository.findByIdMedicalRecordForPatient(id);
 
-        return user;
+        return infoMedical;
     }
 
     public async executeForDoctor(id: string): Promise<MedicalRecord[] | null> {
@@ -30,10 +30,9 @@ class InfoPacientService {
             throw new AppError('User do not exists');
         }
 
-        const user = await this.usersRepository.(id);
+        const infoMedical = await this.usersRepository.findByIdMedicalRecordForDoctor(id);
 
-        return user;
+        return infoMedical;
     }
 }
-export default InfoPacientService;
- */
+export default MedicalRecordForPatient;
