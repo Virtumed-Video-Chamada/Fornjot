@@ -1,70 +1,35 @@
-import { Repository } from 'typeorm';
-import { PostgresDataSource } from '@shared/infra/typeorm/index';
-import User from '../../../../users/infra/typeorm/entities/User';
-import FavoriteDoctor from '../entities/FavoriteDoctor';
-import { FavoriteDoctorDto } from '@modules/favoriteDoctor/dtos/ICreateFavoriteDoctorDto';
 import IFavoriteDoctorsRepository from '@modules/favoriteDoctor/repositories/IFavoriteDoctorRepository';
+import { PostgresDataSource } from '@shared/infra/typeorm/index';
+import { Repository } from 'typeorm';
+import FavoriteDoctor from '../entities/FavoriteDoctor';
+import AppError from '@shared/errors/AppError';
 
 class FavoriteDoctorsRepository implements IFavoriteDoctorsRepository {
     private ormRepository: Repository<FavoriteDoctor>;
-    private ormRepositoryUser: Repository<User>;
 
     constructor() {
         this.ormRepository = PostgresDataSource.getRepository(FavoriteDoctor);
-        this.ormRepositoryUser = PostgresDataSource.getRepository(User);
     }
-    public async findById(id: string): Promise<User | null> {
-        const user = await this.ormRepositoryUser.findOne({
-            where: {
-                id,
-            },
-            relations: ['pacient'],
+
+    public async addFavoriteDoctor(doctor_id: string): Promise<FavoriteDoctor> {
+        const favorite = this.ormRepository.create({
+            doctor_id,
         });
 
-        return user;
+        await this.ormRepository.save(favorite);
+
+        return favorite;
     }
 
-    public async addOurRemoveFavoriteDoctor(
-        pacient_id: string,
-        doctor_id: string,
-        data: FavoriteDoctorDto,
-    ): Promise<FavoriteDoctor | undefined> {
-        const user = await this.findById(pacient_id);
-        let favoritedDoctor = false;
-
-        if (user?.pacient.favoriteDoctor != null) {
-            user.pacient.favoriteDoctor.map(doctor => {
-                if (doctor_id === doctor.id) {
-                    favoritedDoctor = true;
-                }
-            });
-        } else {
-            const userSave = this.ormRepository.create({
-                doctorsId: data.doctorsId,
-            });
-            return await this.ormRepository.save(userSave);
+    public async remove(doctor_id: string): Promise<void> {
+        const favorite = await this.ormRepository.find({
+            where: { doctor_id },
+        });
+        if (!favorite) {
+            throw new AppError('Add one doctor');
         }
-    }
 
-    public async RemoveFavoriteDoctor(
-        pacient_id: string,
-        doctor_id: string,
-        data: FavoriteDoctorDto,
-    ): Promise<FavoriteDoctor | void> {
-        const user = await this.findById(pacient_id);
-        let favoritedDoctor = false;
-
-        if (favoritedDoctor) {
-            user?.pacient.favoriteDoctor.map(doctor => {
-                if (doctor_id != doctor.id) {
-                    const userUpdate = this.ormRepository.delete({
-                        doctorsId: data.doctorId,
-                    });
-
-                    // return this.ormRepository.save(userUpdate); ERROR
-                }
-            });
-        }
+        await this.ormRepository.remove(favorite)
     }
 }
 
