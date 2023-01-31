@@ -17,6 +17,7 @@ import messagesRouter from "@modules/chat/infra/http/routes/message.routes";
 import infoPacient from "@modules/infoPacient/infra/http/routes/infoPatient.routes";
 import medicalRecord from "@modules/medicalRecord/infra/http/routes/medicalRecord.routes";
 import s3medicalRecord from "@modules/medicalRecord/infra/http/routes/s3medicalRecord.routes";
+import favoriteDoctorsRouter from "@modules/favoriteDoctor/infra/http/routes/favoriteDoctors.routes";
 
 const routes = Router();
 
@@ -39,5 +40,6 @@ routes.use("/appointments", appointmentsRouter);
 routes.use("/providers", providersRouter);
 routes.use("/conversations", conversationsRouter);
 routes.use("/messages", messagesRouter);
+routes.use("/favorites", favoriteDoctorsRouter)
 
 export default routes;
