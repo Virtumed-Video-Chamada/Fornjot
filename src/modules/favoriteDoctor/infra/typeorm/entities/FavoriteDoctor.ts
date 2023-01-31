@@ -3,26 +3,21 @@ import {
     Column,
     Entity,
     JoinColumn,
-    ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn
 } from 'typeorm';
-import Pacient from '../../../../pacient/infra/typeorm/entities/Pacient';
 
 @Entity()
 class FavoriteDoctor {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('varchar')
-    doctorsId: string[];
+    @Column()
+    doctor_id: string;
 
     @OneToMany(() => Doctor, doctor => doctor.id)
-    @JoinColumn()
-    doctors: Doctor[];
-
-    @ManyToOne(() => Pacient)
-    pacient: Pacient;
+    @JoinColumn({'name': 'doctor_id'})
+    doctor: Doctor[];
 }
 
 export default FavoriteDoctor;
