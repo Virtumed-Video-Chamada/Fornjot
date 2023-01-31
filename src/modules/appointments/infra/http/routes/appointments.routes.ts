@@ -29,7 +29,7 @@ appointmentsRouter.delete(
     '/delete',
     celebrate({
         [Segments.BODY]: {
-            id: Joi.string().required(),
+            appointment_id: Joi.string().required(),
         },
     }),
     appointmentsController.delete,

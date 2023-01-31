@@ -104,18 +104,18 @@ class AppointmentsRepository implements IAppointmentsRepository {
         return appointment;
     }
 
-    public async delete(id: string): Promise<void> {
+    public async delete(appointment_id: string): Promise<void> {
         const appointment = await this.ormRepository.findOne({
             where: {
-                id
+                id: appointment_id
             },
         });
+
         if (!appointment) {
             throw new AppError('Appointment do not exists');
         }
 
         await this.ormRepository.remove(appointment)
-
     }
 }
 

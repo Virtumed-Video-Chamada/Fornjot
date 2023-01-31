@@ -27,12 +27,12 @@ export default class AppointmentsController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { id } = request.body;
+        const { appointment_id } = request.body;
 
         const deleteAppointment = container.resolve(DeleteAppointmentsService);
 
         try {
-            await deleteAppointment.delete(id);
+            await deleteAppointment.delete(appointment_id);
             return response.json('Appointement deleted successfully');
         } catch (error) {
             return response.json(error);
