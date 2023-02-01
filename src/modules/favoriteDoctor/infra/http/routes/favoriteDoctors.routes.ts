@@ -19,5 +19,6 @@ favoriteDoctorsRouter.post(
     }),
     favoriteDoctorsController.create,
 );
+favoriteDoctorsRouter.get('/findAll', favoriteDoctorsController.findFavorite);
 
 export default favoriteDoctorsRouter;
