@@ -40,6 +40,25 @@ class UpdateUserAvatarService {
 
     return user;
   }
+
+  public async UpdateUrlUserAvatarService({ user_id, avatar_filename }: IRequest): Promise<User> {
+    const user = await this.usersRepository.findById(user_id);
+
+    if (!user) {
+      throw new AppError("Only authenticated users can change avatar", 401);
+    }
+
+    if (user.avatar) {
+      await this.storageProvider.deleteFile(user.avatar);
+      user.avatar_url = null
+    }
+
+    user.image_url = avatar_filename;
+
+    await this.usersRepository.save(user);
+
+    return user;
+  }
 }
 
 export default UpdateUserAvatarService;
