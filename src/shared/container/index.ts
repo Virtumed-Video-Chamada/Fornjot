@@ -38,6 +38,8 @@ import InfoPacientRepository from '@modules/infoPacient/infra/typeorm/repositori
 
 import IMedicalRecordRepository from '@modules/medicalRecord/repositories/IMedicalRecord';
 import MedicalRecordRepository from '@modules/medicalRecord/infra/typeorm/repositories/MedicalRepository';
+import FavoriteDoctorsRepository from '@modules/favoriteDoctor/infra/typeorm/repositories/FavoriteDoctorRepository';
+import IFavoriteDoctorsRepository from '@modules/favoriteDoctor/repositories/IFavoriteDoctorRepository';
 
 container.registerSingleton<IAppointmentsRepository>(
     'AppointmentsRepository',
@@ -97,4 +99,9 @@ container.registerSingleton<IConversationRepository>(
 container.registerSingleton<IMessageRepository>(
     'MessageRepository',
     MessageRepository,
+);
+
+container.registerSingleton<IFavoriteDoctorsRepository>(
+    'FavoriteDoctorsRepository',
+    FavoriteDoctorsRepository,
 );
