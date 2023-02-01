@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
+import { celebrate, Segments, Joi } from 'celebrate';
 
 import uploadConfig from '@config/upload';
 
@@ -18,6 +19,17 @@ usersRouter.patch(
     authMiddleware,
     upload.single('avatar'),
     userAvatarController.update,
+);
+
+usersRouter.put(
+    '/avatar-url',
+    authMiddleware,
+    celebrate({
+        [Segments.BODY]: {
+            avatar_filename: Joi.string().required(),
+        },
+    }),
+    userAvatarController.UpdateUrlUserAvatarController,
 );
 
 export default usersRouter;

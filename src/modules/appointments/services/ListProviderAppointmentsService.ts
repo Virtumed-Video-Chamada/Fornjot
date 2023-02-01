@@ -43,8 +43,10 @@ class ListProvidersAppointmentsService {
                     year,
                 });
 
-            /*       await this.cacheProvider.save(cacheKey, instanceToInstance(appointments));
-             */
+            await this.cacheProvider.save(
+                cacheKey,
+                instanceToInstance(appointments),
+            );
         }
         return appointments;
     }

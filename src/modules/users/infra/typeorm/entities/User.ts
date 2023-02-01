@@ -41,6 +41,12 @@ class User {
     @UpdateDateColumn()
     updated_at: Date;
 
+    @Column({ nullable: true })
+    image_url: string;
+
+    @Column({ nullable: true })
+    avatar_url: string | null;
+
     @Expose({ name: 'avatar_url' })
     getAvatarUrl(): string | null {
         if (!this.avatar) {

@@ -32,7 +32,7 @@ class Appointment {
     @Column('timestamp with time zone')
     date: Date;
 
-    @Column()
+    @Column({nullable: true})
     idRoom: string;
 
     @CreateDateColumn()
