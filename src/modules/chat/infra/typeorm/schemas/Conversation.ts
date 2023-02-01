@@ -1,12 +1,32 @@
-import { Entity, Column, ObjectIdColumn, ObjectID, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
+import {
+    Entity,
+    Column,
+    ObjectIdColumn,
+    ObjectID,
+    CreateDateColumn,
+    UpdateDateColumn,
+    BeforeInsert,
+    BeforeUpdate,
+} from 'typeorm';
 
 @Entity('conversation')
 export class Conversation {
     @ObjectIdColumn()
     _id: ObjectID;
 
-    @Column({ type: 'array' })
-    members: any[];
+    @Column({ type: 'array', default: [] })
+    members: {
+        send: {
+            id: string;
+            name: string;
+            role: string;
+        };
+        receive: {
+            id: string;
+            name: string;
+            role: string;
+        };
+    }[];
 
     @CreateDateColumn()
     created_at: Date;
@@ -20,7 +40,7 @@ export class Conversation {
     @BeforeInsert()
     @BeforeUpdate()
     incrementVersion() {
-        if(!this.__v) this.__v = 0;
+        if (!this.__v) this.__v = 0;
         else this.__v++;
     }
 }
