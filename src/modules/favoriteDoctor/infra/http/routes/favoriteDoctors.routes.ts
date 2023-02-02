@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
-import authMiddleware from '@auth/auth';
+import authMiddleware from '@auth/auth.patient';
 
 import FavoriteDoctorsController from '../controller/FavoriteDoctorsControllers';
 
@@ -19,5 +19,6 @@ favoriteDoctorsRouter.post(
     }),
     favoriteDoctorsController.create,
 );
+favoriteDoctorsRouter.get('/findAll', favoriteDoctorsController.findFavorite);
 
 export default favoriteDoctorsRouter;

@@ -5,27 +5,19 @@ import { inject, injectable } from 'tsyringe';
 
 interface IRequest {
     patient_id: string;
-    doctor_id: string;
 }
 
 @injectable()
-class CreateFavoriteDoctorService {
+class FavoriteDoctorService {
     constructor(
         @inject('FavoriteDoctorsRepository')
         private favoritesRepository: IFavoriteDoctorsRepository,
     ) {}
 
-    public async execute({
-        patient_id,
-        doctor_id,
-    }: IRequest): Promise<FavoriteDoctor> {
-        const doctorExist = await this.favoritesRepository.addFavoriteDoctor({
-            doctor_id,
-            patient_id
-        });
-
-        return doctorExist;
+    public async execute({ patient_id }: IRequest): Promise<FavoriteDoctor[]> {
+        const doctor = await this.favoritesRepository.findFavorites(patient_id);
+        return doctor;
     }
 }
 
-export default CreateFavoriteDoctorService;
+export default FavoriteDoctorService;
