@@ -64,12 +64,11 @@ class Pacient {
     @OneToMany(() => MedicalRecord, medicalRecord => medicalRecord.pacient)
     medicalRecords: MedicalRecord;
 
-    @OneToMany(() => S3MedicalRecord, s3medicalRecord => s3medicalRecord.pacient)
+    @OneToMany(
+        () => S3MedicalRecord,
+        s3medicalRecord => s3medicalRecord.pacient,
+    )
     medicalRecordsS3: S3MedicalRecord;
-
-    @OneToMany(() => FavoriteDoctor, favoriteDoctor => favoriteDoctor.doctors)
-    @JoinColumn()
-    favoriteDoctor?: FavoriteDoctor[];
 
     @CreateDateColumn()
     created_at: Date;
