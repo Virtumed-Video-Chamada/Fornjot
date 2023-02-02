@@ -50,6 +50,24 @@ class ListProvidersAppointmentsService {
         }
         return appointments;
     }
+
+    public async allForDoctor(provider_id: string): Promise<Appointment[]> {
+        const appointments =
+            await this.appointmentsRepository.findAllIAppointmentForDoctor({
+                provider_id,
+            });
+
+        return appointments;
+    }
+
+    public async allForPatient(provider_id: string): Promise<Appointment[]> {
+        const appointments =
+            await this.appointmentsRepository.findAllIAppointmentForPatient({
+                provider_id,
+            });
+
+        return appointments;
+    }
 }
 
 export default ListProvidersAppointmentsService;

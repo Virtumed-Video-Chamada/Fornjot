@@ -46,4 +46,38 @@ export default class ProviderAppointmentsController {
 
         return response.json(instanceToInstance(appointments));
     }
+
+    public async allForPatient(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { provider_id } = request.body;
+
+        const listProviderAppointments = container.resolve(
+            ListProviderAppointmentsService,
+        );
+
+        const appointments = await listProviderAppointments.allForPatient(
+            provider_id,
+        );
+
+        return response.json(instanceToInstance(appointments));
+    }
+
+    public async allForDoctor(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { provider_id } = request.body;
+
+        const listProviderAppointments = container.resolve(
+            ListProviderAppointmentsService,
+        );
+
+        const appointments = await listProviderAppointments.allForDoctor(
+            provider_id,
+        );
+
+        return response.json(instanceToInstance(appointments));
+    }
 }
