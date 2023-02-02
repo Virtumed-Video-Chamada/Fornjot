@@ -1,4 +1,3 @@
-export interface FavoriteDoctorDto {
-    doctorsId: string[];
-    doctorId: string;
+export interface ICreateFavoriteDoctorDto {
+    doctor_id: string;
 }

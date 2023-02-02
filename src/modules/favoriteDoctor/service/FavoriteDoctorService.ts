@@ -3,26 +3,19 @@ import IFavoriteDoctorsRepository from '@modules/favoriteDoctor/repositories/IFa
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 
-interface IRequest {
-    doctor_id: string;
-}
+interface IRequest {}
 
 @injectable()
-class CreateFavoriteDoctorService {
+class FavoriteDoctorService {
     constructor(
         @inject('FavoriteDoctorsRepository')
         private favoritesRepository: IFavoriteDoctorsRepository,
     ) {}
 
-    public async execute({ doctor_id }: IRequest): Promise<FavoriteDoctor> {
-        await this.favoritesRepository.remove({ doctor_id });
-
-        const doctorExist = await this.favoritesRepository.addFavoriteDoctor({
-            doctor_id,
-        });
-
-        return doctorExist;
+    public async execute(): Promise<FavoriteDoctor[]> {
+        const doctor = await this.favoritesRepository.findFavorites();
+        return doctor;
     }
 }
 
-export default CreateFavoriteDoctorService;
+export default FavoriteDoctorService;
