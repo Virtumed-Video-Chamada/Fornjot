@@ -3,6 +3,7 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import authMiddleware from '@auth/auth';
 import authClinic from '@auth/auth.clinic';
+import authTwo from '@auth/auth.two';
 
 import AppointmentsController from '../controllers/AppointmentsController';
 import ProviderAppointmentsController from '../controllers/ProviderAppointmentsController';
@@ -28,6 +29,28 @@ appointmentsRouter.get(
     '/me',
     authMiddleware,
     providerAppointmentsController.index,
+);
+
+appointmentsRouter.get(
+    '/forDoctor',
+    authTwo,
+    celebrate({
+        [Segments.BODY]: {
+            appointment_id: Joi.string().required(),
+        },
+    }),
+    providerAppointmentsController.allForPatient,
+);
+
+appointmentsRouter.get(
+    '/forPatient',
+    authMiddleware,
+    celebrate({
+        [Segments.BODY]: {
+            appointment_id: Joi.string().required(),
+        },
+    }),
+    providerAppointmentsController.allForDoctor,
 );
 
 appointmentsRouter.get(
