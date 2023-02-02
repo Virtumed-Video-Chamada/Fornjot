@@ -43,9 +43,29 @@ class ListProvidersAppointmentsService {
                     year,
                 });
 
-            /*       await this.cacheProvider.save(cacheKey, instanceToInstance(appointments));
-             */
+            await this.cacheProvider.save(
+                cacheKey,
+                instanceToInstance(appointments),
+            );
         }
+        return appointments;
+    }
+
+    public async allForDoctor(provider_id: string): Promise<Appointment[]> {
+        const appointments =
+            await this.appointmentsRepository.findAllIAppointmentForDoctor({
+                provider_id,
+            });
+
+        return appointments;
+    }
+
+    public async allForPatient(provider_id: string): Promise<Appointment[]> {
+        const appointments =
+            await this.appointmentsRepository.findAllIAppointmentForPatient({
+                provider_id,
+            });
+
         return appointments;
     }
 }

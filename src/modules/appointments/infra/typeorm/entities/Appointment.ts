@@ -25,14 +25,14 @@ class Appointment {
     @Column()
     user_id: string;
 
-    @ManyToOne(() => User, { eager: true ,cascade: true })
+    @ManyToOne(() => User, { eager: true, cascade: true })
     @JoinColumn({ name: 'user_id' })
     user: User;
 
-    @Column('timestamp with time zone')
+    @Column({ type: "timestamp without time zone", nullable: false })
     date: Date;
 
-    @Column()
+    @Column({ nullable: true })
     idRoom: string;
 
     @CreateDateColumn()

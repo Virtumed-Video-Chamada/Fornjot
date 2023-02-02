@@ -16,7 +16,26 @@ export default class ProviderAppointmentsController {
             ListProviderAppointmentsService,
         );
 
-        console.log(provider_id);
+        const appointments = await listProviderAppointments.execute({
+            provider_id,
+            month: Number(month),
+            year: Number(year),
+            day: Number(day),
+        });
+
+        return response.json(instanceToInstance(appointments));
+    }
+
+    public async clinicIndex(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { provider_id } = request.body;
+        const { day, month, year } = request.query;
+
+        const listProviderAppointments = container.resolve(
+            ListProviderAppointmentsService,
+        );
 
         const appointments = await listProviderAppointments.execute({
             provider_id,
@@ -25,6 +44,40 @@ export default class ProviderAppointmentsController {
             day: Number(day),
         });
 
-        return response.json(appointments);
+        return response.json(instanceToInstance(appointments));
+    }
+
+    public async allForPatient(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { provider_id } = request.body;
+
+        const listProviderAppointments = container.resolve(
+            ListProviderAppointmentsService,
+        );
+
+        const appointments = await listProviderAppointments.allForPatient(
+            provider_id,
+        );
+
+        return response.json(instanceToInstance(appointments));
+    }
+
+    public async allForDoctor(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { provider_id } = request.body;
+
+        const listProviderAppointments = container.resolve(
+            ListProviderAppointmentsService,
+        );
+
+        const appointments = await listProviderAppointments.allForDoctor(
+            provider_id,
+        );
+
+        return response.json(instanceToInstance(appointments));
     }
 }

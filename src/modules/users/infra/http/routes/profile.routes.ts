@@ -36,7 +36,7 @@ profileRouter.post(
     '/findPacient',
     celebrate({
         [Segments.BODY]: {
-            id: Joi.string().required(),
+            id: Joi.string().uuid().required(),
         },
     }),
     profileController.findPacientId,

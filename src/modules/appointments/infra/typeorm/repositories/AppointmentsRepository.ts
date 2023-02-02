@@ -6,8 +6,9 @@ import IFindAllInMonthFromProviderDTO from '@modules/appointments/dtos/IFindAllI
 import IFindAllInDayFromProviderDTO from '@modules/appointments/dtos/IFindAllInDayFromProviderDTO';
 
 import Appointment from '../entities/Appointment';
-import { PostgresDataSource } from '@shared/infra/typeorm/index';
 import AppError from '@shared/errors/AppError';
+import IFindAllAppointments from '@modules/appointments/dtos/IFindAllAppointmentsDTO';
+import { PostgresDataSource } from '@shared/infra/typeorm/index';
 
 class AppointmentsRepository implements IAppointmentsRepository {
     private ormRepository: Repository<Appointment>;
@@ -25,6 +26,32 @@ class AppointmentsRepository implements IAppointmentsRepository {
         });
 
         return findAppointment;
+    }
+
+    public async findAllIAppointmentForDoctor({
+        provider_id,
+    }: IFindAllAppointments): Promise<Appointment[]> {
+        const appointments = await this.ormRepository.find({
+            where: {
+                user_id: provider_id,
+            },
+            relations: ['user'],
+        });
+
+        return appointments;
+    }
+
+    public async findAllIAppointmentForPatient({
+        provider_id,
+    }: IFindAllAppointments): Promise<Appointment[]> {
+        const appointments = await this.ormRepository.find({
+            where: {
+                provider_id,
+            },
+            relations: ['user'],
+        });
+
+        return appointments;
     }
 
     public async findAllInMonthFromProvider({
@@ -106,18 +133,18 @@ class AppointmentsRepository implements IAppointmentsRepository {
         return appointment;
     }
 
-    public async delete(id: string): Promise<void> {
+    public async delete(appointment_id: string): Promise<void> {
         const appointment = await this.ormRepository.findOne({
             where: {
-                id
+                id: appointment_id,
             },
         });
+
         if (!appointment) {
             throw new AppError('Appointment do not exists');
         }
 
-        await this.ormRepository.remove(appointment)
-
+        await this.ormRepository.remove(appointment);
     }
 }
 
