@@ -1390,10 +1390,10 @@
                                 "MedicalRecord": {
                                     "value": {
                                         "id": "bd84e656-42e8-4aab-856a-f5ed12027dc0",
-                                        "age":"ad8",
-                                        "height":"ad1f0a0fa48",
-                                        "gender":"adacf0a0fa48",
-                                        "weight":"fseg"
+                                        "age": "ad8",
+                                        "height": "ad1f0a0fa48",
+                                        "gender": "adacf0a0fa48",
+                                        "weight": "fseg"
                                     }
                                 }
                             }
@@ -1422,7 +1422,78 @@
             "get": {
                 "summary": "Lista de todos as informações do paciente.",
                 "description": "Rota responsável por listar as informações do paciente.",
-                "tags": ["InfoPatient"],
+                "tags": ["Pacient"],
+                "security": [{ "beaererAuth": [] }],
+                "responses": {
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/infoPacient"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/favorites/": {
+            "post": {
+                "summary": "Adicionar um doutor favorito.",
+                "description": "Rota responsável por adicionar um doutor favorito.",
+                "tags": ["Pacient"],
+                "security": [{ "beaererAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Login"
+                            },
+                            "examples": {
+                                "Auth": {
+                                    "value": {
+                                        "email": "admin@gmail.com",
+                                        "passowrd": "senhaforte1"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "201": {
+                        "description": "Autenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Login"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/favorites/findAlll": {
+            "get": {
+                "summary": "Lista de todos as informações do paciente.",
+                "description": "Rota responsável por listar as informações do paciente.",
+                "tags": ["Pacient"],
                 "security": [{ "beaererAuth": [] }],
                 "responses": {
                     "404": {
@@ -1648,8 +1719,7 @@
                     },
                     "gender": {
                         "type": "string"
-                    }
-                    ,
+                    },
                     "weight": {
                         "type": "string"
                     }
