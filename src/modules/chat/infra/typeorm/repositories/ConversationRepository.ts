@@ -2,11 +2,11 @@ import ICreateConversationDTO from '@modules/chat/dtos/ICreateConversationDTO';
 import ITwoConversationDTO from '@modules/chat/dtos/ITwoConversatiosDTO';
 import Conversation from '@modules/chat/infra/typeorm/schemas/Conversation';
 import IConversationRepository from '@modules/chat/repositories/IConversationRepository';
-import usersRouter from '@modules/users/infra/http/routes/users.routes';
 import User from '@modules/users/infra/typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
 import { MongoDataSource, PostgresDataSource } from '@shared/infra/typeorm';
-import { FindOperator, FindOptionsWhere, Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
+import { uuid } from 'uuidv4';
 
 class ConversationsRepository implements IConversationRepository {
     private ormRepository: Repository<Conversation>;
@@ -38,6 +38,7 @@ class ConversationsRepository implements IConversationRepository {
         const userTwo = await this.findUserById(data.receiverId);
 
         const newConversation = this.ormRepository.create({
+            _id: uuid(),
             members: [
                 {
                     send: {
@@ -61,21 +62,23 @@ class ConversationsRepository implements IConversationRepository {
         return newConversation;
     }
 
-    public async findConversation(user_id: string): Promise<Conversation[] | undefined> {
+    public async findConversation(
+        user_id: string,
+    ): Promise<Conversation[] | undefined> {
         const conversations = await this.ormRepository.find({
-          where: {
-            members: {
-              $elemMatch: {
-                $or: [
-                  { "send.id": user_id },
-                  { "receive.id": user_id }
-                ]
-              }
-            }
-          } as FindOptionsWhere<Conversation>
+            where: {
+                members: {
+                    $elemMatch: {
+                        $or: [
+                            { 'send.id': user_id },
+                            { 'receive.id': user_id },
+                        ],
+                    },
+                },
+            } as FindOptionsWhere<Conversation>,
         });
         return conversations;
-      }
+    }
 
     public async findTwoConversation(
         data: ITwoConversationDTO,

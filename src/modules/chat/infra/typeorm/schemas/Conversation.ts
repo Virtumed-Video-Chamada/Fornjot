@@ -12,7 +12,7 @@ import {
 @Entity('conversation')
 export class Conversation {
     @ObjectIdColumn()
-    _id: ObjectID;
+    _id: string;
 
     @Column({ type: 'array', default: [] })
     members: {
