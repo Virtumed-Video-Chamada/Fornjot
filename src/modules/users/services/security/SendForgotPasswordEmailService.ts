@@ -24,7 +24,7 @@ class SendForgotPasswordEmailService {
     private userTokensRepository: IUserTokensRepository,
   ) {}
 
-  public async execute({ email }: IRequest): Promise<void> {
+  public async execute({ email }: IRequest): Promise<string> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
@@ -33,27 +33,12 @@ class SendForgotPasswordEmailService {
 
     const { token } = await this.userTokensRepository.generate(user.id);
 
-    const forgotPasswordTemplate = path.resolve(
-      __dirname,
-      "..",
-      "views",
-      "forgot_password.hbs",
+    const message = await this.mailProvider.sendMail(
+      email,
+      `Pedido de Recuperação de senha ${token}`
     );
 
-    await this.mailProvider.sendMail({
-      to: {
-        name: user.name,
-        email: user.email,
-      },
-      subject: "[Virtumed] Recuperação de senha",
-      templateData: {
-        file: forgotPasswordTemplate,
-        variables: {
-          name: user.name,
-          link: `${process.env.APP_WEB_URL}/reset-password?token=${token}`,
-        },
-      },
-    });
+    return message
   }
 }
 
