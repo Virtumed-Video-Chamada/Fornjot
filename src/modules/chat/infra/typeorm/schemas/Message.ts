@@ -9,7 +9,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 
-@Entity("messages")
+@Entity('messages')
 class Message {
     @ObjectIdColumn()
     _id: ObjectID;
@@ -18,7 +18,11 @@ class Message {
     conversationId: string;
 
     @Column()
-    sender: string;
+    sender: {
+        id: string;
+        name: string;
+        role: string;
+    };
 
     @Column()
     text: string;
@@ -35,7 +39,7 @@ class Message {
     @BeforeInsert()
     @BeforeUpdate()
     incrementVersion() {
-        if(!this.__v) this.__v = 0;
+        if (!this.__v) this.__v = 0;
         else this.__v++;
     }
 }
