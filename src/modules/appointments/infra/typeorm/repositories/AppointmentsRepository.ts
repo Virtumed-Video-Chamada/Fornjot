@@ -9,6 +9,7 @@ import Appointment from '../entities/Appointment';
 import AppError from '@shared/errors/AppError';
 import IFindAllAppointments from '@modules/appointments/dtos/IFindAllAppointmentsDTO';
 import { PostgresDataSource } from '@shared/infra/typeorm/index';
+import IFindAllInDayFromProviderPatient from '@modules/appointments/dtos/IFindAllInDayFromProviderPatientDTO';
 
 class AppointmentsRepository implements IAppointmentsRepository {
     private ormRepository: Repository<Appointment>;
@@ -23,6 +24,17 @@ class AppointmentsRepository implements IAppointmentsRepository {
     ): Promise<Appointment | undefined | null> {
         const findAppointment = await this.ormRepository.findOne({
             where: { date, provider_id },
+        });
+
+        return findAppointment;
+    }
+
+    public async findByDatePatient(
+        date: Date,
+        user_id: string,
+    ): Promise<Appointment | undefined | null> {
+        const findAppointment = await this.ormRepository.findOne({
+            where: { date, user_id },
         });
 
         return findAppointment;
@@ -87,6 +99,46 @@ class AppointmentsRepository implements IAppointmentsRepository {
         const appointments = await this.ormRepository.find({
             where: {
                 provider_id,
+                date: Raw(
+                    dateFieldName =>
+                        `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`,
+                ),
+            },
+            relations: ['user'],
+        });
+
+        const cleanedAppointments = appointments.map(appointment => {
+            const cleanedUser = Object.entries(appointment.user).reduce(
+                (obj: { [key: string]: any }, [key, value]) => {
+                    if (
+                        key !== 'password' &&
+                        key !== 'created_at' &&
+                        key !== 'avatar' &&
+                        key !== 'updated_at'
+                    )
+                        obj[key] = value;
+                    return obj;
+                },
+                {},
+            );
+            return Object.assign({}, appointment, { user: cleanedUser });
+        });
+
+        return cleanedAppointments;
+    }
+
+    public async findAllInDayFromProviderPatient({
+        user_id,
+        day,
+        month,
+        year,
+    }: IFindAllInDayFromProviderPatient): Promise<Appointment[]> {
+        const parsedDay = String(day).padStart(2, '0');
+        const parsedMonth = String(month).padStart(2, '0');
+
+        const appointments = await this.ormRepository.find({
+            where: {
+                user_id,
                 date: Raw(
                     dateFieldName =>
                         `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`,

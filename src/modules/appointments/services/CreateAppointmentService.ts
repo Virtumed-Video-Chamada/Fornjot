@@ -46,6 +46,16 @@ class CreateAppointmentService {
             throw new AppError("You can't create an appointment with yourself");
         }
 
+        const findMyAppoitmentInSameDate =
+            await this.appointmentsRepository.findByDatePatient(
+                appointmentDate,
+                user_id,
+            );
+
+        if (findMyAppoitmentInSameDate) {
+            throw new AppError('Your appointment is already booked with our doctor');
+        }
+
         const findAppoitmentInSameDate =
             await this.appointmentsRepository.findByDate(
                 appointmentDate,

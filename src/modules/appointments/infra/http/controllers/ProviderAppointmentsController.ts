@@ -26,7 +26,7 @@ export default class ProviderAppointmentsController {
         return response.json(instanceToInstance(appointments));
     }
 
-    public async clinicIndex(
+    public async clinicIndexForDoctor(
         request: Request,
         response: Response,
     ): Promise<Response> {
@@ -37,8 +37,29 @@ export default class ProviderAppointmentsController {
             ListProviderAppointmentsService,
         );
 
-        const appointments = await listProviderAppointments.execute({
+        const appointments = await listProviderAppointments.executeForClinicAppointmentsOfDoctor({
             provider_id,
+            month: Number(month),
+            year: Number(year),
+            day: Number(day),
+        });
+
+        return response.json(instanceToInstance(appointments));
+    }
+
+    public async clinicIndexforPatient(
+        request: Request,
+        response: Response,
+    ): Promise<Response> {
+        const { user_id } = request.body;
+        const { day, month, year } = request.query;
+
+        const listProviderAppointments = container.resolve(
+            ListProviderAppointmentsService,
+        );
+
+        const appointments = await listProviderAppointments.executeForClinicAppointmentsOfPatient({
+            user_id,
             month: Number(month),
             year: Number(year),
             day: Number(day),

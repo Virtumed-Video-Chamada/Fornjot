@@ -61,7 +61,18 @@ appointmentsRouter.get(
             appointment_id: Joi.string().required(),
         },
     }),
-    providerAppointmentsController.clinicIndex,
+    providerAppointmentsController.clinicIndexForDoctor,
+);
+
+appointmentsRouter.get(
+    '/patient',
+    authClinic,
+    celebrate({
+        [Segments.BODY]: {
+            user_id: Joi.string().required(),
+        },
+    }),
+    providerAppointmentsController.clinicIndexforPatient,
 );
 
 appointmentsRouter.delete(
