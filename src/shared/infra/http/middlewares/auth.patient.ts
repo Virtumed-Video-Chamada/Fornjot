@@ -39,7 +39,7 @@ export default function authDoctorPatient(
 
         const id = request.user.id
 
-        async function updateUser (id: string) {
+        async function findUser (id: string) {
             const user = await ormRepository.findOne({
                 where: {
                     id,
@@ -53,7 +53,7 @@ export default function authDoctorPatient(
             return next();
         }
 
-        updateUser(id)
+        findUser(id)
     } catch (err) {
         throw new AppError('Invalid JWT token', 401);
     }

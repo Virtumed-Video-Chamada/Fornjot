@@ -9,11 +9,13 @@ export default class favoriteDoctorssController {
         request: Request,
         response: Response,
     ): Promise<Response> {
+        const patient_id  = request.user.id;
         const { doctor_id } = request.body;
 
         const createUser = container.resolve(CreateFavoriteDoctorsService);
 
         const user = await createUser.execute({
+            patient_id,
             doctor_id,
         });
 
@@ -23,9 +25,12 @@ export default class favoriteDoctorssController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const createUser = container.resolve(FavoriteDoctorService);
+        const patient_id  = request.user.id;
+        const findFavorite = container.resolve(FavoriteDoctorService);
 
-        const user = await createUser.execute()
+        const user = await findFavorite.execute({
+            patient_id
+        })
 
         return response.json(instanceToInstance(user));
     }

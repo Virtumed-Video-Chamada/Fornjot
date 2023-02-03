@@ -14,6 +14,7 @@ import User from '@modules/users/infra/typeorm/entities/User';
 import Clinic from '@modules/clinic/infra/typeorm/entities/Clinic';
 import Pacient from '@modules/pacient/infra/typeorm/entities/Pacient';
 import MedicalRecord from '@modules/medicalRecord/infra/typeorm/entities/MedicalRecord';
+import FavoriteDoctor from '@modules/favoriteDoctor/infra/typeorm/entities/FavoriteDoctor';
 
 @Entity()
 class Doctor {
@@ -56,7 +57,7 @@ class Doctor {
     pacients?: Pacient[];
 
     @OneToMany(() => MedicalRecord, medicalRecord => medicalRecord.doctor)
-    medicalRecords?: MedicalRecord
+    medicalRecords?: MedicalRecord;
 
     @OneToOne(() => Doctor, doctor => doctor.user)
     user: User;
