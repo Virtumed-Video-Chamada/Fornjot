@@ -13,8 +13,13 @@
         {
             "url": "http://localhost:3333/api-docs",
             "description": "API de desenvolvimento."
+        },
+        {
+            "url": "https://humberto.online/api-docs",
+            "description": "API de produção."
         }
     ],
+
     "paths": {
         "/admin/doctor": {
             "post": {
@@ -1423,7 +1428,7 @@
                 "summary": "Lista de todos as informações do paciente.",
                 "description": "Rota responsável por listar as informações do paciente.",
                 "tags": ["Pacient"],
-                "security": [{ "beaererAuth": [] }],
+                "security": [{ "beaererAuth": []}],
                 "responses": {
                     "404": {
                         "description": "Not Found"
