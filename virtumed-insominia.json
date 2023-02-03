@@ -1,7 +1,7 @@
 {
     "_type": "export",
     "__export_format": 4,
-    "__export_date": "2023-02-02T20:47:58.933Z",
+    "__export_date": "2023-02-03T17:56:07.561Z",
     "__export_source": "insomnia.desktop.app:v2022.7.5",
     "resources": [
         {
@@ -434,7 +434,7 @@
         {
             "_id": "req_f632ea61f22a4d81bcf8ad4485e47e21",
             "parentId": "fld_628e14cbdcbf4a1fa32ad4a6dfe0903a",
-            "modified": 1675280611401,
+            "modified": 1675444539746,
             "created": 1674159773635,
             "url": "{{ base_url  }}/conversations",
             "name": "newConversations",
@@ -442,7 +442,7 @@
             "method": "POST",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"senderId\": \"8718fe61-8299-4a2c-93c0-f804f6e87651\",\n\t\"receiverId\":\"95ab00e8-88aa-4fe0-a04e-729808bfc7e3\"\n}"
+                "text": "{\n\t\"senderId\": \"6823fe9d-4eaf-4c62-894a-e6a434a3dc19\",\n\t\"receiverId\":\"95ab00e8-88aa-4fe0-a04e-729808bfc7e3\"\n}"
             },
             "parameters": [],
             "headers": [
@@ -487,37 +487,11 @@
             "_type": "request_group"
         },
         {
-            "_id": "req_18e0459f06764bbd9eacc1664a25fdd9",
-            "parentId": "fld_628e14cbdcbf4a1fa32ad4a6dfe0903a",
-            "modified": 1675036754503,
-            "created": 1675036701719,
-            "url": "{{ base_url  }}/conversations/7e55f660-454d-473f-bb1b-a1bbbea53380/bd84e656-42e8-4aab-856a-f5ed12027dc0",
-            "name": "TwoConversations",
-            "description": "",
-            "method": "GET",
-            "body": {},
-            "parameters": [],
-            "headers": [],
-            "authentication": {
-                "type": "bearer",
-                "token": "{% response 'body', 'req_cf3c05e410f24fc08f196e9a9dd7adb8', 'b64::JC50b2tlbg==::46b', 'no-history' %}"
-            },
-            "metaSortKey": -1674611481570.5,
-            "isPrivate": false,
-            "settingStoreCookies": true,
-            "settingSendCookies": true,
-            "settingDisableRenderRequestBody": false,
-            "settingEncodeUrl": true,
-            "settingRebuildPath": true,
-            "settingFollowRedirects": "global",
-            "_type": "request"
-        },
-        {
             "_id": "req_83beab2222dc45bc9f1682dc12e39f93",
             "parentId": "fld_628e14cbdcbf4a1fa32ad4a6dfe0903a",
-            "modified": 1675285350427,
+            "modified": 1675444579895,
             "created": 1674611441877,
-            "url": "{{ base_url  }}/conversations/95ab00e8-88aa-4fe0-a04e-729808bfc7e3",
+            "url": "{{ base_url  }}/conversations/6823fe9d-4eaf-4c62-894a-e6a434a3dc19",
             "name": "getConversations",
             "description": "",
             "method": "GET",
@@ -541,7 +515,7 @@
         {
             "_id": "req_c490a5488bb64d8d9168b0a78f8dadf1",
             "parentId": "fld_c6476e8f266c439f95b44e82a984ac21",
-            "modified": 1675036675726,
+            "modified": 1675446788822,
             "created": 1674611440717,
             "url": "{{ base_url  }}/messages",
             "name": "NewMessage",
@@ -549,7 +523,7 @@
             "method": "POST",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"conversationId\": \"63d6eed5d0d1584dd077318d\",\n\t\"sender\": \"7e55f660-454d-473f-bb1b-a1bbbea53380\",\n\t\"text\": \"hey, how are you?\"\n}"
+                "text": "{\n\t\"conversationId\": \"eb9e385f-6127-4075-8f72-cac3775e756b\",\n\t\"sender\": \"6823fe9d-4eaf-4c62-894a-e6a434a3dc19\",\n\t\"text\": \"hey, how are you?\"\n}"
             },
             "parameters": [],
             "headers": [
@@ -584,9 +558,9 @@
         {
             "_id": "req_3fa2ecb6223445cba6e5db65752d3ff9",
             "parentId": "fld_c6476e8f266c439f95b44e82a984ac21",
-            "modified": 1675034528925,
+            "modified": 1675446815480,
             "created": 1674611439365,
-            "url": "{{ base_url  }}/messages/63d6eed5d0d1584dd077318d",
+            "url": "{{ base_url  }}/messages/eb9e385f-6127-4075-8f72-cac3775e756b",
             "name": "getMessages",
             "description": "",
             "method": "GET",
@@ -1086,7 +1060,7 @@
         {
             "_id": "req_cf3c05e410f24fc08f196e9a9dd7adb8",
             "parentId": "fld_2e05295061e1423eae312553bf09ca92",
-            "modified": 1675357617528,
+            "modified": 1675443274747,
             "created": 1587336704660,
             "url": "{{ base_url  }}/{{ resource  }}",
             "name": "Login",
@@ -1496,7 +1470,7 @@
         {
             "_id": "req_0e7e8794e86e48bfbf4931ce9613052b",
             "parentId": "fld_d8b8e603f7184502938659decea72b46",
-            "modified": 1675296347803,
+            "modified": 1675435430945,
             "created": 1675295399608,
             "url": "{{ base_url  }}/{{ resource  }}/forPatient",
             "name": "forPatient",
@@ -1504,7 +1478,7 @@
             "method": "GET",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"provider_id\": \"95ab00e8-88aa-4fe0-a04e-729808bfc7e3\"\n}"
+                "text": "{\n\t\"user_id\": \"95ab00e8-88aa-4fe0-a04e-729808bfc7e3\"\n}"
             },
             "parameters": [],
             "headers": [
@@ -1552,7 +1526,7 @@
         {
             "_id": "req_61ced2e25ef540dab44d6c223959c069",
             "parentId": "fld_d8b8e603f7184502938659decea72b46",
-            "modified": 1675296335723,
+            "modified": 1675435409712,
             "created": 1675295409251,
             "url": "{{ base_url  }}/{{ resource  }}/forDoctor",
             "name": "forDoctor",
@@ -1560,7 +1534,7 @@
             "method": "GET",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"provider_id\": \"8718fe61-8299-4a2c-93c0-f804f6e87651\"\n}"
+                "text": "{\n\t\"provider_id\": \"6823fe9d-4eaf-4c62-894a-e6a434a3dc19\"\n}"
             },
             "parameters": [],
             "headers": [
@@ -1615,7 +1589,7 @@
         {
             "_id": "req_a14e484fb41f49999052bb8cb68b1f71",
             "parentId": "fld_9295d7375db34d588b4631ea8a5fecc8",
-            "modified": 1675276835083,
+            "modified": 1675433190229,
             "created": 1586901740815,
             "url": "{{ base_url  }}/{{ resource  }}",
             "name": "Create",
@@ -1623,7 +1597,7 @@
             "method": "POST",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"provider_id\": \"8718fe61-8299-4a2c-93c0-f804f6e87651\",\n\t\"date\": \"2023-02-01 23:00:00\",\n\t\"idRoom\": \"svbJVb\"\n}"
+                "text": "{\n\t\"provider_id\": \"494d8258-2d70-4d03-9dcf-11e75ab83bc3\",\n\t\"date\": \"2023-02-04 18:00:00\",\n\t\"idRoom\": \"svbJVb\"\n}"
             },
             "parameters": [],
             "headers": [
@@ -1696,15 +1670,15 @@
         {
             "_id": "req_2241af8805cd4dd3a6ea6eb4dbc6488f",
             "parentId": "fld_9295d7375db34d588b4631ea8a5fecc8",
-            "modified": 1675290111048,
+            "modified": 1675443635808,
             "created": 1675290093715,
-            "url": "{{ base_url  }}/{{ resource  }}/doctor",
-            "name": "ListForClinic",
+            "url": "{{ base_url  }}/{{ resource  }}/patient",
+            "name": "ListAppointmentsInDayForPatient(OnlyClinic)",
             "description": "",
             "method": "GET",
             "body": {
                 "mimeType": "application/json",
-                "text": "{\n\t\"provider_id\": \"8718fe61-8299-4a2c-93c0-f804f6e87651\"\n}"
+                "text": "{\n\t\"user_id\": \"95ab00e8-88aa-4fe0-a04e-729808bfc7e3\"\n} "
             },
             "parameters": [
                 {
@@ -1722,7 +1696,7 @@
                 {
                     "id": "pair_ba5f9052c0e04e21b19a2ed2d31f0a56",
                     "name": "day",
-                    "value": "01",
+                    "value": "04",
                     "description": ""
                 }
             ],
@@ -1735,6 +1709,57 @@
                 "type": "bearer"
             },
             "metaSortKey": -1586667422357.5,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_573a0ed432784d36ac6a7544bb3b676a",
+            "parentId": "fld_9295d7375db34d588b4631ea8a5fecc8",
+            "modified": 1675434493104,
+            "created": 1675434493104,
+            "url": "{{ base_url  }}/{{ resource  }}/doctor",
+            "name": "ListAppointmentsInDayForDoctor(OnlyClinic)",
+            "description": "",
+            "method": "GET",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"provider_id\": \"6e9c3192-306f-4e8d-9dd7-6b060bef224d\"\n}"
+            },
+            "parameters": [
+                {
+                    "id": "pair_cd089932edb74822a8224862534d2e32",
+                    "name": "year",
+                    "value": "2023",
+                    "description": ""
+                },
+                {
+                    "id": "pair_4c62e54143a8489683ea8ce132c54020",
+                    "name": "month",
+                    "value": "02",
+                    "description": ""
+                },
+                {
+                    "id": "pair_ba5f9052c0e04e21b19a2ed2d31f0a56",
+                    "name": "day",
+                    "value": "04",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                { "name": "Content-Type", "value": "application/json" }
+            ],
+            "authentication": {
+                "disabled": false,
+                "token": "{% response 'body', 'req_cf3c05e410f24fc08f196e9a9dd7adb8', 'b64::JC50b2tlbg==::46b', 'no-history' %}",
+                "type": "bearer"
+            },
+            "metaSortKey": -1586667422307.5,
             "isPrivate": false,
             "settingStoreCookies": true,
             "settingSendCookies": true,
