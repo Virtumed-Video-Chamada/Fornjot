@@ -10,6 +10,7 @@ import AppError from '@shared/errors/AppError';
 import IFindAllAppointments from '@modules/appointments/dtos/IFindAllAppointmentsDTO';
 import { PostgresDataSource } from '@shared/infra/typeorm/index';
 import IFindAllInDayFromProviderPatient from '@modules/appointments/dtos/IFindAllInDayFromProviderPatientDTO';
+import IFindAllAppointmentsPatient from '@modules/appointments/dtos/IFindAllAppointmentsPatientDTO';
 
 class AppointmentsRepository implements IAppointmentsRepository {
     private ormRepository: Repository<Appointment>;
@@ -45,7 +46,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
     }: IFindAllAppointments): Promise<Appointment[]> {
         const appointments = await this.ormRepository.find({
             where: {
-                user_id: provider_id,
+                provider_id,
             },
             relations: ['user'],
         });
@@ -54,11 +55,11 @@ class AppointmentsRepository implements IAppointmentsRepository {
     }
 
     public async findAllIAppointmentForPatient({
-        provider_id,
-    }: IFindAllAppointments): Promise<Appointment[]> {
+        user_id,
+    }: IFindAllAppointmentsPatient): Promise<Appointment[]> {
         const appointments = await this.ormRepository.find({
             where: {
-                provider_id,
+                user_id,
             },
             relations: ['user'],
         });

@@ -72,14 +72,14 @@ export default class ProviderAppointmentsController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { provider_id } = request.body;
+        const { user_id } = request.body;
 
         const listProviderAppointments = container.resolve(
             ListProviderAppointmentsService,
         );
 
         const appointments = await listProviderAppointments.allForPatient(
-            provider_id,
+            user_id,
         );
 
         return response.json(instanceToInstance(appointments));

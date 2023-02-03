@@ -19,7 +19,6 @@ interface IRequestPatint {
     year: number;
 }
 
-
 @injectable()
 class ListProvidersAppointmentsService {
     constructor(
@@ -118,10 +117,10 @@ class ListProvidersAppointmentsService {
         return appointments;
     }
 
-    public async allForPatient(provider_id: string): Promise<Appointment[]> {
+    public async allForPatient(user_id: string): Promise<Appointment[]> {
         const appointments =
             await this.appointmentsRepository.findAllIAppointmentForPatient({
-                provider_id,
+                user_id,
             });
 
         return appointments;

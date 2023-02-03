@@ -39,7 +39,7 @@ appointmentsRouter.get(
             appointment_id: Joi.string().required(),
         },
     }),
-    providerAppointmentsController.allForPatient,
+    providerAppointmentsController.allForDoctor,
 );
 
 appointmentsRouter.get(
@@ -47,10 +47,10 @@ appointmentsRouter.get(
     authMiddleware,
     celebrate({
         [Segments.BODY]: {
-            appointment_id: Joi.string().required(),
+            user_id: Joi.string().required(),
         },
     }),
-    providerAppointmentsController.allForDoctor,
+    providerAppointmentsController.allForPatient,
 );
 
 appointmentsRouter.get(
