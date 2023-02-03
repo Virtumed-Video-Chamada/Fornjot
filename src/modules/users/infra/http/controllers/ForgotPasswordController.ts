@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 
 import SendForgotPasswordEmailService from "@modules/users/services/security/SendForgotPasswordEmailService";
+import { instanceToInstance } from "class-transformer";
 
 export default class ForgotPasswordController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -11,10 +12,10 @@ export default class ForgotPasswordController {
       SendForgotPasswordEmailService,
     );
 
-    await sendForgotPasswordEmail.execute({
+    const data = await sendForgotPasswordEmail.execute({
       email,
     });
 
-    return response.status(204).json();
+    return response.json(instanceToInstance(data));
   }
 }
